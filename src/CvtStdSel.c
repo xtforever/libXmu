@@ -114,7 +114,7 @@ get_os_name(void)
 #ifdef USE_UNAME
 	struct utsname utss;
 
-	if (uname (&utss) == 0) {
+	if (uname (&utss) >= 0) {
 	    char *os_name;
 	    int len = strlen(utss.sysname) + 1;
 #ifndef hpux				/* because of hostname length crock */
