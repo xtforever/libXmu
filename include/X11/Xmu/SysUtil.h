@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/SysUtil.h,v 1.9 2001/12/14 19:55:55 dawes Exp $ */
 
 #ifndef _SYSUTIL_H_
 #define _SYSUTIL_H_
@@ -33,12 +34,21 @@ in this Software without prior written authorization from The Open Group.
 
 _XFUNCPROTOBEGIN
 
-extern int XmuGetHostname(
-#if NeedFunctionPrototypes
-    char*	/* buf_return */,
-    int		/* maxlen */
-#endif
+int XmuGetHostname
+(
+    char		*buf_return,
+    int			maxlen
 );
+
+#ifndef _XMU_H_
+int XmuSnprintf
+(
+ char			*str,
+ int			size,
+ _Xconst char		*fmt,
+    ...
+ );
+#endif
 
 _XFUNCPROTOEND
 

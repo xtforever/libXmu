@@ -25,20 +25,21 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/DefErrMsg.c,v 1.8 2001/12/14 19:55:39 dawes Exp $ */
 
 #include <stdio.h>
 #define NEED_EVENTS
 #include <X11/Xlibint.h>
 #include <X11/Xproto.h>
+#include <X11/Xmu/Error.h>
+#include <X11/Xmu/SysUtil.h>
 
 /*
  * XmuPrintDefaultErrorMessage - print a nice error that looks like the usual 
  * message.  Returns 1 if the caller should consider exitting else 0.
  */
-int XmuPrintDefaultErrorMessage (dpy, event, fp)
-    Display *dpy;
-    XErrorEvent *event;
-    FILE *fp;
+int
+XmuPrintDefaultErrorMessage(Display *dpy, XErrorEvent *event, FILE *fp)
 {
     char buffer[BUFSIZ];
     char mesg[BUFSIZ];
@@ -53,7 +54,7 @@ int XmuPrintDefaultErrorMessage (dpy, event, fp)
 	mesg, BUFSIZ);
     (void) fprintf(fp, mesg, event->request_code);
     if (event->request_code < 128) {
-	sprintf(number, "%d", event->request_code);
+	XmuSnprintf(number, sizeof(number), "%d", event->request_code);
 	XGetErrorDatabaseText(dpy, "XRequest", number, "", buffer, BUFSIZ);
     } else {
 	/* XXX this is non-portable */
@@ -62,7 +63,7 @@ int XmuPrintDefaultErrorMessage (dpy, event, fp)
 	     ext = ext->next)
 	  ;
 	if (ext)
-	    strcpy(buffer, ext->name);
+	  XmuSnprintf(buffer, sizeof(buffer), "%s", ext->name);
 	else
 	    buffer[0] = '\0';
     }
@@ -73,7 +74,8 @@ int XmuPrintDefaultErrorMessage (dpy, event, fp)
 			      mesg, BUFSIZ);
 	(void) fprintf(fp, mesg, event->minor_code);
 	if (ext) {
-	    sprintf(mesg, "%s.%d", ext->name, event->minor_code);
+	    XmuSnprintf(mesg, sizeof(mesg),
+			"%s.%d", ext->name, event->minor_code);
 	    XGetErrorDatabaseText(dpy, "XRequest", mesg, "", buffer, BUFSIZ);
 	    (void) fprintf(fp, " (%s)", buffer);
 	}
@@ -96,8 +98,8 @@ int XmuPrintDefaultErrorMessage (dpy, event, fp)
 		bext = ext;
 	}    
 	if (bext)
-	    sprintf(buffer, "%s.%d", bext->name,
-		    event->error_code - bext->codes.first_error);
+	    XmuSnprintf(buffer, sizeof(buffer), "%s.%d", bext->name,
+			event->error_code - bext->codes.first_error);
 	else
 	    strcpy(buffer, "Value");
 	XGetErrorDatabaseText(dpy, mtype, buffer, "", mesg, BUFSIZ);
@@ -151,9 +153,8 @@ int XmuPrintDefaultErrorMessage (dpy, event, fp)
  * and XGetGeometry; print a message for everything else.  In all case, do
  * not exit.
  */
-int XmuSimpleErrorHandler (dpy, errorp)
-    Display *dpy;
-    XErrorEvent *errorp;
+int
+XmuSimpleErrorHandler(Display *dpy, XErrorEvent *errorp)
 {
     switch (errorp->request_code) {
       case X_QueryTree:

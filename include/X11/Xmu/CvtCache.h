@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/CvtCache.h,v 1.7 2001/12/14 19:55:39 dawes Exp $ */
 
 /*
  *			       Public Interfaces
@@ -48,11 +49,13 @@ typedef struct _XmuCvtCache {
 
 _XFUNCPROTOBEGIN
 
-extern XmuCvtCache *_XmuCCLookupDisplay(
-#if NeedFunctionPrototypes
-    Display*	/* dpy */
-#endif
-);
+XmuCvtCache *_XmuCCLookupDisplay
+(
+ Display	*dpy
+ );
+
+extern void _XmuStringToBitmapInitCache(XmuCvtCache *c);
+extern void _XmuStringToBitmapFreeCache(XmuCvtCache *c);
 
 _XFUNCPROTOEND
 

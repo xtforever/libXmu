@@ -26,6 +26,8 @@ in this Software without prior written authorization from The Open Group.
 
 */
 
+/* $XFree86: xc/lib/Xmu/Converters.h,v 1.6 2001/12/14 19:55:35 dawes Exp $ */
+
 /*
  * The interfaces described by this header file are for miscellaneous utilities
  * and are not part of the Xlib standard.
@@ -39,26 +41,14 @@ in this Software without prior written authorization from The Open Group.
 
 _XFUNCPROTOBEGIN
 
-/*
- * Converters - insert in alphabetical order
- */
+void XmuCvtFunctionToCallback
+(
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal
+ );
 
-/******************************************************************************
- * XmuCvtFunctionToCallback
- */
-extern void XmuCvtFunctionToCallback(
-#if NeedFunctionPrototypes
-    XrmValue*		/* args */,
-    Cardinal*		/* num_args */,
-    XrmValuePtr		/* fromVal */,
-    XrmValuePtr		/* toVal */
-#endif
-);
-
-
-/******************************************************************************
- * XmuCvtStringToBackingStore
- */
 #define XtNbackingStore "backingStore"
 #define XtCBackingStore "BackingStore"
 #define XtRBackingStore "BackingStore"
@@ -66,46 +56,45 @@ extern void XmuCvtFunctionToCallback(
 #define XtEwhenMapped "whenMapped"
 #define XtEalways "always"
 #define XtEdefault "default"
-extern void XmuCvtStringToBackingStore(
-#if NeedFunctionPrototypes
-    XrmValue*		/* args */,
-    Cardinal*		/* num_args */,
-    XrmValuePtr		/* fromVal */,
-    XrmValuePtr		/* toVal */
-#endif
-);
+void XmuCvtStringToBackingStore
+(
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal
+ );
 
+Boolean XmuCvtBackingStoreToString
+(
+ Display		*dpy,
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal,
+ XtPointer		*converter_data
+ );
 
-/******************************************************************************
- * XmuCvtStringToCursor
- */
-extern void XmuCvtStringToCursor(
-#if NeedFunctionPrototypes
-    XrmValue*		/* args */,
-    Cardinal*		/* num_args */,
-    XrmValuePtr		/* fromVal */,
-    XrmValuePtr		/* toVal */
-#endif
-);
-extern Boolean XmuCvtStringToColorCursor(
-#if NeedFunctionPrototypes
-    Display*		/* dpy */,
-    XrmValue*		/* args */,
-    Cardinal*		/* num_args */,
-    XrmValuePtr		/* fromVal */,
-    XrmValuePtr		/* toVal */,
-    XtPointer*		/* converter_data */
-#endif
-);
+void XmuCvtStringToCursor
+(
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal
+ );
 
 #define XtRColorCursor "ColorCursor"
 #define XtNpointerColor "pointerColor"
 #define XtNpointerColorBackground "pointerColorBackground"
+Boolean XmuCvtStringToColorCursor
+(
+ Display		*dpy,
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal,
+ XtPointer		*converter_data
+ );
 
-
-/******************************************************************************
- * XmuCvtStringToGravity
- */
 typedef int XtGravity;
 
 #ifndef XtRGravity
@@ -123,86 +112,102 @@ typedef int XtGravity;
 #define XtESouthEast "southeast"
 #define XtEStatic "static"
 #define XtEUnmap "unmap"
+void XmuCvtStringToGravity
+(
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal
+ );
 
-extern void XmuCvtStringToGravity (
-#if NeedFunctionPrototypes
-    XrmValue*		/* args */,
-    Cardinal*		/* num_args */,
-    XrmValuePtr		/* fromVal */,
-    XrmValuePtr		/* toVal */
-#endif
-);
+Boolean XmuCvtGravityToString
+(
+ Display		*dpy,
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal,
+ XtPointer		*converter_data
+ );
 
-
-/******************************************************************************
- * XmuCvtStringToJustify
- */
 typedef enum {
     XtJustifyLeft,       /* justify text to left side of button   */
     XtJustifyCenter,     /* justify text in center of button      */
     XtJustifyRight       /* justify text to right side of button  */
 } XtJustify;
+#ifndef XtRJustify
+#define XtRJustify "Justify"
+#endif
 #define XtEleft "left"
 #define XtEcenter "center"
 #define XtEright "right"
 #define XtEtop "top"
 #define XtEbottom "bottom"
+void XmuCvtStringToJustify
+(
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal
+ );
 
-extern void XmuCvtStringToJustify(
-#if NeedFunctionPrototypes
-    XrmValue*		/* args */,
-    Cardinal*		/* num_args */,
-    XrmValuePtr		/* fromVal */,
-    XrmValuePtr		/* toVal */
-#endif
-);
+Boolean XmuCvtJustifyToString
+(
+ Display		*dpy,
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal,
+ XtPointer		*converter_data
+ );
 
-
-/******************************************************************************
- * XmuCvtStringToLong
- */
 #define XtRLong "Long"
-extern void XmuCvtStringToLong(
-#if NeedFunctionPrototypes
-    XrmValue*		/* args */,
-    Cardinal*		/* num_args */,
-    XrmValuePtr		/* fromVal */,
-    XrmValuePtr		/* toVal */
-#endif
-);
+void XmuCvtStringToLong
+(
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal
+ );
+Boolean XmuCvtLongToString
+(
+ Display		*dpy,
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal,
+ XtPointer		*converter_data
+ );
 
+typedef enum {
+  XtorientHorizontal,
+  XtorientVertical
+} XtOrientation;
+void XmuCvtStringToOrientation
+(
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal
+ );
 
-/******************************************************************************
- * XmuCvtStringToOrientation
- */
-typedef enum {XtorientHorizontal, XtorientVertical} XtOrientation;
-extern void XmuCvtStringToOrientation(
-#if NeedFunctionPrototypes
-    XrmValue*		/* args */,
-    Cardinal*		/* num_args */,
-    XrmValuePtr		/* fromVal */,
-    XrmValuePtr		/* toVal */
-#endif
-);
+Boolean XmuCvtOrientationToString
+(
+ Display		*dpy,
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal,
+ XtPointer		*converter_data
+ );
 
-
-/******************************************************************************
- * XmuCvtStringToBitmap
- */
-extern void XmuCvtStringToBitmap(
-#if NeedFunctionPrototypes
-    XrmValue*		/* args */,
-    Cardinal*		/* num_args */,
-    XrmValuePtr		/* fromVal */,
-    XrmValuePtr		/* toVal */
-#endif
-);
-
-
-/******************************************************************************
- * XmuCvtStringToShapeStyle; is XtTypeConverter (i.e. new style)
- * no conversion arguments, not particularly useful to cache the results.
- */
+void XmuCvtStringToBitmap
+(
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal
+ );
 
 #define XtRShapeStyle "ShapeStyle"
 #define XtERectangle "Rectangle"
@@ -215,51 +220,61 @@ extern void XmuCvtStringToBitmap(
 #define XmuShapeEllipse 3
 #define XmuShapeRoundedRectangle 4
 
-extern Boolean XmuCvtStringToShapeStyle(
-#if NeedFunctionPrototypes
-    Display*		/* dpy */,
-    XrmValue*		/* args */,
-    Cardinal*		/* num_args */,
-    XrmValuePtr		/* fromVal */,
-    XrmValuePtr		/* toVal */,
-    XtPointer*		/* converter_data */
-#endif
-);
+Boolean XmuCvtStringToShapeStyle
+(
+ Display		*dpy,
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal,
+ XtPointer		*converter_data
+ );
 
-extern Boolean XmuReshapeWidget(
-#if NeedFunctionPrototypes
-    Widget	/* w */,
-    int		/* shape_style */,
-    int		/* corner_width */,
-    int		/* corner_height */
-#endif
-);
+Boolean XmuCvtShapeStyleToString
+(
+ Display		*dpy,
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal,
+ XtPointer		*converter_data
+ );
 
-/******************************************************************************
- * XmuCvtStringToWidget
- */
-extern void XmuCvtStringToWidget(
-#if NeedFunctionPrototypes
-    XrmValue*		/* args */,
-    Cardinal*		/* num_args */,
-    XrmValuePtr		/* fromVal */,
-    XrmValuePtr		/* toVal */
-#endif
-);
+Boolean XmuReshapeWidget
+(
+ Widget			w,
+ int			shape_style,
+ int			corner_width,
+ int			corner_height
+ );
 
-/******************************************************************************
- * XmuNewCvtStringToWidget
- */
-extern Boolean XmuNewCvtStringToWidget(
-#if NeedFunctionPrototypes
-    Display*            /* display */,
-    XrmValue*		/* args */,
-    Cardinal*		/* num_args */,
-    XrmValue*		/* fromVal */,
-    XrmValue*		/* toVal */,
-    XtPointer*          /* converter_data */
-#endif
-);
+void XmuCvtStringToWidget
+(
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValuePtr		fromVal,
+ XrmValuePtr		toVal
+ );
+
+Boolean XmuNewCvtStringToWidget
+(
+ Display		*display,
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValue		*fromVal,
+ XrmValue		*toVal,
+ XtPointer		*converter_data
+ );
+
+Boolean XmuCvtWidgetToString
+(
+ Display		*dpy,
+ XrmValue		*args,
+ Cardinal		*num_args,
+ XrmValue		*fromVal,
+ XrmValue		*toVal,
+ XtPointer		*converter_data
+ );
 
 _XFUNCPROTOEND
 

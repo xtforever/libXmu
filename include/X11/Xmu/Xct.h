@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/Xct.h,v 1.7 2001/12/14 19:55:59 dawes Exp $ */
 
 #ifndef _Xct_h
 #define _Xct_h
@@ -118,12 +119,12 @@ typedef struct _XctRec {
     int			can_ignore_exts;/* non-zero if ignoring extensions is
 					 * acceptable, else zero */
     XctString		item;		/* item returned from XctNextItem */
-    int			item_length;	/* length of item in bytes */
+    unsigned		item_length;	/* length of item in bytes */
     int			char_size;	/* number of bytes per character in
 					 * item, with zero meaning variable */
     char		*encoding;	/* Encoding name for item */
     XctHDirection	horizontal;	/* direction of item */
-    int			horz_depth;	/* current direction nesting depth */
+    unsigned		horz_depth;	/* current direction nesting depth */
     char		*GL;		/* "{I} F" string for current GL */
     char		*GL_encoding;	/* Encoding name for current GL */
     int			GL_set_size;	/* 94 or 96 */
@@ -140,31 +141,27 @@ typedef struct _XctRec {
 /* these are the external routines */
 _XFUNCPROTOBEGIN
 
-extern XctData XctCreate(
-#if NeedFunctionPrototypes
-    _Xconst unsigned char *	/* string */,
-    int			/* length */,
-    XctFlags		/* flags */
-#endif
+XctData XctCreate
+(
+ _Xconst unsigned char	*string,
+ int			length,
+ XctFlags		flags
 );
 
-extern XctResult XctNextItem(
-#if NeedFunctionPrototypes
-    XctData	/* data */
-#endif
+XctResult XctNextItem
+(
+ XctData		data
 );
 
-extern void XctFree(
-#if NeedFunctionPrototypes
-    XctData	/* data */
-#endif
-);
+void XctFree
+(
+ XctData		data
+ );
 
-extern void XctReset(
-#if NeedFunctionPrototypes
-    XctData	/* data */
-#endif
-);
+void XctReset
+(
+ XctData		data
+ );
 
 _XFUNCPROTOEND
 

@@ -25,21 +25,20 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/ExtAgent.h,v 1.6 2001/12/14 19:55:45 dawes Exp $ */
 
 #include <X11/Intrinsic.h>
 #include <X11/Xfuncproto.h>
 
 _XFUNCPROTOBEGIN
 
-extern void
-XmuRegisterExternalAgent(
-#if NeedFunctionPrototypes
-    Widget /* w */,
-    XtPointer /* data */,
-    XEvent* /* event */,
-    Boolean* /* cont */
-#endif
-);
+extern void XmuRegisterExternalAgent
+(
+ Widget		w,
+ XtPointer	data,
+ XEvent		*event,
+ Boolean	*cont
+ );
 
 _XFUNCPROTOEND
 

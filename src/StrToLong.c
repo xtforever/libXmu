@@ -25,29 +25,56 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/StrToLong.c,v 1.9 2001/12/14 19:55:52 dawes Exp $ */
 
-
+#include <stdio.h>
 #include <X11/Intrinsic.h>
-#include "Converters.h"
+#include <X11/Xmu/SysUtil.h>
+#include <X11/Xmu/Converters.h>
 
-#define done(address, type) \
-        { (*toVal).size = sizeof(type); (*toVal).addr = (XPointer) address; }
-
-void XmuCvtStringToLong (args, num_args, fromVal, toVal)
-    XrmValuePtr args;
-    Cardinal    *num_args;
-    XrmValuePtr fromVal;
-    XrmValuePtr toVal;
+void
+XmuCvtStringToLong(XrmValuePtr args, Cardinal *num_args,
+		   XrmValuePtr fromVal, XrmValuePtr toVal)
 {
     static long l;
 
     if (*num_args != 0)
-        XtWarningMsg("wrongParameters","cvtStringToLong","XtToolkitError",
-                  "String to Long conversion needs no extra arguments",
-                  (String *) NULL, (Cardinal *)NULL);
-    if (sscanf((char *)fromVal->addr, "%ld", &l) == 1) {
-        done(&l, long);
-    } else {
-        XtStringConversionWarning((char *) fromVal->addr, XtRLong);
+    XtWarning("String to Long conversion needs no extra arguments");
+  if (sscanf((char *)fromVal->addr, "%ld", &l) == 1)
+    {
+      toVal->size = sizeof(long);
+      toVal->addr = (XPointer)&l;
     }
+  else
+    XtStringConversionWarning((char *)fromVal->addr, XtRLong);
+}
+
+/*ARGSUSED*/
+Boolean
+XmuCvtLongToString(Display *dpy, XrmValuePtr args, Cardinal *num_args,
+		   XrmValuePtr fromVal, XrmValuePtr toVal, XtPointer *data)
+{
+  static char buffer[32];
+  size_t size;
+
+  if (*num_args != 0)
+    XtWarning("Long to String conversion needs no extra arguments");
+
+  XmuSnprintf(buffer, sizeof(buffer), "%ld", *(long *)fromVal->addr);
+
+  size = strlen(buffer) + 1;
+  if (toVal->addr != NULL)
+    {
+      if (toVal->size < size)
+	{
+	  toVal->size = size;
+	  return (False);
+    }
+      strcpy((char *)toVal->addr, buffer);
+    }
+  else
+    toVal->addr = (XPointer)buffer;
+  toVal->size = sizeof(String);
+
+  return (True);
 }

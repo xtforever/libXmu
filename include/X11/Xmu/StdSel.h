@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/StdSel.h,v 1.8 2001/12/14 19:55:50 dawes Exp $ */
 
 /*
  * The interfaces described by this header file are for miscellaneous utilities
@@ -39,21 +40,18 @@ in this Software without prior written authorization from The Open Group.
 
 _XFUNCPROTOBEGIN
 
-extern Boolean XmuConvertStandardSelection(
-#if NeedFunctionPrototypes
-    Widget		/* w */,
-    Time		/* time */,
-    Atom*		/* selection */,
-    Atom*		/* target */,
-    Atom*		/* type_return */,
-    XPointer *		/* value_return */,
-    unsigned long *	/* length_return */,
-    int *		/* format_return */
-#endif
-);
+Boolean XmuConvertStandardSelection
+(
+ Widget			w,
+ Time			timev,
+ Atom			*selection,
+ Atom			*target,
+ Atom			*type_return,
+ XPointer		*value_return,
+ unsigned long		*length_return,
+ int			*format_return
+ );
 
 _XFUNCPROTOEND
 
 #endif /* _XMU_SELECTION_H_ */
-
-

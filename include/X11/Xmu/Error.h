@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/Error.h,v 1.6 2001/12/14 19:55:45 dawes Exp $ */
 
 /*
  * The interfaces described by this header file are for miscellaneous utilities
@@ -40,20 +41,18 @@ in this Software without prior written authorization from The Open Group.
 
 _XFUNCPROTOBEGIN
 
-extern int XmuPrintDefaultErrorMessage(
-#if NeedFunctionPrototypes
-    Display*		/* dpy */,
-    XErrorEvent*	/* event */,
-    FILE*		/* fp */
-#endif
-);
+int XmuPrintDefaultErrorMessage
+(
+ Display		*dpy,
+ XErrorEvent		*event,
+ FILE			*fp
+ );
 
-extern int XmuSimpleErrorHandler(
-#if NeedFunctionPrototypes
-    Display*		/* dpy */,
-    XErrorEvent*	/* errorp */
-#endif
-);
+int XmuSimpleErrorHandler
+(
+ Display		*dpy,
+ XErrorEvent		*errorp
+ );
 
 _XFUNCPROTOEND
 

@@ -25,17 +25,21 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/DisplayQue.c,v 3.5 2001/12/14 19:55:40 dawes Exp $ */
 
 /*
  * Author:  Jim Fulton, MIT X Consortium
  */
 
 #include <stdio.h>
-#include <X11/Xos.h>
 #include <X11/Xlib.h>
+#include <stdlib.h>
 #include <X11/Xmu/DisplayQue.h>
 
-static int _DQCloseDisplay();
+/*
+ * Prototypes
+ */
+static int _DQCloseDisplay(Display*, XPointer);
 
 #define CallCloseCallback(q,e) (void) (*((q)->closefunc)) ((q), (e))
 #define CallFreeCallback(q) (void) (*((q)->freefunc)) ((q))
@@ -43,10 +47,10 @@ static int _DQCloseDisplay();
 /*
  * XmuDQCreate - create a display queue
  */
-XmuDisplayQueue *XmuDQCreate (closefunc, freefunc, data)
-    XmuCloseDisplayQueueProc closefunc;
-    XmuFreeDisplayQueueProc freefunc;
-    XPointer data;
+XmuDisplayQueue *
+XmuDQCreate(XmuCloseDisplayQueueProc closefunc,
+	    XmuFreeDisplayQueueProc freefunc,
+	    XPointer data)
 {
     XmuDisplayQueue *q = (XmuDisplayQueue *) malloc (sizeof (XmuDisplayQueue));
     if (q) {
@@ -65,9 +69,8 @@ XmuDisplayQueue *XmuDQCreate (closefunc, freefunc, data)
  * optionally invoking the close callbacks.
  */
 
-Bool XmuDQDestroy (q, docallbacks)
-    XmuDisplayQueue *q;
-    Bool docallbacks;
+Bool
+XmuDQDestroy(XmuDisplayQueue *q, Bool docallbacks)
 {
     XmuDisplayQueueEntry *e = q->head;
 
@@ -85,9 +88,8 @@ Bool XmuDQDestroy (q, docallbacks)
 /*
  * XmuDQLookupDisplay - finds the indicated display on the given queue
  */
-XmuDisplayQueueEntry *XmuDQLookupDisplay (q, dpy)
-    XmuDisplayQueue *q;
-    Display *dpy;
+XmuDisplayQueueEntry *
+XmuDQLookupDisplay(XmuDisplayQueue *q, Display *dpy)
 {
     XmuDisplayQueueEntry *e;
 
@@ -102,10 +104,8 @@ XmuDisplayQueueEntry *XmuDQLookupDisplay (q, dpy)
  * XmuDQAddDisplay - add the specified display to the queue; set data as a
  * convenience.  Does not ensure that dpy hasn't already been added.
  */
-XmuDisplayQueueEntry *XmuDQAddDisplay (q, dpy, data)
-    XmuDisplayQueue *q;
-    Display *dpy;
-    XPointer data;
+XmuDisplayQueueEntry *
+XmuDQAddDisplay(XmuDisplayQueue *q, Display *dpy, XPointer data)
 {
     XmuDisplayQueueEntry *e;
 
@@ -138,9 +138,8 @@ XmuDisplayQueueEntry *XmuDQAddDisplay (q, dpy, data)
 /*
  * XmuDQRemoveDisplay - remove the specified display from the queue
  */
-Bool XmuDQRemoveDisplay (q, dpy)
-    XmuDisplayQueue *q;
-    Display *dpy;
+Bool
+XmuDQRemoveDisplay(XmuDisplayQueue *q, Display *dpy)
 {
     XmuDisplayQueueEntry *e;
 
@@ -173,9 +172,8 @@ Bool XmuDQRemoveDisplay (q, dpy)
  * _DQCloseDisplay - upcalled from CloseHook to notify this queue; remove the
  * display when finished
  */
-static int _DQCloseDisplay (dpy, arg)
-    Display *dpy;
-    XPointer arg;
+static int
+_DQCloseDisplay(Display *dpy, XPointer arg)
 {
     XmuDisplayQueue *q = (XmuDisplayQueue *) arg;
     XmuDisplayQueueEntry *e;

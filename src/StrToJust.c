@@ -26,50 +26,112 @@ in this Software without prior written authorization from The Open Group.
 
 */
 
+/* $XFree86: xc/lib/Xmu/StrToJust.c,v 1.7 2001/12/14 19:55:52 dawes Exp $ */
+
+#include <string.h>
 #include <X11/Intrinsic.h>
 #include "Converters.h"
 #include "CharSet.h"
 
-/* ARGSUSED */
+/*
+ * Prototypes
+ */
+static void InitializeQuarks(void);
+
+/*
+ * Initialization
+ */
+static XrmQuark Qleft, Qcenter, Qright;
+static Boolean haveQuarks;
+
+/*
+ * Implementation
+ */
+static void
+InitializeQuarks(void)
+{
+  if (!haveQuarks)
+    {
+      Qleft = XrmPermStringToQuark(XtEleft);
+      Qcenter = XrmPermStringToQuark(XtEcenter);
+      Qright = XrmPermStringToQuark(XtEright);
+      haveQuarks = True;
+    }
+}
+
+/*ARGSUSED*/
 void
-XmuCvtStringToJustify(args, num_args, fromVal, toVal)
-    XrmValuePtr args;		/* unused */
-    Cardinal	*num_args;	/* unused */
-    XrmValuePtr fromVal;
-    XrmValuePtr toVal;
+XmuCvtStringToJustify(XrmValuePtr args, Cardinal *num_args,
+		      XrmValuePtr fromVal, XrmValuePtr toVal)
 {
     static XtJustify	e;
-    static XrmQuark	XrmQEleft;
-    static XrmQuark	XrmQEcenter;
-    static XrmQuark	XrmQEright;
-    static int		haveQuarks;
     XrmQuark    q;
-    char	*s = (char *) fromVal->addr;
-    char        lowerName[40];
+  char *s = (char *)fromVal->addr;
+  char name[7];
 
-    if (s == NULL) return;
+  if (s == NULL)
+    return;
 
-    if (!haveQuarks) {
-	XrmQEleft   = XrmPermStringToQuark(XtEleft);
-	XrmQEcenter = XrmPermStringToQuark(XtEcenter);
-	XrmQEright  = XrmPermStringToQuark(XtEright);
-	haveQuarks = 1;
-    }
+  InitializeQuarks();
+  XmuNCopyISOLatin1Lowered(name, s, sizeof(name));
 
-    if (strlen (s) < sizeof lowerName) {
+  q = XrmStringToQuark(name);
 
-	XmuCopyISOLatin1Lowered(lowerName, s);
+    toVal->size = sizeof(XtJustify);
+  toVal->addr = (XPointer)&e;
 
-	q = XrmStringToQuark(lowerName);
-
-	toVal->size = sizeof(XtJustify);
-	toVal->addr = (XPointer) &e;
-
-	if (q == XrmQEleft)   { e = XtJustifyLeft;   return; }
-	if (q == XrmQEcenter) { e = XtJustifyCenter; return; }
-	if (q == XrmQEright)  { e = XtJustifyRight;  return; }
-    }
-
-    toVal->size = 0;
+  if (q == Qleft)
+    e = XtJustifyLeft;
+  else if (q == Qcenter)
+    e = XtJustifyCenter;
+  else if (q == Qright)
+    e = XtJustifyRight;
+  else
+    {
     toVal->addr = NULL;
+    XtStringConversionWarning((char *)fromVal->addr, XtRJustify);
+    }
+}
+
+/*ARGSUSED*/
+Boolean
+XmuCvtJustifyToString(Display *dpy, XrmValue* args, Cardinal *num_args,
+		      XrmValue *fromVal, XrmValue *toVal, XtPointer *data)
+{
+  static String buffer;
+  Cardinal size;
+
+  switch (*(XtJustify *)fromVal->addr)
+    {
+    case XtJustifyLeft:
+      buffer = XtEleft;
+      break;
+    case XtJustifyCenter:
+      buffer = XtEcenter;
+      break;
+    case XtJustifyRight:
+      buffer = XtEright;
+      break;
+    default:
+      XtWarning("Cannot convert Justify to String");
+      toVal->addr = NULL;
+      toVal->size = 0;
+      return (False);
+    }
+
+  size = strlen(buffer) + 1;
+  if (toVal->addr != NULL)
+    {
+      if (toVal->size < size)
+	{
+	  toVal->size = size;
+	  return (False);
+	}
+      strcpy((char *)toVal->addr, buffer);
+    }
+  else
+    toVal->addr = (XPointer)buffer;
+  toVal->size = sizeof(String);
+
+  return (True);
 }

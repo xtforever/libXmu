@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/DisplayQue.h,v 1.6 2001/12/14 19:55:40 dawes Exp $ */
 
 #ifndef _XMU_DISPLAYQUE_H_
 #define _XMU_DISPLAYQUE_H_
@@ -93,18 +94,10 @@ in this Software without prior written authorization from The Open Group.
 typedef struct _XmuDisplayQueue XmuDisplayQueue;
 typedef struct _XmuDisplayQueueEntry XmuDisplayQueueEntry;
 
-typedef int (*XmuCloseDisplayQueueProc)(
-#if NeedFunctionPrototypes
-    XmuDisplayQueue*		/* queue */,
-    XmuDisplayQueueEntry*	/* entry */
-#endif
-);
+typedef int (*XmuCloseDisplayQueueProc)(XmuDisplayQueue *queue,
+					XmuDisplayQueueEntry *entry);
 
-typedef int (*XmuFreeDisplayQueueProc)(
-#if NeedFunctionPrototypes
-    XmuDisplayQueue*		/* queue */
-#endif
-);
+typedef int (*XmuFreeDisplayQueueProc)(XmuDisplayQueue *queue);
 
 struct _XmuDisplayQueueEntry {
     struct _XmuDisplayQueueEntry *prev, *next;
@@ -123,42 +116,37 @@ struct _XmuDisplayQueue {
 
 _XFUNCPROTOBEGIN
 
-extern XmuDisplayQueue *XmuDQCreate(
-#if NeedFunctionPrototypes
-    XmuCloseDisplayQueueProc	/* closefunc */,
-    XmuFreeDisplayQueueProc	/* freefunc */,
-    XPointer	/* data */
-#endif
-);
+XmuDisplayQueue *XmuDQCreate
+(
+ XmuCloseDisplayQueueProc	closefunc,
+ XmuFreeDisplayQueueProc	freefunc,
+ XPointer			data
+ );
 
-extern Bool XmuDQDestroy(
-#if NeedFunctionPrototypes
-    XmuDisplayQueue*	/* q */,
-    Bool		/* docallbacks */
-#endif
-);
+Bool XmuDQDestroy
+(
+ XmuDisplayQueue		*q,
+ Bool				docallbacks
+ );
 
-extern XmuDisplayQueueEntry *XmuDQLookupDisplay(
-#if NeedFunctionPrototypes
-    XmuDisplayQueue*	/* q */,
-    Display*		/* dpy */
-#endif
-);
+XmuDisplayQueueEntry *XmuDQLookupDisplay
+(
+ XmuDisplayQueue		*q,
+ Display			*dpy
+ );
 
-extern XmuDisplayQueueEntry *XmuDQAddDisplay(
-#if NeedFunctionPrototypes
-    XmuDisplayQueue*	/* q */,
-    Display*		/* dpy */,
-    XPointer		/* data */
-#endif
-);
+XmuDisplayQueueEntry *XmuDQAddDisplay
+(
+ XmuDisplayQueue		*q,
+ Display			*dpy,
+ XPointer			data
+ );
 
-extern Bool XmuDQRemoveDisplay(
-#if NeedFunctionPrototypes
-    XmuDisplayQueue*	/* q */,
-    Display*		/* dpy */
-#endif
-);
+Bool XmuDQRemoveDisplay
+(
+ XmuDisplayQueue		*q,
+ Display			*dpy
+ );
 
 _XFUNCPROTOEND
 

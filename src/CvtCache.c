@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/CvtCache.c,v 3.7 2001/12/14 19:55:39 dawes Exp $ */
 
 /* 
  * Author:  Jim Fulton, MIT X Consortium
@@ -34,32 +35,38 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/Xlib.h>
 #include <X11/Xos.h>
 #include <X11/Xmu/CvtCache.h>
+#include <stdlib.h>
 
-extern char *malloc();
+/*
+ * Prototypes
+ */
+static int _CloseDisplay(XmuDisplayQueue*, XmuDisplayQueueEntry*);
+static int _FreeCCDQ(XmuDisplayQueue*);
+static void _InitializeCvtCache(XmuCvtCache*);
 
+/*
+ * Initialization
+ */
 static XmuDisplayQueue *dq = NULL;
-static int _CloseDisplay(), _FreeCCDQ();
-
 
 
 /*
  * internal utility callbacks
  */
 
-_FreeCCDQ (q)
-    XmuDisplayQueue *q;
+static int
+_FreeCCDQ(XmuDisplayQueue *q)
 {
     XmuDQDestroy (dq, False);
     dq = NULL;
+    return (0);
 }
 
 
-static int _CloseDisplay (q, e)
-    XmuDisplayQueue *q;
-    XmuDisplayQueueEntry *e;
+static int
+_CloseDisplay(XmuDisplayQueue *q, XmuDisplayQueueEntry *e)
 {
     XmuCvtCache *c;
-    extern void _XmuStringToBitmapFreeCache();
 
     if (e && (c = (XmuCvtCache *)(e->data))) {
 	_XmuStringToBitmapFreeCache (c);
@@ -69,11 +76,9 @@ static int _CloseDisplay (q, e)
     return 0;
 }
 
-static void _InitializeCvtCache (c)
-    register XmuCvtCache *c;
+static void
+_InitializeCvtCache(register XmuCvtCache *c)
 {
-    extern void _XmuStringToBitmapInitCache();
-
     _XmuStringToBitmapInitCache (c);
     /* insert calls to init any cached memory */
 }
@@ -83,8 +88,8 @@ static void _InitializeCvtCache (c)
  * XmuCCLookupDisplay - return the cache entry for the indicated display;
  * initialize the cache if necessary
  */
-XmuCvtCache *_XmuCCLookupDisplay (dpy)
-    Display *dpy;
+XmuCvtCache *
+_XmuCCLookupDisplay(Display *dpy)
 {
     XmuDisplayQueueEntry *e;
 

@@ -25,16 +25,15 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/ExtAgent.c,v 1.7 2001/12/14 19:55:45 dawes Exp $ */
 
 #include <X11/Intrinsic.h>
+#include <X11/Xmu/ExtAgent.h>
 
 /* ARGSUSED */
 void
-XmuRegisterExternalAgent(w, data, event, cont)
-    Widget w;
-    XtPointer data;
-    XEvent *event;
-    Boolean *cont;
+XmuRegisterExternalAgent(Widget w, XtPointer data,
+			 XEvent *event, Boolean *cont)
 {
 /* 
 * This is a stub.  Writers of protocol libraries

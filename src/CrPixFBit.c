@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/CrPixFBit.c,v 1.7 2001/12/14 19:55:37 dawes Exp $ */
 
 /*
  * This file contains miscellaneous utility routines and is not part of the
@@ -39,15 +40,21 @@ in this Software without prior written authorization from The Open Group.
 
 #include <X11/Xos.h>
 #include <X11/Xlib.h>
+#include <X11/Xmu/Drawing.h>
 
-Pixmap XmuCreatePixmapFromBitmap (dpy, d, bitmap, width, height, depth,
-				  fore, back)
-    Display *dpy;			/* connection to X server */
-    Drawable d;				/* drawable indicating screen */
-    Pixmap bitmap;			/* single plane pixmap */
-    unsigned int width, height;		/* dimensions of bitmap and pixmap */
-    unsigned int depth;			/* depth of pixmap to create */
-    unsigned long fore, back;		/* colors to use */
+Pixmap
+XmuCreatePixmapFromBitmap(Display *dpy, Drawable d, Pixmap bitmap,
+			  unsigned int width, unsigned int height,
+			  unsigned int depth,
+			  unsigned long fore, unsigned long back)
+     /*
+      * dpy		-	connection to X server
+      * d		-	drawable indicating screen
+      * bitmap		-	single plane pixmap
+      * width, height	-	dimensions of bitmap and pixmap
+      * depth		-	depth of pixmap to create
+      * fore, back	-	colors to use
+      */
 {
     Pixmap pixmap;
 

@@ -26,6 +26,8 @@ in this Software without prior written authorization from The Open Group.
 
 */
 
+/* $XFree86: xc/lib/Xmu/WidgetNode.c,v 1.13 2002/09/24 18:55:21 alanh Exp $ */
+
 /*
  * Author:  Jim Fulton, MIT X Consortium
  */
@@ -33,19 +35,34 @@ in this Software without prior written authorization from The Open Group.
 
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <X11/Xos.h>
 #include <X11/IntrinsicP.h>
 #include <X11/Xaw/Cardinals.h>
 #include <X11/Xmu/CharSet.h>
 #include <X11/Xmu/WidgetNode.h>
 
-
-static char *binsearch (key, base, nelems, elemsize, compar)
-    char *key;				/* template of object to find */
-    char *base;				/* beginning of array */
-    int nelems;				/* number of elements in array */
-    int elemsize;			/* sizeof an element */
-    int (*compar)();			/* qsort-style compare function */
+/*
+ * Prototypes
+ */
+static char *binsearch(char*, char*, int, int,
+		       int (*__compar)(_Xconst void*, _Xconst void*));
+static int compare_resource_entries(_Xconst void *a,  _Xconst void *b);
+static XmuWidgetNode *find_resource(XmuWidgetNode*, char*, Bool);
+static void mark_resource_owner(XmuWidgetNode*);
+/*
+ * Implementation
+ */
+static char *
+binsearch(char *key, char *base, int nelems, int elemsize,
+	  int compar(_Xconst void*, _Xconst void*))
+     /*
+      * key		- template of object to find
+      * base		- beginning of array
+      * nelems		- number of elements in array
+      * elemsize	- sizeof an element
+      * compar		- qsort-style compare function
+      */
 {
     int lower = 0, upper = nelems - 1;
 
@@ -67,18 +84,17 @@ static char *binsearch (key, base, nelems, elemsize, compar)
 }
 
 
-static int compare_resource_entries (a, b)
-    register char *a, *b;
+static int
+compare_resource_entries(register _Xconst void *a,
+			 register _Xconst void *b)
 {
     return strcmp (((XtResourceList)a)->resource_name,
 		   ((XtResourceList)b)->resource_name);
 }
 
 
-static XmuWidgetNode *find_resource (node, name, cons)
-    XmuWidgetNode *node;
-    char *name;
-    Bool cons;
+static XmuWidgetNode *
+find_resource(XmuWidgetNode *node, char *name, Bool cons)
 {
     register XmuWidgetNode *sup;
     XtResource res;
@@ -101,10 +117,10 @@ static XmuWidgetNode *find_resource (node, name, cons)
 }
 
 
-static void mark_resource_owner (node)
-    register XmuWidgetNode *node;
+static void
+mark_resource_owner(register XmuWidgetNode *node)
 {
-    register int i;
+    register Cardinal i;
     XtResourceList childres;
 
     childres = node->resources;
@@ -125,9 +141,8 @@ static void mark_resource_owner (node)
  * 			       Public Interfaces
  */
 
-void XmuWnInitializeNodes (nodearray, nnodes)
-    XmuWidgetNode *nodearray;
-    int nnodes;
+void
+XmuWnInitializeNodes(XmuWidgetNode *nodearray, int nnodes)
 {
     int i;
     XmuWidgetNode *wn;
@@ -144,12 +159,15 @@ void XmuWnInitializeNodes (nodearray, nnodes)
 	int namelen = strlen (XmuWnClassname(wn));
 
 	wn->lowered_label = XtMalloc (lablen + namelen + 2);
+#if 0
+	/* XtMalloc exits if failed */
 	if (!wn->lowered_label) {
 	    fprintf (stderr,
 		     "%s:  unable to allocate %d bytes for widget name\n",
 		     "XmuWnInitializeNodes", lablen + namelen + 2);
 	    exit (1);
 	}
+#endif
 	wn->lowered_classname = wn->lowered_label + (lablen + 1);
 	XmuCopyISOLatin1Lowered (wn->lowered_label, wn->label);
 	XmuCopyISOLatin1Lowered (wn->lowered_classname, XmuWnClassname(wn));
@@ -190,10 +208,9 @@ void XmuWnInitializeNodes (nodearray, nnodes)
 }
 
 
-void XmuWnFetchResources (node, toplevel, topnode)
-    XmuWidgetNode *node;
-    Widget toplevel;
-    XmuWidgetNode *topnode;
+void
+XmuWnFetchResources(XmuWidgetNode *node, Widget toplevel,
+		    XmuWidgetNode *topnode)
 {
     Widget dummy;
     XmuWidgetNode *wn;
@@ -219,9 +236,9 @@ void XmuWnFetchResources (node, toplevel, topnode)
 						  sizeof (XmuWidgetNode *));
 	if (!wn->resourcewn) {
 	    fprintf (stderr,
-		     "%s:  unable to calloc %d %d byte widget node ptrs\n",
-		     "XmuWnFetchResources",wn->nresources,
-		     sizeof (XmuWidgetNode *));
+		     "%s:  unable to calloc %d %ld byte widget node ptrs\n",
+		     "XmuWnFetchResources", wn->nresources,
+		     (unsigned long)sizeof (XmuWidgetNode *));
 	    exit (1);
 	}
 
@@ -235,9 +252,9 @@ void XmuWnFetchResources (node, toplevel, topnode)
 	  XtCalloc (wn->nconstraints, sizeof (XmuWidgetNode *));
 	if (!wn->constraintwn) {
 	    fprintf (stderr,
-		     "%s:  unable to calloc %d %d byte widget node ptrs\n",
+		     "%s:  unable to calloc %d %ld byte widget node ptrs\n",
 		     "XmuWnFetchResources", wn->nconstraints,
-		     sizeof (XmuWidgetNode *));
+		     (unsigned long)sizeof (XmuWidgetNode *));
 	    exit (1);
 	}
 
@@ -259,9 +276,9 @@ void XmuWnFetchResources (node, toplevel, topnode)
 }
 
 
-int XmuWnCountOwnedResources (node, ownernode, cons)
-    XmuWidgetNode *node, *ownernode;
-    Bool cons;
+int
+XmuWnCountOwnedResources(XmuWidgetNode *node, XmuWidgetNode *ownernode,
+			 Bool cons)
 {
     register int i;
     XmuWidgetNode **wn = (cons ? node->constraintwn : node->resourcewn);
@@ -273,33 +290,19 @@ int XmuWnCountOwnedResources (node, ownernode, cons)
 }
 
 
-#if NeedFunctionPrototypes
-XmuWidgetNode *XmuWnNameToNode (XmuWidgetNode *nodelist, int nnodes, 
-				_Xconst char *name)
-#else
-XmuWidgetNode *XmuWnNameToNode (nodelist, nnodes, name)
-    XmuWidgetNode *nodelist;
-    int nnodes;
-    char *name;
-#endif
+XmuWidgetNode *
+XmuWnNameToNode(XmuWidgetNode *nodelist, int nnodes, _Xconst char *name)
 {
     int i;
     XmuWidgetNode *wn;
-    char* tmpp;
     char tmp[1024];
-    XmuWidgetNode* ret = NULL;
 
-    if ((i = strlen (name)) < sizeof tmp) tmpp = tmp;
-    else tmpp = XtMalloc (i + 1);
-    if (tmpp == NULL) return ret;
-    XmuCopyISOLatin1Lowered (tmpp, name);
+    XmuNCopyISOLatin1Lowered(tmp, name, sizeof(tmp));
     for (i = 0, wn = nodelist; i < nnodes; i++, wn++) {
-	if (strcmp (tmpp, wn->lowered_label) == 0 ||
-	    strcmp (tmpp, wn->lowered_classname) == 0) {
-	  ret = wn;
-	  break;
+	if (strcmp (tmp, wn->lowered_label) == 0 ||
+	    strcmp (tmp, wn->lowered_classname) == 0) {
+	  return wn;
 	}
     }
-    if (tmpp != tmp) XtFree (tmpp);
-    return ret;
+    return NULL;
 }

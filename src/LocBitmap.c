@@ -25,22 +25,20 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/LocBitmap.c,v 3.10 2002/05/31 18:45:45 dawes Exp $ */
 
 /*
  * Author:  Jim Fulton, MIT X Consortium
  */
 
 #include <X11/Xlib.h>
+#include <stdlib.h>
+#include <string.h>
 #include <X11/Xresource.h>
 #include <X11/Xutil.h>
 #include <X11/Xmu/CvtCache.h>
 #include <X11/Xmu/Drawing.h>
-#ifndef X_NOT_STDC_ENV
-#include <stdlib.h>
-#else
-extern char* malloc();
-extern void free();
-#endif
+#include <X11/Xmu/SysUtil.h>
 
 #ifndef X_NOT_POSIX
 #ifdef _POSIX_SOURCE
@@ -66,26 +64,19 @@ extern void free();
 #endif
 #endif /* PATH_MAX */
 
-static char **split_path_string();
-
+/*
+ * Prototypes
+ */
+static char **split_path_string(char*);
 
 /*
  * XmuLocateBitmapFile - read a bitmap file using the normal defaults
  */
 
-#if NeedFunctionPrototypes
-Pixmap XmuLocateBitmapFile (Screen *screen, _Xconst char *name, char *srcname,
+Pixmap
+XmuLocateBitmapFile(Screen *screen, _Xconst char *name, char *srcname,
 			    int srcnamelen, int *widthp, int *heightp, 
 			    int *xhotp, int *yhotp)
-#else
-Pixmap XmuLocateBitmapFile (screen, name, srcname, srcnamelen,
-			    widthp, heightp, xhotp, yhotp)
-    Screen *screen;
-    char *name;
-    char *srcname;			/* RETURN */
-    int srcnamelen;
-    int *widthp, *heightp, *xhotp, *yhotp;  /* RETURN */
-#endif
 {
     return XmuLocatePixmapFile (screen, name, 
 				(unsigned long) 1, (unsigned long) 0,
@@ -97,24 +88,12 @@ Pixmap XmuLocateBitmapFile (screen, name, srcname, srcnamelen,
 /*
  * version that reads pixmap data as well as bitmap data
  */
-#if NeedFunctionPrototypes
-Pixmap XmuLocatePixmapFile (Screen *screen, _Xconst char *name, 
+Pixmap
+XmuLocatePixmapFile(Screen *screen, _Xconst char *name, 
 			    unsigned long fore, unsigned long back, 
 			    unsigned int depth, 
 			    char *srcname, int srcnamelen,
 			    int *widthp, int *heightp, int *xhotp, int *yhotp)
-#else
-Pixmap XmuLocatePixmapFile (screen, name, fore, back, depth, 
-			    srcname, srcnamelen,
-			    widthp, heightp, xhotp, yhotp)
-    Screen *screen;
-    char *name;
-    unsigned long fore, back;
-    unsigned int depth;
-    char *srcname;			/* RETURN */
-    int srcnamelen;
-    int *widthp, *heightp, *xhotp, *yhotp;  /* RETURN */
-#endif
 {
 
 #ifndef BITMAPDIR
@@ -126,12 +105,13 @@ Pixmap XmuLocatePixmapFile (screen, name, fore, back, depth,
     Bool try_plain_name = True;
     XmuCvtCache *cache = _XmuCCLookupDisplay (dpy);
     char **file_paths = (char **) NULL;
-    char filenamebuf[PATH_MAX];
-    char* filename = NULL;
+    char filename[PATH_MAX];
+#if 0
     char* bitmapdir = BITMAPDIR;
+#endif
     unsigned int width, height;
     int xhot, yhot;
-    int i, tmp;
+    int i;
 
     /*
      * look in cache for bitmap path
@@ -170,35 +150,33 @@ Pixmap XmuLocatePixmapFile (screen, name, fore, back, depth,
      */
 
     for (i = 1; i <= 4; i++) {
-	char *fn = NULL;
+	char *fn = filename;
 	Pixmap pixmap;
 	unsigned char *data;
 
 	switch (i) {
 	  case 1:
-	    if (!(name[0] == '/' || (name[0] == '.') && name[1] == '/')) 
+#ifndef __UNIXOS2__
+	    if (!(name[0] == '/' || ((name[0] == '.') && name[1] == '/')))
+#else
+	    if (!(name[0] == '/' || (name[0] == '.' && name[1] == '/') ||
+		  (isalpha(name[0]) && name[1] == ':')))
+#endif
 	      continue;
 	    fn = (char *) name;
 	    try_plain_name = False;
 	    break;
 	  case 2:
 	    if (file_paths && *file_paths) {
-		tmp = strlen (*file_paths) + strlen (name) + 1;
-		if (tmp < sizeof filenamebuf) filename = filenamebuf;
-		else filename = malloc (tmp + 1);
-		sprintf (filename, "%s/%s", *file_paths, name);
-		fn = filename;
+		XmuSnprintf(filename, sizeof(filename),
+			    "%s/%s", *file_paths, name);
 		file_paths++;
 		i--;
 		break;
 	    }
 	    continue;
 	  case 3:
-	    tmp = strlen (bitmapdir) + strlen (name) + 1;
-	    if (tmp < sizeof filenamebuf) filename = filenamebuf;
-	    else filename = malloc (tmp + 1);
-	    sprintf (filename, "%s/%s", bitmapdir, name);
-	    fn = filename;
+	    XmuSnprintf(filename, sizeof(filename), "%s/%s", BITMAPDIR, name);
 	    break;
 	  case 4:
 	    if (!try_plain_name) continue;
@@ -208,18 +186,15 @@ Pixmap XmuLocatePixmapFile (screen, name, fore, back, depth,
 
 	data = NULL;
 	pixmap = None;
-	if (fn == NULL)
-	    continue;
+#ifdef __UNIXOS2__
+	fn = (char*)__XOS2RedirRoot(fn);
+#endif
 	if (XmuReadBitmapDataFromFile (fn, &width, &height, &data,
 				       &xhot, &yhot) == BitmapSuccess) {
 	    pixmap = XCreatePixmapFromBitmapData (dpy, root, (char *) data,
 						  width, height,
 						  fore, back, depth);
 	    XFree ((char *)data);
-	}
-	if (filename && filename != filenamebuf) {
-	    free (filename);
-	    filename = NULL;
 	}
 
 	if (pixmap) {
@@ -243,8 +218,8 @@ Pixmap XmuLocatePixmapFile (screen, name, fore, back, depth,
  * split_path_string - split a colon-separated list into its constituent
  * parts; to release, free list[0] and list.
  */
-static char **split_path_string (src)
-    register char *src;
+static char **
+split_path_string(register char *src)
 {
     int nelems = 1;
     register char *dst;
@@ -277,14 +252,14 @@ static char **split_path_string (src)
 }
 
 
-void _XmuStringToBitmapInitCache (c)
-    register XmuCvtCache *c;
+void
+_XmuStringToBitmapInitCache(register XmuCvtCache *c)
 {
     c->string_to_bitmap.bitmapFilePath = NULL;
 }
 
-void _XmuStringToBitmapFreeCache (c)
-    register XmuCvtCache *c;
+void
+_XmuStringToBitmapFreeCache(register XmuCvtCache *c)
 {
     if (c->string_to_bitmap.bitmapFilePath) {
 	if (c->string_to_bitmap.bitmapFilePath[0]) 

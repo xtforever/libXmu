@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/UpdMapHint.c,v 1.7 2001/12/14 19:55:55 dawes Exp $ */
 
 /*
  * Author:  Jim Fulton, MIT X Consortium
@@ -33,11 +34,10 @@ in this Software without prior written authorization from The Open Group.
 #include <stdio.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
+#include <X11/Xmu/WinUtil.h>
 
-Bool XmuUpdateMapHints (dpy, w, hints)
-    Display *dpy;
-    Window w;
-    XSizeHints *hints;
+Bool
+XmuUpdateMapHints(Display *dpy, Window w, XSizeHints *hints)
 {
     static XSizeHints *shp = NULL;
 

@@ -25,8 +25,10 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/DrawLogo.c,v 1.8 2001/12/14 19:55:41 dawes Exp $ */
 
 #include <X11/Xlib.h>  
+#include <X11/Xmu/Drawing.h>
 
 /*
  *  Draw the "official" X Window System Logo, designed by Danny Chong
@@ -37,13 +39,9 @@ in this Software without prior written authorization from The Open Group.
  *  if it is tiny.  Also makes the various linear elements of
  *  the logo line up as well as possible considering rasterization.
  */
-
-XmuDrawLogo(dpy, drawable, gcFore, gcBack, x, y, width, height)
-    Display *dpy;
-    Drawable drawable;
-    GC gcFore, gcBack;
-    int x, y;
-    unsigned int width, height;
+void
+XmuDrawLogo(Display *dpy, Drawable drawable, GC gcFore, GC gcBack,
+	    int x, int y, unsigned int width, unsigned int height)
 {
     unsigned int size;
     int thin, gap, d31;

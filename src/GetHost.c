@@ -25,12 +25,17 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/GetHost.c,v 3.8 2001/12/14 19:55:46 dawes Exp $ */
 
 /*
  * Author:  Jim Fulton, MIT X Consortium
  *
  * _XGetHostname - similar to gethostname but allows special processing.
  */
+
+#include <X11/Xosdefs.h>
+#include <string.h>
+#include <unistd.h>
 
 #ifdef WIN32
 #include <X11/Xwinsock.h>
@@ -44,9 +49,10 @@ in this Software without prior written authorization from The Open Group.
 #include <sys/utsname.h>
 #endif
 
-int XmuGetHostname (buf, maxlen)
-    char *buf;
-    int maxlen;
+#include <X11/Xmu/SysUtil.h>
+
+int
+XmuGetHostname(char *buf, int maxlen)
 {
     int len;
 #ifdef WIN32
