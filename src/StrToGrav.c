@@ -25,7 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
-/* $XFree86: xc/lib/Xmu/StrToGrav.c,v 1.7 2001/12/14 19:55:52 dawes Exp $ */
+/* $XFree86$ */
 
 #include <X11/Intrinsic.h>
 #include <X11/Xmu/Converters.h>

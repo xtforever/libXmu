@@ -25,7 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
-/* $XFree86: xc/lib/Xmu/ClientWin.c,v 1.8 2002/11/27 20:54:49 tsi Exp $ */
+/* $XFree86$ */
 
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>

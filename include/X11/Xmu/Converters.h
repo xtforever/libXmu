@@ -26,7 +26,7 @@ in this Software without prior written authorization from The Open Group.
 
 */
 
-/* $XFree86: xc/lib/Xmu/Converters.h,v 1.6 2001/12/14 19:55:35 dawes Exp $ */
+/* $XFree86$ */
 
 /*
  * The interfaces described by this header file are for miscellaneous utilities
