@@ -116,7 +116,12 @@ XmuScanline *XmuScanlineXorSegment(XmuScanline*, XmuSegment*);
 #endif /* notdef */
 
 #ifndef _SYSUTIL_H_
-int XmuSnprintf(char *str, int size, _Xconst char *fmt, ...);
+int XmuSnprintf(char *str, int size, _Xconst char *fmt, ...)
+#if defined(__GNUC__) && \
+    ((__GNUC__ > 2) || ((__GNUC__ == 2) && (__GNUC_MINOR__ > 4)))
+__attribute((format(printf,3,4)))
+#endif
+;
 #endif
 
 #endif /* _XMU_H_ */
