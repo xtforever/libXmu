@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/Atoms.h,v 1.7 2001/12/14 19:55:33 dawes Exp $ */
 
 /*
  * The interfaces described by this header file are for miscellaneous utilities
@@ -61,7 +62,8 @@ extern AtomPtr
     _XA_TARGETS,
     _XA_TEXT,
     _XA_TIMESTAMP,
-    _XA_USER;
+    _XA_USER,
+    _XA_UTF8_STRING;
 
 #define XA_ATOM_PAIR(d)		XmuInternAtom(d, _XA_ATOM_PAIR)
 #define XA_CHARACTER_POSITION(d) XmuInternAtom(d, _XA_CHARACTER_POSITION)
@@ -85,43 +87,39 @@ extern AtomPtr
 #define XA_TEXT(d)		XmuInternAtom(d, _XA_TEXT)
 #define XA_TIMESTAMP(d)		XmuInternAtom(d, _XA_TIMESTAMP)
 #define XA_USER(d)		XmuInternAtom(d, _XA_USER)
+#define XA_UTF8_STRING(d)	XmuInternAtom(d, _XA_UTF8_STRING)
 
 _XFUNCPROTOBEGIN
 
-extern char *XmuGetAtomName(
-#if NeedFunctionPrototypes
-    Display *	/* dpy */,
-    Atom	/* atom */
-#endif
+char *XmuGetAtomName
+(
+ Display	*dpy,
+ Atom		atom
+ );
+
+Atom XmuInternAtom
+(
+ Display	*dpy,
+ AtomPtr	atom_ptr
+ );
+
+void XmuInternStrings
+(
+ Display	*dpy,
+ String		*names,
+ Cardinal    	count,
+ Atom		*atoms_return
 );
 
-extern Atom XmuInternAtom(
-#if NeedFunctionPrototypes
-    Display *	/* dpy */,
-    AtomPtr	/* atom_ptr */
-#endif
-);
+AtomPtr XmuMakeAtom
+(
+ _Xconst char	*name
+ );
 
-extern void XmuInternStrings(
-#if NeedFunctionPrototypes
-    Display *		/* dpy */,
-    String *		/* names */,
-    Cardinal    	/* count */,
-    Atom *		/* atoms_return */
-#endif
-);
-
-extern AtomPtr XmuMakeAtom(
-#if NeedFunctionPrototypes
-    _Xconst char *		/* name	*/
-#endif
-);
-
-extern char *XmuNameOfAtom(
-#if NeedFunctionPrototypes
-    AtomPtr	/* atom_ptr */
-#endif
-);
+char *XmuNameOfAtom
+(
+ AtomPtr	atom_ptr
+ );
 
 _XFUNCPROTOEND
 

@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/WidgetNode.h,v 1.6 2001/12/14 19:55:58 dawes Exp $ */
 
 /*
  * Author:  Jim Fulton, MIT X Consortium
@@ -64,36 +65,32 @@ typedef struct _XmuWidgetNode {
 					/* external interfaces */
 _XFUNCPROTOBEGIN
 
-extern void XmuWnInitializeNodes (
-#if NeedFunctionPrototypes
-    XmuWidgetNode *	/* nodearray */,
-    int			/* nnodes */
-#endif
-);
+void XmuWnInitializeNodes
+(
+ XmuWidgetNode		*nodearray,
+ int			nnodes
+ );
 
-extern void XmuWnFetchResources (
-#if NeedFunctionPrototypes
-    XmuWidgetNode *	/* node */,
-    Widget		/* toplevel */,
-    XmuWidgetNode *	/* topnode */
-#endif
-);
+void XmuWnFetchResources
+(
+ XmuWidgetNode		*node,
+ Widget			toplevel,
+ XmuWidgetNode		*topnode
+ );
 
-extern int XmuWnCountOwnedResources (
-#if NeedFunctionPrototypes
-    XmuWidgetNode *	/* node */,
-    XmuWidgetNode *	/* ownernode */,
-    Bool		/* constraints */
-#endif
-);
+int XmuWnCountOwnedResources
+(
+ XmuWidgetNode		*node,
+ XmuWidgetNode		*ownernode,
+ Bool			constraints
+ );
 
-extern XmuWidgetNode *XmuWnNameToNode (
-#if NeedFunctionPrototypes
-    XmuWidgetNode *	/* nodelist */,
-    int			/* nnodes */,
-    _Xconst char *	/* name */
-#endif
-);
+XmuWidgetNode *XmuWnNameToNode
+(
+ XmuWidgetNode		*nodelist,
+ int			nnodes,
+ _Xconst char		*name
+ );
 
 _XFUNCPROTOEND
 

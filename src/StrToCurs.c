@@ -50,12 +50,17 @@ SOFTWARE.
 
 ******************************************************************/
 
+/* $XFree86: xc/lib/Xmu/StrToCurs.c,v 1.12 2002/09/24 18:55:21 alanh Exp $ */
+
 #include	<X11/Intrinsic.h>
 #include	<X11/StringDefs.h>
 #include	<X11/Xmu/Converters.h>
 #include	<X11/Xmu/Drawing.h>
+#include	<X11/Xmu/CurUtil.h>
+#include	<X11/Xmu/CharSet.h>
 
 #ifndef X_NOT_POSIX
+#include <stdlib.h>
 #ifdef _POSIX_SOURCE
 #include <limits.h>
 #else
@@ -118,18 +123,16 @@ static XtConvertArgRec screenConvertArg[] = {
 #define FONTSPECIFIER		"FONT "
 
 /*ARGSUSED*/
-void XmuCvtStringToCursor(args, num_args, fromVal, toVal)
-    XrmValuePtr args;
-    Cardinal    *num_args;
-    XrmValuePtr	fromVal;
-    XrmValuePtr	toVal;
+void
+XmuCvtStringToCursor(XrmValuePtr args, Cardinal *num_args,
+		     XrmValuePtr fromVal, XrmValuePtr toVal)
 {
     static Cursor cursor;		/* static for cvt magic */
     char *name = (char *)fromVal->addr;
     Screen *screen;
     register int i;
     char maskname[PATH_MAX];
-    Pixmap source, mask;
+    Pixmap source, mask = 0;
     /* XXX - make fg/bg resources */
     static XColor bgColor = {0, 0xffff, 0xffff, 0xffff};
     static XColor fgColor = {0, 0, 0, 0};
@@ -142,27 +145,36 @@ void XmuCvtStringToCursor(args, num_args, fromVal, toVal)
              "String to cursor conversion needs screen argument",
               (String *)NULL, (Cardinal *)NULL);
 
+    if (XmuCompareISOLatin1(name, "None") == 0)
+      {
+	cursor = None;
+	done(&cursor, Cursor);
+	return;
+      }
+
     screen = *((Screen **) args[0].addr);
 
     if (0 == strncmp(FONTSPECIFIER, name, strlen(FONTSPECIFIER))) {
 	char source_name[PATH_MAX], mask_name[PATH_MAX];
-        char fmtstr[1024];
 	int source_char, mask_char, fields;
 	Font source_font, mask_font;
 	XrmValue fromString, toFont;
 	XrmValue cvtArg;
 	Boolean success;
 	Display *dpy = DisplayOfScreen(screen);
+        char *strspec = NULL;
 #ifdef XMU_KLUDGE
 	Cardinal num;
 #endif
 
-	sprintf (fmtstr, "FONT %%%ds %%d %%%ds %%d",
-		 sizeof source_name - 1, sizeof mask_name - 1);
-
-	fields = sscanf(name, fmtstr,
+	strspec = XtMalloc(strlen("FONT %s %d %s %d") + 21);
+	sprintf(strspec, "FONT %%%lds %%d %%%lds %%d",
+		(unsigned long)sizeof(source_name) - 1,
+		(unsigned long)sizeof(mask_name) - 1);
+	fields = sscanf(name, strspec,
 			source_name, &source_char,
 			mask_name, &mask_char);
+	XtFree(strspec);
 	if (fields < 2) {
 	    XtStringConversionWarning(name, XtRCursor);
 	    return;
@@ -239,6 +251,9 @@ void XmuCvtStringToCursor(args, num_args, fromVal, toVal)
 				       maskname, (sizeof maskname) - 4,
 				       NULL, NULL, &xhot, &yhot)) == None) {
 	XtStringConversionWarning (name, XtRCursor);
+	cursor = None;
+	done(&cursor, Cursor);
+	return;
     }
     len = strlen (maskname);
     for (i = 0; i < 2; i++) {
@@ -287,15 +302,12 @@ void XmuCvtStringToCursor(args, num_args, fromVal, toVal)
 
 /*ARGSUSED*/
 Boolean
-XmuCvtStringToColorCursor(dpy, args, num_args, fromVal, toVal, converter_data)
-    Display     *dpy;
-    XrmValuePtr args;
-    Cardinal    *num_args;
-    XrmValuePtr	fromVal;
-    XrmValuePtr	toVal;
-    XtPointer   *converter_data;	/* unused */
+XmuCvtStringToColorCursor(Display *dpy, XrmValuePtr args, Cardinal *num_args,
+			  XrmValuePtr fromVal, XrmValuePtr toVal,
+			  XtPointer *converter_data)
 {
     Cursor cursor;
+    Screen *screen;
     Pixel fg, bg;
     Colormap c_map;
     XColor colors[2];
@@ -310,6 +322,7 @@ XmuCvtStringToColorCursor(dpy, args, num_args, fromVal, toVal, converter_data)
 	return False;
     }
 
+    screen = *((Screen **) args[0].addr);
     fg = *((Pixel *) args[1].addr);
     bg = *((Pixel *) args[2].addr);
     c_map = *((Colormap *) args[3].addr);
@@ -319,7 +332,8 @@ XmuCvtStringToColorCursor(dpy, args, num_args, fromVal, toVal, converter_data)
     
     cursor = *((Cursor *) ret_val.addr);
 
-    if (cursor == None)
+    if (cursor == None || (fg == BlackPixelOfScreen(screen)
+			   && bg == WhitePixelOfScreen(screen)))
 	new_done(Cursor, cursor);
 
     colors[0].pixel = fg;

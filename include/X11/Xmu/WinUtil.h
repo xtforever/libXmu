@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/WinUtil.h,v 1.7 2001/12/14 19:55:58 dawes Exp $ */
 
 /*
  * The interfaces described by this header file are for miscellaneous utilities
@@ -39,26 +40,23 @@ in this Software without prior written authorization from The Open Group.
 
 _XFUNCPROTOBEGIN
 
-extern Window XmuClientWindow(
-#if NeedFunctionPrototypes
-    Display*	/* dpy */,
-    Window 	/* win */
-#endif
-);
+Window XmuClientWindow
+(
+ Display	*dpy,
+ Window 	win
+ );
 
-extern Bool XmuUpdateMapHints(
-#if NeedFunctionPrototypes
-    Display*	/* dpy */,
-    Window	/* win */,
-    XSizeHints*	/* hints */
-#endif
-);
+Bool XmuUpdateMapHints
+(
+ Display	*dpy,
+ Window		win,
+ XSizeHints	*hints
+ );
 
-extern Screen *XmuScreenOfWindow(
-#if NeedFunctionPrototypes
-    Display*	/* dpy */,
-    Window 	/* w */
-#endif
+Screen *XmuScreenOfWindow
+(
+ Display	*dpy,
+ Window 	w
 );
 
 _XFUNCPROTOEND

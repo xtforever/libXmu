@@ -25,23 +25,28 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/ClientWin.c,v 1.8 2002/11/27 20:54:49 tsi Exp $ */
 
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 
-static Window TryChildren();
+#include <X11/Xmu/WinUtil.h>
+
+/*
+ * Prototypes
+ */
+static Window TryChildren(Display*, Window, Atom);
 
 /* Find a window with WM_STATE, else return win itself, as per ICCCM */
 
-Window XmuClientWindow (dpy, win)
-    Display *dpy;
-    Window win;
+Window
+XmuClientWindow(Display *dpy, Window win)
 {
     Atom WM_STATE;
     Atom type = None;
     int format;
     unsigned long nitems, after;
-    unsigned char *data;
+    unsigned char *data = NULL;
     Window inf;
 
     WM_STATE = XInternAtom(dpy, "WM_STATE", True);
@@ -49,6 +54,8 @@ Window XmuClientWindow (dpy, win)
 	return win;
     XGetWindowProperty(dpy, win, WM_STATE, 0, 0, False, AnyPropertyType,
 		       &type, &format, &nitems, &after, &data);
+    if (data)
+	XFree(data);
     if (type)
 	return win;
     inf = TryChildren(dpy, win, WM_STATE);
@@ -57,11 +64,8 @@ Window XmuClientWindow (dpy, win)
     return inf;
 }
 
-static
-Window TryChildren (dpy, win, WM_STATE)
-    Display *dpy;
-    Window win;
-    Atom WM_STATE;
+static Window
+TryChildren(Display *dpy, Window win, Atom WM_STATE)
 {
     Window root, parent;
     Window *children;
@@ -76,14 +80,18 @@ Window TryChildren (dpy, win, WM_STATE)
     if (!XQueryTree(dpy, win, &root, &parent, &children, &nchildren))
 	return 0;
     for (i = 0; !inf && (i < nchildren); i++) {
+	data = NULL;
 	XGetWindowProperty(dpy, children[i], WM_STATE, 0, 0, False,
 			   AnyPropertyType, &type, &format, &nitems,
 			   &after, &data);
+	if (data)
+	    XFree(data);
 	if (type)
 	    inf = children[i];
     }
     for (i = 0; !inf && (i < nchildren); i++)
 	inf = TryChildren(dpy, children[i], WM_STATE);
-    if (children) XFree((char *)children);
+    if (children)
+	XFree(children);
     return inf;
 }

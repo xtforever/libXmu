@@ -25,11 +25,18 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/Editres.h,v 1.6 2001/12/14 19:55:43 dawes Exp $ */
 
 #include <X11/Xfuncproto.h>
 
 _XFUNCPROTOBEGIN
 
-void _XEditResCheckMessages();
+void _XEditResCheckMessages
+(
+ Widget			w,
+ XtPointer		data,
+ XEvent			*event,
+ Boolean		*cont
+);
 
 _XFUNCPROTOEND

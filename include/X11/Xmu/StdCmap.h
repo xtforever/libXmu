@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/StdCmap.h,v 1.9 2001/12/14 19:55:49 dawes Exp $ */
 
 /*
  * The interfaces described by this header file are for miscellaneous utilities
@@ -34,78 +35,84 @@ in this Software without prior written authorization from The Open Group.
 #ifndef _XMU_STDCMAP_H_
 #define _XMU_STDCMAP_H_
 
-#include <X11/Intrinsic.h>
 #include <X11/Xfuncproto.h>
 
 _XFUNCPROTOBEGIN
 
-Status XmuAllStandardColormaps(
-#if NeedFunctionPrototypes
-    Display*		/* dpy */
-#endif
-);
+Status XmuAllStandardColormaps
+(
+ Display		*dpy
+ );
 
-Status XmuCreateColormap(
-#if NeedFunctionPrototypes
-    Display*		/* dpy */,
-    XStandardColormap*	/* colormap */
-#endif
-);
+Status XmuCreateColormap
+(
+ Display		*dpy,
+ XStandardColormap	*colormap
+ );
 
-void   XmuDeleteStandardColormap(
-#if NeedFunctionPrototypes
-    Display*		/* dpy */,
-    int			/* screen */,
-    Atom		/* property */
-#endif
-);
+void XmuDeleteStandardColormap
+(
+ Display		*dpy,
+ int			screen,
+ Atom			property
+ );
 
-Status XmuGetColormapAllocation(
-#if NeedFunctionPrototypes
-    XVisualInfo*	/* vinfo */,
-    Atom		/* property */,
-    unsigned long*	/* red_max_return */,
-    unsigned long*	/* green_max_return */,
-    unsigned long*	/* blue_max_return */
-#endif
-);
+Status XmuGetColormapAllocation
+(
+ XVisualInfo		*vinfo,
+ Atom			property,
+ unsigned long		*red_max_return,
+ unsigned long		*green_max_return,
+ unsigned long		*blue_max_return
+ );
 
-Status XmuLookupStandardColormap(
-#if NeedFunctionPrototypes
-    Display*		/* dpy */,
-    int			/* screen */,
-    VisualID		/* visualid */,
-    unsigned int	/* depth */,
-    Atom		/* property */,
-    Bool		/* replace */,
-    Bool		/* retain */
-#endif
-);
+Status XmuLookupStandardColormap
+(
+ Display		*dpy,
+ int			screen,
+ VisualID		visualid,
+ unsigned int		depth,
+ Atom			property,
+ Bool			replace,
+ Bool			retain
+ );
 
-XStandardColormap *XmuStandardColormap(
-#if NeedFunctionPrototypes
-    Display*		/* dpy */,
-    int			/* screen */,
-    VisualID		/* visualid */,
-    unsigned int	/* depth */,
-    Atom		/* property */,
-    Colormap		/* cmap */,
-    unsigned long	/* red_max */,
-    unsigned long	/* green_max */,
-    unsigned long	/* blue_max */
-#endif
-);
+XStandardColormap *XmuStandardColormap
+(
+ Display		*dpy,
+ int			screen,
+ VisualID		visualid,
+ unsigned int		depth,
+ Atom			property,
+ Colormap		cmap,
+ unsigned long		red_max,
+ unsigned long		green_max,
+ unsigned long		blue_max
+ );
 
-Status XmuVisualStandardColormaps(
-#if NeedFunctionPrototypes
-    Display*		/* dpy */,
-    int			/* screen */,
-    VisualID		/* visualid */,
-    unsigned int	/* depth */,
-    Bool		/* replace */,
-    Bool		/* retain */
-#endif
-);
+Status XmuVisualStandardColormaps
+(
+ Display		*dpy,
+ int			screen,
+ VisualID		visualid,
+ unsigned int		depth,
+ Bool			replace,
+ Bool			retain
+ );
+
+Bool XmuDistinguishableColors
+(
+ XColor			*colors,
+ int			count
+ );
+
+Bool XmuDistinguishablePixels
+(
+ Display		*dpy,
+ Colormap		cmap,
+ unsigned long		*pixels,
+ int			count
+ );
 
 _XFUNCPROTOEND
 

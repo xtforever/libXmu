@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/Xct.c,v 1.9 2001/12/14 19:55:58 dawes Exp $ */
 
 #include <X11/Xfuncs.h>
 #include "Xct.h"
@@ -48,8 +49,7 @@ typedef struct _XctPriv {
 #define IsMore(priv) ((priv)->ptr != (priv)->ptrend)
 #define AmountLeft(priv) ((priv)->ptrend - (priv)->ptr)
 
-extern char *malloc();
-extern char *realloc();
+#include <stdlib.h>
 
 #define HT	0x09
 #define NL	0x0a
@@ -77,9 +77,23 @@ extern char *realloc();
 #define HasGR 4
 #define ToGL  8
 
+/*
+ * Prototypes
+ */
+static void ComputeGLGR(XctData);
+static int Handle94GR(XctData, int);
+static int Handle96GR(XctData, int);
+static int HandleExtended(XctData data, int);
+static int HandleGL(XctData, int);
+static int HandleMultiGL(XctData, int);
+static int HandleMultiGR(XctData data, int);
+static void ShiftGRToGL(XctData, int);
+
+/*
+ * Implementation
+ */
 static void
-ComputeGLGR(data)
-    register XctData data;
+ComputeGLGR(register XctData data)
 {
     /* XXX this will need more work if more sets are registered */
     if ((data->GL_set_size == 94) && (data->GL_char_size == 1) &&
@@ -95,9 +109,7 @@ ComputeGLGR(data)
 }
 
 static int
-HandleGL(data, c)
-    register XctData data;
-    unsigned char c;
+HandleGL(register XctData data, int c)
 {
     switch (c) {
     case 0x42:
@@ -118,9 +130,7 @@ HandleGL(data, c)
 }
 
 static int
-HandleMultiGL(data, c)
-    register XctData data;
-    unsigned char c;
+HandleMultiGL(register XctData data, int c)
 {
     switch (c) {
     case 0x41:
@@ -153,9 +163,7 @@ HandleMultiGL(data, c)
 }
 
 static int
-Handle94GR(data, c)
-    register XctData data;
-    unsigned char c;
+Handle94GR(register XctData data, int c)
 {
     switch (c) {
     case 0x49:
@@ -173,9 +181,7 @@ Handle94GR(data, c)
 }
 
 static int
-Handle96GR(data, c)
-    register XctData data;
-    unsigned char c;
+Handle96GR(register XctData data, int c)
 {
     switch (c) {
     case 0x41:
@@ -225,9 +231,7 @@ Handle96GR(data, c)
 }
 
 static int
-HandleMultiGR(data, c)
-    register XctData data;
-    unsigned char c;
+HandleMultiGR(register XctData data, int c)
 {
     switch (c) {
     case 0x41:
@@ -273,14 +277,12 @@ HandleMultiGR(data, c)
 }
 
 static int
-HandleExtended(data, c)
-    register XctData data;
-    unsigned char c;
+HandleExtended(register XctData data, int c)
 {
     register XctPriv priv = data->priv;
     XctString enc = data->item + 6;
     register XctString ptr = enc;
-    int i, len;
+    unsigned i, len;
 
     while (*ptr != 0x02) {
 	if (!*ptr || (++ptr == priv->ptr))
@@ -319,9 +321,7 @@ HandleExtended(data, c)
 }
 
 static void
-ShiftGRToGL(data, hasCdata)
-    register XctData data;
-    int hasCdata;
+ShiftGRToGL(register XctData data, int hasCdata)
 {
     register XctPriv priv = data->priv;
     register int i;
@@ -349,16 +349,8 @@ ShiftGRToGL(data, hasCdata)
 }
 
 /* Create an XctData structure for parsing a Compound Text string. */
-#if NeedFunctionPrototypes
 XctData
 XctCreate(_Xconst unsigned char *string, int length, XctFlags flags)
-#else
-XctData
-XctCreate(string, length, flags)
-    XctString string;
-    int length;
-    XctFlags flags;
-#endif
 {
     register XctData data;
     register XctPriv priv;
@@ -382,8 +374,7 @@ XctCreate(string, length, flags)
 
 /* Reset the XctData structure to re-parse the string from the beginning. */
 void
-XctReset(data)
-    register XctData data;
+XctReset(register XctData data)
 {
     register XctPriv priv = data->priv;
 
@@ -418,8 +409,7 @@ XctReset(data)
  * contextual state, are reported as components of the XctData structure.
  */
 XctResult
-XctNextItem(data)
-    register XctData data;
+XctNextItem(register XctData data)
 {
     register XctPriv priv = data->priv;
     unsigned char c;
@@ -675,10 +665,9 @@ XctNextItem(data)
 
 /* Free all data associated with an XctDataStructure. */
 void
-XctFree(data)
-    register XctData data;
+XctFree(register XctData data)
 {
-    int i;
+    unsigned i;
     register XctPriv priv = data->priv;
 
     if (priv->dirstack)

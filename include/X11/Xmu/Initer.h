@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/Initer.h,v 1.6 2001/12/14 19:55:46 dawes Exp $ */
 
 /*
  * The interfaces described by this header file are for miscellaneous utilities
@@ -37,27 +38,20 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/Intrinsic.h>
 #include <X11/Xfuncproto.h>
 
-typedef void (*XmuInitializerProc)(
-#if NeedFunctionPrototypes
-    XtAppContext	/* app_context */,
-    XPointer		/* data */
-#endif
-);
+typedef void (*XmuInitializerProc)(XtAppContext app_context, XPointer data);
 
 _XFUNCPROTOBEGIN
 
-extern void XmuCallInitializers(
-#if NeedFunctionPrototypes
-    XtAppContext	/* app_context */
-#endif
-);
+void XmuCallInitializers
+(
+ XtAppContext		app_context
+ );
 
-extern void XmuAddInitializer(
-#if NeedFunctionPrototypes
-    XmuInitializerProc	/* func */,
-     XPointer	/* data */
-#endif
-);
+void XmuAddInitializer
+(
+ XmuInitializerProc	func,
+ XPointer		data
+ );
 
 _XFUNCPROTOEND
 

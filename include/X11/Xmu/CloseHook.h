@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/CloseHook.h,v 1.7 2001/12/14 19:55:35 dawes Exp $ */
 
 /*
  * The interfaces described by this header file are for miscellaneous utilities
@@ -36,43 +37,36 @@ in this Software without prior written authorization from The Open Group.
 
 #include <X11/Xlib.h>
 #include <X11/Xfuncproto.h>
+#include <X11/Xlibint.h>
 
 typedef XPointer CloseHook;
 
-typedef int (*XmuCloseHookProc)(
-#if NeedFunctionPrototypes
-    Display*	/* dpy */,
-    XPointer	/* data */
-#endif 
-);
+typedef int (*XmuCloseHookProc)(Display *dpy, XPointer data);
 
 _XFUNCPROTOBEGIN
 
-extern CloseHook XmuAddCloseDisplayHook(
-#if NeedFunctionPrototypes
-    Display *	/* dpy */,
-    XmuCloseHookProc	/* proc */,
-    XPointer	/* arg */
-#endif
-);
+CloseHook XmuAddCloseDisplayHook
+(
+ Display		*dpy,
+ XmuCloseHookProc	proc,
+ XPointer		arg
+ );
 
-extern Bool XmuLookupCloseDisplayHook(
-#if NeedFunctionPrototypes
-    Display *	/* dpy */,
-    CloseHook	/* handle */,
-    XmuCloseHookProc	/* proc */,
-    XPointer	/* arg  */
-#endif
-);
+Bool XmuLookupCloseDisplayHook
+(
+ Display		*dpy,
+ CloseHook		handle,
+ XmuCloseHookProc	proc,
+ XPointer		arg
+ );
 
-extern Bool XmuRemoveCloseDisplayHook(
-#if NeedFunctionPrototypes
-    Display *	/* dpy */,
-    CloseHook	/* handle */,
-    XmuCloseHookProc	/* proc */,
-    XPointer	/* arg */
-#endif
-);
+Bool XmuRemoveCloseDisplayHook
+(
+ Display		*dpy,
+ CloseHook		handle,
+ XmuCloseHookProc	proc,
+ XPointer		arg
+ );
 
 _XFUNCPROTOEND
 

@@ -26,50 +26,102 @@ in this Software without prior written authorization from The Open Group.
 
 */
 
+/* $XFree86: xc/lib/Xmu/StrToOrnt.c,v 1.7 2001/12/14 19:55:52 dawes Exp $ */
+
 #include <X11/Intrinsic.h>
 #include <X11/StringDefs.h>
 #include "Converters.h"
 #include "CharSet.h"
 
+/*
+ * Prototypes
+ */
+static void InitializeQuarks(void);
 
-#define	done(address, type) \
-	{ (*toVal).size = sizeof(type); (*toVal).addr = (XPointer) address; }
+/*
+ * Initialization
+ */
+static	XrmQuark Qhorizontal, Qvertical;
+static Boolean haveQuarks;
 
-/* ARGSUSED */
+/*
+ * Implementation
+ */
+static void
+InitializeQuarks(void)
+{
+  if (!haveQuarks)
+    {
+      Qhorizontal = XrmPermStringToQuark(XtEhorizontal);
+      Qvertical = XrmPermStringToQuark(XtEvertical);
+      haveQuarks = True;
+    }
+}
+
+/*ARGSUSED*/
 void
-XmuCvtStringToOrientation(args, num_args, fromVal, toVal)
-    XrmValuePtr args;		/* unused */
-    Cardinal	*num_args;	/* unused */
-    XrmValuePtr	fromVal;
-    XrmValuePtr	toVal;
+XmuCvtStringToOrientation(XrmValuePtr args, Cardinal *num_args,
+			  XrmValuePtr fromVal, XrmValuePtr toVal)
 {
     static XtOrientation orient;
-    static	XrmQuark  XtQEhorizontal;
-    static	XrmQuark  XtQEvertical;
-    static	int	  haveQuarks = 0;
     XrmQuark	q;
-    char	lowerName[40];
+  char name[11];
 
-    if (!haveQuarks) {
-	XtQEhorizontal = XrmPermStringToQuark(XtEhorizontal);
-	XtQEvertical   = XrmPermStringToQuark(XtEvertical);
-	haveQuarks = 1;
+  InitializeQuarks();
+  XmuNCopyISOLatin1Lowered(name, (char *)fromVal->addr, sizeof(name));
+  q = XrmStringToQuark(name);
+
+  toVal->size = sizeof(XtJustify);
+  toVal->addr = (XPointer)&orient;
+
+  if (q == Qhorizontal)
+    	orient = XtorientHorizontal;
+  else if (q == Qvertical)
+    	orient = XtorientVertical;
+  else
+    {
+      toVal->addr = NULL;
+      XtStringConversionWarning((char *)fromVal->addr, XtROrientation);
+    }
+}
+
+/*ARGSUSED*/
+Boolean
+XmuCvtOrientationToString(Display *dpy, XrmValuePtr args, Cardinal *num_args,
+			  XrmValuePtr fromVal, XrmValuePtr toVal,
+			  XtPointer *data)
+{
+  static String buffer;
+  Cardinal size;
+
+  switch (*(XtOrientation *)fromVal->addr)
+    {
+    case XtorientVertical:
+      buffer = XtEvertical;
+      break;
+    case XtorientHorizontal:
+      buffer = XtEhorizontal;
+      break;
+    default:
+      XtWarning("Cannot convert Orientation to String");
+      toVal->addr = NULL;
+      toVal->size = 0;
+      return (False);
     }
 
-    if (strlen ((char*)fromVal->addr) < sizeof lowerName) {
-	XmuCopyISOLatin1Lowered(lowerName, (char *) fromVal->addr);
-	q = XrmStringToQuark(lowerName);
-	if (q == XtQEhorizontal) {
-    	    orient = XtorientHorizontal;
-	    done(&orient, XtOrientation);
-	    return;
+  size = strlen(buffer) + 1;
+  if (toVal->addr != NULL)
+    {
+      if (toVal->size < size)
+	{
+	  toVal->size = size;
+	  return (False);
 	}
-	if (q == XtQEvertical) {
-    	   orient = XtorientVertical;
-	   done(&orient, XtOrientation);
-	   return;
-	}
+      strcpy((char *)toVal->addr, buffer);
     }
-    toVal->size = 0;
-    toVal->addr = NULL;
+  else
+    toVal->addr = (XPointer)buffer;
+  toVal->size = sizeof(String);
+
+  return (True);
 }

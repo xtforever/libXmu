@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/VisCmap.c,v 1.7 2001/12/14 19:55:56 dawes Exp $ */
 
 /*
  * Author:  Donna Converse, MIT X Consortium
@@ -67,20 +68,24 @@ in this Software without prior written authorization from The Open Group.
  *	    RGB_GRAY_MAP
  */
 
-Status XmuVisualStandardColormaps(dpy, screen, visualid, depth, replace,
-				  retain)
-    Display		*dpy;		/* specifies server connection */
-    int			screen;		/* specifies screen number */
-    VisualID		visualid;	/* specifies the visual */
-    unsigned int	depth;		/* specifies the visual */
-    Bool		replace;	/* specifies whether to replace */
-    Bool		retain;		/* specifies whether to retain */
+Status
+XmuVisualStandardColormaps(Display *dpy, int screen, VisualID visualid,
+			   unsigned int depth, Bool replace, Bool retain)
+     /*
+      * dpy			- specifies server connection
+      * screen			- specifies screen number
+      * visualid		- specifies the visual
+      * depth			- specifies the visual
+      * replace	specifies	- whether to replace
+      * retain			- specifies whether to retain
+      */
 {
     Status		status;
     int			n;
     long		vinfo_mask;
     XVisualInfo		vinfo_template, *vinfo;
-        
+
+    status = 0;
     vinfo_template.screen = screen;
     vinfo_template.visualid = visualid;
     vinfo_template.depth = depth;
@@ -158,7 +163,7 @@ Status XmuVisualStandardColormaps(dpy, screen, visualid, depth, replace,
 					   XA_RGB_DEFAULT_MAP, replace,
 					   retain);
 	if (! status) break;
-	/* fall through */
+	/*FALLTHROUGH*/
 
       case StaticGray:
 

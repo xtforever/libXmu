@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/Atoms.c,v 3.8 2001/12/14 19:55:33 dawes Exp $ */
 
 /*
  * This file contains routines to cache atoms, avoiding multiple
@@ -59,7 +60,7 @@ struct _AtomRec {
 #define STATIC static
 #endif
 
-#if (defined(__STDC__) && !defined(UNIXCPP)) || defined(ANSICPP)
+#if !defined(UNIXCPP) || defined(ANSICPP)
 #define DeclareAtom(atom,text) \
 STATIC struct _AtomRec __##atom = { text, NULL }; \
 AtomPtr _##atom = &__##atom;
@@ -91,6 +92,7 @@ DeclareAtom(XA_TARGETS,			"TARGETS"		)
 DeclareAtom(XA_TEXT,			"TEXT"			)
 DeclareAtom(XA_TIMESTAMP,		"TIMESTAMP"		)
 DeclareAtom(XA_USER,			"USER"			)
+DeclareAtom(XA_UTF8_STRING,		"UTF8_STRING"		)
 
 /******************************************************************
 
@@ -99,12 +101,8 @@ DeclareAtom(XA_USER,			"USER"			)
  ******************************************************************/
 
 
-#if NeedFunctionPrototypes
-AtomPtr XmuMakeAtom(_Xconst char *name)
-#else
-AtomPtr XmuMakeAtom(name)
-    char* name;
-#endif
+AtomPtr
+XmuMakeAtom(_Xconst char *name)
 {
     AtomPtr ptr = XtNew(struct _AtomRec);
     ptr->name = (char *) name;
@@ -112,16 +110,15 @@ AtomPtr XmuMakeAtom(name)
     return ptr;
 }
 
-char* XmuNameOfAtom(atom_ptr)
-    AtomPtr atom_ptr;
+char *
+XmuNameOfAtom(AtomPtr atom_ptr)
 {
     return atom_ptr->name;
 }
 
 
-Atom XmuInternAtom(d, atom_ptr)
-    Display *d;
-    AtomPtr atom_ptr;
+Atom
+XmuInternAtom(Display *d, AtomPtr atom_ptr)
 {
     DisplayRec* display_rec;
     for (display_rec = atom_ptr->head; display_rec != NULL;
@@ -138,20 +135,17 @@ Atom XmuInternAtom(d, atom_ptr)
 }
 
 
-char *XmuGetAtomName(d, atom)
-    Display *d;
-    Atom atom;
+char *
+XmuGetAtomName(Display *d, Atom atom)
 {
-    if (atom == 0) return "(BadAtom)";
+    if (atom == 0) return (NULL);
     return XGetAtomName(d, atom);
 }
 
 /* convert (names, count) to a list of atoms. Caller allocates list */
-void XmuInternStrings(d, names, count, atoms)
-    Display *d;
-    register String *names;
-    register Cardinal count;
-    register Atom *atoms;		/* return */
+void
+XmuInternStrings(Display *d, register String *names,
+		 register Cardinal count, register Atom *atoms)
 {
     (void) XInternAtoms(d, (char**)names, (int)count, FALSE, atoms);
 }

@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/ScrOfWin.c,v 1.7 2001/12/14 19:55:48 dawes Exp $ */
 
 /*
  * Author:  Jim Fulton, MIT X Consortium
@@ -32,11 +33,10 @@ in this Software without prior written authorization from The Open Group.
 
 #include <stdio.h>
 #include <X11/Xlib.h>
+#include <X11/Xmu/WinUtil.h>
 
-
-Screen *XmuScreenOfWindow (dpy, w)
-    Display *dpy;
-    Window w;
+Screen *
+XmuScreenOfWindow(Display *dpy, Window w)
 {
     register int i;
     Window root;

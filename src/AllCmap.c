@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/AllCmap.c,v 1.8 2001/12/14 19:55:32 dawes Exp $ */
 
 #include <stdio.h>
 #include <X11/Xlib.h>
@@ -32,7 +33,7 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/Xutil.h>
 #include <X11/Xmu/StdCmap.h>
  
-static XVisualInfo *getDeepestVisual();
+static XVisualInfo *getDeepestVisual(int, XVisualInfo*, int);
 
 /*
  * To create all of the appropriate standard colormaps for every visual of
@@ -87,14 +88,15 @@ static XVisualInfo *getDeepestVisual();
  * standard colormaps are meaningful under these classes of visuals.
  */
 
-Status XmuAllStandardColormaps(dpy)
-    Display	*dpy;		/* Specifies the connection to the X server */
+Status
+XmuAllStandardColormaps(Display *dpy)
 {
     int 	nvisuals, scr;
     Status	status;
     long	vinfo_mask;
     XVisualInfo	template, *vinfo, *v1, *v2;
-    
+
+    status = 0;
     /* for each screen, determine all visuals of this server */
     for (scr=0; scr < ScreenCount(dpy); scr++)
     {
@@ -135,13 +137,11 @@ Status XmuAllStandardColormaps(dpy)
     return status;
 }
 
-static XVisualInfo *getDeepestVisual(visual_class, vinfo, nvisuals)
-    int		visual_class;	/* specifies the visual class */
-    XVisualInfo	*vinfo;		/* specifies all visuals for a screen */
-    int		nvisuals;	/* specifies number of visuals in the list */
+static XVisualInfo *
+getDeepestVisual(int visual_class, XVisualInfo *vinfo, int nvisuals)
 {
     register int	i;
-    unsigned int	maxdepth = 0;
+    register int	maxdepth = 0;
     XVisualInfo		*v = NULL;
     
     for (i=0; i < nvisuals; i++, vinfo++)

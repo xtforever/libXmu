@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/DelCmap.c,v 1.7 2001/12/14 19:55:40 dawes Exp $ */
 
 /*
  * Author:  Donna Converse, MIT X Consortium
@@ -32,6 +33,7 @@ in this Software without prior written authorization from The Open Group.
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
+#include <X11/Xmu/StdCmap.h>
 
 /* To remove any standard colormap property, use XmuDeleteStandardColormap().
  * XmuDeleteStandardColormap() will remove the specified property from the
@@ -39,10 +41,12 @@ in this Software without prior written authorization from The Open Group.
  * property if possible.
  */
 
-void XmuDeleteStandardColormap(dpy, screen, property)
-    Display	*dpy;		/* specifies the X server to connect to */
-    int		screen;		/* specifies the screen of the display */
-    Atom	property;	/* specifies the standard colormap property */
+void
+XmuDeleteStandardColormap(Display *dpy, int screen, Atom property)
+     /* dpy;		- specifies the X server to connect to
+      * screen		- specifies the screen of the display
+      * property	- specifies the standard colormap property
+      */
 {
     XStandardColormap	*stdcmaps, *s;
     int			count = 0;

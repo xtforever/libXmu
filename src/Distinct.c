@@ -25,12 +25,16 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/Xmu/Distinct.c,v 3.6 2001/12/14 19:55:41 dawes Exp $ */
 
 /*
  * Author:  Keith Packard, MIT X Consortium
  */
 
-# include   <X11/Xlib.h>
+#include <X11/Xlib.h>
+#include <stdlib.h>
+#include <X11/Xutil.h>
+#include <X11/Xmu/StdCmap.h>
 
 /*
  * Distinguishable colors routine.  Determines if two colors are
@@ -40,9 +44,7 @@ in this Software without prior written authorization from The Open Group.
 #define MIN_DISTINGUISH	10000.0
 
 Bool
-XmuDistinguishableColors (colors, count)
-XColor	*colors;
-int	count;
+XmuDistinguishableColors(XColor	*colors, int count)
 {
     double	    deltaRed, deltaGreen, deltaBlue;
     double	    dist;
@@ -64,11 +66,8 @@ int	count;
 }
 
 Bool
-XmuDistinguishablePixels (dpy, cmap, pixels, count)
-    Display	    *dpy;
-    Colormap	    cmap;
-    unsigned long   *pixels;
-    int		    count;
+XmuDistinguishablePixels(Display *dpy, Colormap cmap,
+			 unsigned long *pixels, int  count)
 {
     XColor  *defs;
     int	    i, j;
