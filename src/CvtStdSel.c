@@ -36,6 +36,9 @@ in this Software without prior written authorization from The Open Group.
  */
 
 #ifdef SYSVNET
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 #include <interlan/il_types.h>
 #define __TYPES__		/* prevent #include <sys/types.h> in Xlib.h */
 #include <interlan/netdb.h>
