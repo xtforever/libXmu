@@ -31,6 +31,10 @@ PKG_CHECK_MODULES(XMUU, x11)
 AC_SUBST(XMUU_CFLAGS)
 AC_SUBST(XMUU_LIBS)
 
+# CvtStdSel.c needs to know which network transports to build hostname
+# conversion routines for
+XTRANS_CONNECTION_FLAGS
+
 #
 # Assume that we have sprintf. If a system shows up
 # that doesn't, we will deal with it at that point.
