@@ -1,4 +1,5 @@
 /* $Xorg: CvtStdSel.c,v 1.4 2001/02/09 02:03:52 xorgcvs Exp $ */
+/* $XdotOrg: $ */
 
 /*
  
@@ -35,10 +36,11 @@ in this Software without prior written authorization from The Open Group.
  *	XmuConvertStandardSelection()	return a known selection
  */
 
-#ifdef SYSVNET
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
+
+#ifdef SYSVNET
 #include <interlan/il_types.h>
 #define __TYPES__		/* prevent #include <sys/types.h> in Xlib.h */
 #include <interlan/netdb.h>
