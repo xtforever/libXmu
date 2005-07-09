@@ -1,0 +1,7 @@
+.deps
+.libs
+libXmu.la
+libXmuu.la
+*.lo
+Makefile
+Makefile.in

@@ -1,3 +1,10 @@
+2005-07-08  Keith Packard  <keithp@keithp.com>
+
+	* .cvsignore:
+	* include/.cvsignore:
+	* src/.cvsignore:
+	Add .cvsignore files
+
 2005-05-21  Alan Coopersmith  <alan.coopersmith@sun.com>
 
 	* configure.ac:
