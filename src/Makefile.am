@@ -5,8 +5,8 @@ AM_CFLAGS = \
 	-I${top_srcdir}/include/X11/Xmu \
 	$(XMU_CFLAGS)
 
-libXmu_la_LDFLAGS = -version-number 6:2:1
-libXmuu_la_LDFLAGS = -version-number 1:0:1
+libXmu_la_LDFLAGS = -version-number 6:2:0
+libXmuu_la_LDFLAGS = -version-number 1:0:0
 
 libXmu_la_LIBADD = $(XMU_LIBS)
 libXmuu_la_LIBADD = $(XMUU_LIBS)
