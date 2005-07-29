@@ -4,10 +4,9 @@
 
 AC_PREREQ(2.57)
 
-# todo: figure out the versioning
 AC_INIT([libXmu],
-        6.2.3,
-        [reed@reedmedia.net],
+        0.99.0,
+        [https://bugs.freedesktop.org/enter_bug.cgi?product=xorg],
         libXmu)
 
 AC_CONFIG_SRCDIR([Makefile.am])
@@ -51,6 +50,8 @@ XTRANS_CONNECTION_FLAGS
 
 AC_DEFINE(HAS_SNPRINTF, [], [Whether we have snprintf()])
 AC_SUBST(HAS_SNPRINTF)
+
+XORG_RELEASE_VERSION
 
 AC_OUTPUT([Makefile
            include/Makefile
