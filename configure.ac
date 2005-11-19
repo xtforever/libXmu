@@ -22,7 +22,7 @@ AC_PROG_LIBTOOL
 AC_PROG_CC
 
 # Checks for pkg-config packages
-PKG_CHECK_MODULES(XMU, xt xext)
+PKG_CHECK_MODULES(XMU, xt xext xextproto)
 AC_SUBST(XMU_CFLAGS)
 AC_SUBST(XMU_LIBS)
 

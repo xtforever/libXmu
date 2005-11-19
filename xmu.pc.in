@@ -6,5 +6,7 @@ includedir=@includedir@
 Name: Xmu
 Description: Xmu Library
 Version: @PACKAGE_VERSION@
-Libs: -L${libdir} -lXmu @XMU_LIBS@
-Cflags: -I${includedir} @XMU_CFLAGS@
+Requires: xproto x11 xt
+Requires.private: x11 xt xext
+Cflags: -I${includedir}
+Libs: -L${libdir} -lXmu
