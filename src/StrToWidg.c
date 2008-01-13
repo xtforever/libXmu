@@ -63,8 +63,11 @@ XmuCvtStringToWidget(XrmValuePtr args, Cardinal *num_args,
     int i;
 
     if (*num_args != 1)
+    {
+	i = 0;
 	XtErrorMsg("wrongParameters", "cvtStringToWidget", "xtToolkitError",
-		   "StringToWidget conversion needs parent arg", NULL, 0);
+		   "StringToWidget conversion needs parent arg", NULL, &i);
+    }
 
     parent = *(Widget*)args[0].addr;
     /* try to match names of normal children */
