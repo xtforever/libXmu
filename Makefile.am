@@ -1,5 +1,3 @@
-# $Id$
-
 SUBDIRS = include src
 
 pkgconfigdir = $(libdir)/pkgconfig
