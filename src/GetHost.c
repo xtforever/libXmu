@@ -41,6 +41,7 @@ in this Software without prior written authorization from The Open Group.
 #include <unistd.h>
 
 #ifdef WIN32
+#include <X11/Xlibint.h>
 #include <X11/Xwinsock.h>
 #endif
 
