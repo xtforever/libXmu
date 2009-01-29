@@ -1611,7 +1611,7 @@ InsertWidget(ProtocolStream *stream, Widget w)
   unsigned long *widget_list;
     register int i, num_widgets;
 
-  for (temp = w, i = 0; temp != 0; temp = XtParent(temp), i++)
+  for (temp = w, i = 0; temp != NULL; temp = XtParent(temp), i++)
     ;
 
     num_widgets = i;
