@@ -8,7 +8,6 @@ EXTRA_DIST = \
 	xmuu.pc.in \
 	include/X11/Xmu/WhitePoint.h \
 	ChangeLog
-MAINTAINERCLEANFILES = ChangeLog
 
 .PHONY: ChangeLog
 
