@@ -2,12 +2,12 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.57)
+AC_PREREQ([2.60])
 
 AC_INIT([libXmu],
-        1.0.5,
+        [1.0.5],
         [https://bugs.freedesktop.org/enter_bug.cgi?product=xorg],
-        libXmu)
+        [libXmu])
 
 AC_CONFIG_SRCDIR([Makefile.am])
 AC_CONFIG_AUX_DIR(.)
