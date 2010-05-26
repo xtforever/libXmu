@@ -4,7 +4,6 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = xmu.pc xmuu.pc
 
 MAINTAINERCLEANFILES = ChangeLog INSTALL
-EXTRA_DIST = include/X11/Xmu/WhitePoint.h
 
 .PHONY: ChangeLog INSTALL
 
