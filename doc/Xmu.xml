@@ -61,7 +61,7 @@ and widgets.  This library is required by the Athena Widgets.
     <title>Atom Functions</title>
 
     <para>
-The use the functions and macros defined in this section, you should include
+To use the functions and macros defined in this section, you should include
 the header file
 &lt;<filename class='headerfile'>X11/Xmu/Atoms.h</filename>&gt;.
     </para>
@@ -1943,7 +1943,7 @@ The origin of the widget within its parent remains unchanged.
 	<varlistentry>
 	  <term><parameter>args</parameter></term>
 	  <listitem><para>
-this sole argument is the parent Widget
+the sole argument is the parent Widget
 	    </para></listitem>
 	</varlistentry>
 	<varlistentry>
@@ -2009,7 +2009,7 @@ the display to use for conversion warnings
 	<varlistentry>
 	  <term><parameter>args</parameter></term>
 	  <listitem><para>
-this sole argument is the parent Widget
+the sole argument is the parent Widget
 	    </para></listitem>
 	</varlistentry>
 	<varlistentry>
@@ -4063,7 +4063,7 @@ specifies a list of widget classes, in alphabetical order
 	<varlistentry>
 	  <term><parameter>num_nodes</parameter></term>
 	  <listitem><para>
-specfies the number of widget classes in the node array
+specifies the number of widget classes in the node array
 	    </para></listitem>
 	</varlistentry>
       </variablelist>
