@@ -22,10 +22,10 @@
 #
 
 if ENABLE_DOCS
-doc_DATA =  Xmu.xml
+dist_doc_DATA = Xmu.xml
 
 if HAVE_XMLTO
-doc_DATA += Xmu.txt Xmu.html $(srcdir)/Xmu.css
+doc_DATA = Xmu.txt Xmu.html $(srcdir)/Xmu.css
 
 if HAVE_FOP
 doc_DATA += Xmu.pdf Xmu.ps
