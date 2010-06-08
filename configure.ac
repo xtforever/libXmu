@@ -15,11 +15,15 @@ AM_INIT_AUTOMAKE([foreign dist-bzip2])
 
 AM_MAINTAINER_MODE
 
-# Require xorg-macros: XORG_DEFAULT_OPTIONS
+# Require xorg-macros: XORG_DEFAULT_OPTIONS, XORG_ENABLE_DOCS & friends
 m4_ifndef([XORG_MACROS_VERSION],
-          [m4_fatal([must install xorg-macros 1.3 or later before running autoconf/autogen])])
-XORG_MACROS_VERSION(1.3)
+          [m4_fatal([must install xorg-macros 1.6 or later before running autoconf/autogen])])
+XORG_MACROS_VERSION(1.6)
 XORG_DEFAULT_OPTIONS
+XORG_ENABLE_DOCS
+XORG_WITH_XMLTO(0.0.20)
+XORG_WITH_FOP
+
 AM_CONFIG_HEADER([config.h])
 
 
@@ -64,6 +68,7 @@ LINTLIBUU=`echo $LINTLIB | sed s/Xmu/Xmuu/`
 AC_SUBST(LINTLIBUU)
 
 AC_OUTPUT([Makefile
+           doc/Makefile
            include/Makefile
 	   src/Makefile
 	   xmu.pc

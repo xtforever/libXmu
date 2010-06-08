@@ -1,4 +1,4 @@
-SUBDIRS = include src
+SUBDIRS = include src doc
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = xmu.pc xmuu.pc

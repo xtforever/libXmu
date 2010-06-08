@@ -76,3 +76,7 @@ core
 #		Edit the following section as needed
 # For example, !report.pc overrides *.pc. See 'man gitignore'
 # 
+doc/Xmu.txt
+doc/Xmu.html
+doc/Xmu.pdf
+doc/Xmu.ps
