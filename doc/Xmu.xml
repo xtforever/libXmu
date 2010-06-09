@@ -176,7 +176,7 @@ another round-trip to the server.
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>AtomPtr <function>XmuMakeAtom</function></funcdef>
-	  <paramdef>char *<parameter>name</parameter></paramdef>
+	  <paramdef>const char *<parameter>name</parameter></paramdef>
 	</funcprototype>
       </funcsynopsis>
       <variablelist>
@@ -221,13 +221,13 @@ The function returns the name of an AtomPtr.
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Atom <function>XmuInternAtom</function></funcdef>
-	  <paramdef>Display *<parameter>d</parameter></paramdef>
+	  <paramdef>Display *<parameter>dpy</parameter></paramdef>
 	  <paramdef>AtomPtr <parameter>atom_ptr</parameter></paramdef>
 	</funcprototype>
       </funcsynopsis>
       <variablelist>
 	<varlistentry>
-	  <term><parameter>d</parameter></term>
+	  <term><parameter>dpy</parameter></term>
 	  <listitem><para>
 specifies the connection to the X server
 	    </para></listitem>
@@ -254,13 +254,13 @@ such that subsequent requests do not cause another round-trip to the server.
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>char *<function>XmuGetAtomName</function></funcdef>
-	  <paramdef>Display *<parameter>d</parameter></paramdef>
+	  <paramdef>Display *<parameter>dpy</parameter></paramdef>
 	  <paramdef>Atom <parameter>atom</parameter></paramdef>
 	</funcprototype>
       </funcsynopsis>
       <variablelist>
 	<varlistentry>
-	  <term><parameter>d</parameter></term>
+	  <term><parameter>dpy</parameter></term>
 	  <listitem><para>
 specifies the connection to the X server
 	   </para></listitem>
@@ -283,7 +283,7 @@ requests do not cause another round-trip to the server.
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuInternStrings</function></funcdef>
-	  <paramdef>Display *<parameter>d</parameter></paramdef>
+	  <paramdef>Display *<parameter>dpy</parameter></paramdef>
 	  <paramdef>String *<parameter>names</parameter></paramdef>
 	  <paramdef>Cardinal <parameter>count</parameter></paramdef>
 	  <paramdef>Atom *<parameter>atoms</parameter></paramdef>
@@ -291,7 +291,7 @@ requests do not cause another round-trip to the server.
       </funcsynopsis>
       <variablelist>
 	<varlistentry>
-	  <term><parameter>d</parameter></term>
+	  <term><parameter>dpy</parameter></term>
 	  <listitem><para>
 specifies the connection to the X server
 	   </para></listitem>
@@ -618,7 +618,7 @@ file
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuCursorNameToIndex</function></funcdef>
-	  <paramdef>char *<parameter>name</parameter></paramdef>
+	  <paramdef>const char *<parameter>name</parameter></paramdef>
 	</funcprototype>
       </funcsynopsis>
       <variablelist>
@@ -1021,7 +1021,7 @@ interpretation as the return value for
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuReadBitmapDataFromFile</function></funcdef>
-	  <paramdef>char *<parameter>filename</parameter></paramdef>
+	  <paramdef>const char *<parameter>filename</parameter></paramdef>
 	  <paramdef>unsigned int *<parameter>width</parameter></paramdef>
 	  <paramdef>unsigned int *<parameter>height</parameter></paramdef>
 	  <paramdef>unsigned char **<parameter>datap</parameter></paramdef>
@@ -1081,7 +1081,7 @@ interpretation as the return value for
 	<funcprototype>
 	  <funcdef>Pixmap <function>XmuLocateBitmapFile</function></funcdef>
 	  <paramdef>Screen *<parameter>screen</parameter></paramdef>
-	  <paramdef>char *<parameter>name</parameter></paramdef>
+	  <paramdef>const char *<parameter>name</parameter></paramdef>
 	  <paramdef>char *<parameter>srcname</parameter></paramdef>
 	  <paramdef>int <parameter>srcnamelen</parameter></paramdef>
 	  <paramdef>int *<parameter>widthp</parameter></paramdef>
@@ -1245,7 +1245,7 @@ file
 	  <paramdef>Atom *<parameter>selection</parameter></paramdef>
 	  <paramdef>Atom *<parameter>target</parameter></paramdef>
 	  <paramdef>Atom *<parameter>type</parameter></paramdef>
-	  <paramdef>caddr_t *<parameter>value</parameter></paramdef>
+	  <paramdef>XPointer <parameter>value</parameter></paramdef>
 	  <paramdef>unsigned long *<parameter>length</parameter></paramdef>
 	  <paramdef>int *<parameter>format</parameter></paramdef>
 	</funcprototype>
@@ -2112,10 +2112,9 @@ file
 </para>
 
     <warning><para>
-The functions in this section are <emphasis remap='B'>deprecated</emphasis> because they don't work
-in most locales now supported by X11; the function
-<function>XmbLookupString</function>
-provides a better alternative.
+The functions in this section are <emphasis remap='B'>deprecated</emphasis>
+because they don't work in most locales now supported by X11; most platforms
+provide alternatives in their system libraries.
       </para></warning>
 
     <para>
@@ -2123,7 +2122,7 @@ provides a better alternative.
 	<funcprototype>
 	  <funcdef>void <function>XmuCopyISOLatin1Lowered</function></funcdef>
 	  <paramdef>char *<parameter>dst</parameter></paramdef>
-	  <paramdef>char *<parameter>src</parameter></paramdef>
+	  <paramdef>const char *<parameter>src</parameter></paramdef>
 	</funcprototype>
       </funcsynopsis>
       <variablelist>
@@ -2151,7 +2150,7 @@ assumed to be encoded using ISO 8859-1.
 	<funcprototype>
 	  <funcdef>void <function>XmuCopyISOLatin1Uppered</function></funcdef>
 	  <paramdef>char *<parameter>dst</parameter></paramdef>
-	  <paramdef>char *<parameter>src</parameter></paramdef>
+	  <paramdef>const char *<parameter>src</parameter></paramdef>
 	</funcprototype>
       </funcsynopsis>
       <variablelist>
@@ -2178,8 +2177,8 @@ assumed to be encoded using ISO 8859-1.
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuCompareISOLatin1</function></funcdef>
-	  <paramdef>char *<parameter>first</parameter></paramdef>
-	  <paramdef>char *<parameter>second</parameter></paramdef>
+	  <paramdef>const char *<parameter>first</parameter></paramdef>
+	  <paramdef>const char *<parameter>second</parameter></paramdef>
 	</funcprototype>
       </funcsynopsis>
       <variablelist>
@@ -2203,13 +2202,30 @@ according to whether first is lexicographically greater than, equal to, or
 less than second.  The two strings are assumed to be encoded using ISO
 8859-1.
     </para>
+  </sect1>
+
+  <sect1 id='keyboard_event'>
+    <title>Keyboard Event Translation Functions</title>
+
+<para>
+To use the functions defined in this section, you should include the header
+file
+&lt;<filename class='headerfile'>X11/Xmu/Lookup.h</filename>&gt;.
+</para>
+
+    <warning><para>
+The functions in this section are <emphasis remap='B'>deprecated</emphasis> because they don't work
+in most locales now supported by X11; the function
+<function>XmbLookupString</function>
+provides a better alternative.
+      </para></warning>
 
     <para>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupLatin1</function></funcdef>
 	  <paramdef>XKeyEvent *<parameter>event</parameter></paramdef>
-	  <paramdef>char *<parameter>buffer</parameter></paramdef>
+	  <paramdef>unsigned char *<parameter>buffer</parameter></paramdef>
 	  <paramdef>int <parameter>nbytes</parameter></paramdef>
 	  <paramdef>KeySym *<parameter>keysym</parameter></paramdef>
 	  <paramdef>XComposeStatus *<parameter>status</parameter></paramdef>
@@ -2258,7 +2274,7 @@ and exists only for naming symmetry with other functions.
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupLatin2</function></funcdef>
 	  <paramdef>XKeyEvent *<parameter>event</parameter></paramdef>
-	  <paramdef>char *<parameter>buffer</parameter></paramdef>
+	  <paramdef>unsigned char *<parameter>buffer</parameter></paramdef>
 	  <paramdef>int <parameter>nbytes</parameter></paramdef>
 	  <paramdef>KeySym *<parameter>keysym</parameter></paramdef>
 	  <paramdef>XComposeStatus *<parameter>status</parameter></paramdef>
@@ -2308,7 +2324,7 @@ to an Latin-2 (ISO 8859-2) string, or to an ASCII control string.
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupLatin3</function></funcdef>
 	  <paramdef>XKeyEvent *<parameter>event</parameter></paramdef>
-	  <paramdef>char *<parameter>buffer</parameter></paramdef>
+	  <paramdef>unsigned char *<parameter>buffer</parameter></paramdef>
 	  <paramdef>int <parameter>nbytes</parameter></paramdef>
 	  <paramdef>KeySym *<parameter>keysym</parameter></paramdef>
 	  <paramdef>XComposeStatus *<parameter>status</parameter></paramdef>
@@ -2358,7 +2374,7 @@ to an Latin-3 (ISO 8859-3) string, or to an ASCII control string.
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupLatin4</function></funcdef>
 	  <paramdef>XKeyEvent *<parameter>event</parameter></paramdef>
-	  <paramdef>char *<parameter>buffer</parameter></paramdef>
+	  <paramdef>unsigned char *<parameter>buffer</parameter></paramdef>
 	  <paramdef>int <parameter>nbytes</parameter></paramdef>
 	  <paramdef>KeySym *<parameter>keysym</parameter></paramdef>
 	  <paramdef>XComposeStatus *<parameter>status</parameter></paramdef>
@@ -2408,7 +2424,7 @@ to an Latin-4 (ISO 8859-4) string, or to an ASCII control string.
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupKana</function></funcdef>
 	  <paramdef>XKeyEvent *<parameter>event</parameter></paramdef>
-	  <paramdef>char *<parameter>buffer</parameter></paramdef>
+	  <paramdef>unsigned char *<parameter>buffer</parameter></paramdef>
 	  <paramdef>int <parameter>nbytes</parameter></paramdef>
 	  <paramdef>KeySym *<parameter>keysym</parameter></paramdef>
 	  <paramdef>XComposeStatus *<parameter>status</parameter></paramdef>
@@ -2461,7 +2477,7 @@ X201-1976.
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupJISX0201</function></funcdef>
 	  <paramdef>XKeyEvent *<parameter>event</parameter></paramdef>
-	  <paramdef>char *<parameter>buffer</parameter></paramdef>
+	  <paramdef>unsigned char *<parameter>buffer</parameter></paramdef>
 	  <paramdef>int <parameter>nbytes</parameter></paramdef>
 	  <paramdef>KeySym *<parameter>keysym</parameter></paramdef>
 	  <paramdef>XComposeStatus *<parameter>status</parameter></paramdef>
@@ -2511,7 +2527,7 @@ to a string in the JIS X0201-1976 encoding, including ASCII control.
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupArabic</function></funcdef>
 	  <paramdef>XKeyEvent *<parameter>event</parameter></paramdef>
-	  <paramdef>char *<parameter>buffer</parameter></paramdef>
+	  <paramdef>unsigned char *<parameter>buffer</parameter></paramdef>
 	  <paramdef>int <parameter>nbytes</parameter></paramdef>
 	  <paramdef>KeySym *<parameter>keysym</parameter></paramdef>
 	  <paramdef>XComposeStatus *<parameter>status</parameter></paramdef>
@@ -2561,7 +2577,7 @@ to a Latin/Arabic (ISO 8859-6) string, or to an ASCII control string.
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupCyrillic</function></funcdef>
 	  <paramdef>XKeyEvent *<parameter>event</parameter></paramdef>
-	  <paramdef>char *<parameter>buffer</parameter></paramdef>
+	  <paramdef>unsigned char *<parameter>buffer</parameter></paramdef>
 	  <paramdef>int <parameter>nbytes</parameter></paramdef>
 	  <paramdef>KeySym *<parameter>keysym</parameter></paramdef>
 	  <paramdef>XComposeStatus *<parameter>status</parameter></paramdef>
@@ -2611,7 +2627,7 @@ to a Latin/Cyrillic (ISO 8859-5) string, or to an ASCII control string.
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupGreek</function></funcdef>
 	  <paramdef>XKeyEvent *<parameter>event</parameter></paramdef>
-	  <paramdef>char *<parameter>buffer</parameter></paramdef>
+	  <paramdef>unsigned char *<parameter>buffer</parameter></paramdef>
 	  <paramdef>int <parameter>nbytes</parameter></paramdef>
 	  <paramdef>KeySym *<parameter>keysym</parameter></paramdef>
 	  <paramdef>XComposeStatus *<parameter>status</parameter></paramdef>
@@ -2661,7 +2677,7 @@ to a Latin/Greek (ISO 8859-7) string, or to an ASCII control string.
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupHebrew</function></funcdef>
 	  <paramdef>XKeyEvent *<parameter>event</parameter></paramdef>
-	  <paramdef>char *<parameter>buffer</parameter></paramdef>
+	  <paramdef>unsigned char *<parameter>buffer</parameter></paramdef>
 	  <paramdef>int <parameter>nbytes</parameter></paramdef>
 	  <paramdef>KeySym *<parameter>keysym</parameter></paramdef>
 	  <paramdef>XComposeStatus *<parameter>status</parameter></paramdef>
@@ -2711,7 +2727,7 @@ to a Latin/Hebrew (ISO 8859-8) string, or to an ASCII control string.
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupAPL</function></funcdef>
 	  <paramdef>XKeyEvent *<parameter>event</parameter></paramdef>
-	  <paramdef>char *<parameter>buffer</parameter></paramdef>
+	  <paramdef>unsigned char *<parameter>buffer</parameter></paramdef>
 	  <paramdef>int <parameter>nbytes</parameter></paramdef>
 	  <paramdef>KeySym *<parameter>keysym</parameter></paramdef>
 	  <paramdef>XComposeStatus *<parameter>status</parameter></paramdef>
@@ -2787,7 +2803,7 @@ A Compound Text string is represented as the following type:
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>XctData <function>XctCreate</function></funcdef>
-	  <paramdef>XctString <parameter>string</parameter></paramdef>
+	  <paramdef>const XctString <parameter>string</parameter></paramdef>
 	  <paramdef>int <parameter>length</parameter></paramdef>
 	  <paramdef>XctFlags <parameter>flags</parameter></paramdef>
 	</funcprototype>
@@ -3111,8 +3127,8 @@ file
 	  <funcdef>CloseHook <function>XmuAddCloseDisplayHook</function></funcdef>
 	  <paramdef>Display *<parameter>dpy</parameter></paramdef>
 	  <paramdef>int <parameter>( *func )</parameter>
-	    <funcparams>Display *, caddr_t</funcparams></paramdef>
-	  <paramdef>caddr_t <parameter>arg</parameter></paramdef>
+	    <funcparams>Display *, XPointer</funcparams></paramdef>
+	  <paramdef>XPointer <parameter>arg</parameter></paramdef>
 	</funcprototype>
       </funcsynopsis>
       <variablelist>
@@ -3163,8 +3179,8 @@ returns an opaque handle that can be used to remove or lookup the callback.
 	  <paramdef>Display *<parameter>dpy</parameter></paramdef>
 	  <paramdef>CloseHook <parameter>handle</parameter></paramdef>
 	  <paramdef>int <parameter>( *func )</parameter>
-	    <funcparams>Display *, caddr_t</funcparams></paramdef>
-	  <paramdef>caddr_t <parameter>arg</parameter></paramdef>
+	    <funcparams>Display *, XPointer</funcparams></paramdef>
+	  <paramdef>XPointer <parameter>arg</parameter></paramdef>
 	</funcprototype>
       </funcsynopsis>
       <variablelist>
@@ -3212,8 +3228,8 @@ if a callback was removed, else returns
 	  <paramdef>Display *<parameter>dpy</parameter></paramdef>
 	  <paramdef>CloseHook <parameter>handle</parameter></paramdef>
 	  <paramdef>int <parameter>( *func )</parameter>
-	    <funcparams>Display *, caddr_t</funcparams></paramdef>
-	  <paramdef>caddr_t <parameter>arg</parameter></paramdef>
+	    <funcparams>Display *, XPointer</funcparams></paramdef>
+	  <paramdef>XPointer <parameter>arg</parameter></paramdef>
 	</funcprototype>
       </funcsynopsis>
       <variablelist>
@@ -3267,19 +3283,24 @@ header file
 It defines the following types:
 
       <synopsis>
+typedef int (*XmuCloseDisplayQueueProc)(XmuDisplayQueue *queue,
+                                        XmuDisplayQueueEntry *entry);
+
+typedef int (*XmuFreeDisplayQueueProc)(XmuDisplayQueue *queue);
+
 typedef struct _XmuDisplayQueueEntry {
 	struct _XmuDisplayQueueEntry *prev, *next;
 	Display *display;
 	CloseHook closehook;
-	caddr_t data;
+	XPointer data;
 } XmuDisplayQueueEntry;
 
 typedef struct _XmuDisplayQueue {
 	int nentries;
 	XmuDisplayQueueEntry *head, *tail;
-	int (*closefunc)();
-	int (*freefunc)();
-	caddr_t data;
+	XmuCloseDisplayQueueProc closefunc;
+	XmuFreeDisplayQueueProc freefunc;
+	XPointer data;
 } XmuDisplayQueue;
       </synopsis>
     </para>
@@ -3288,11 +3309,9 @@ typedef struct _XmuDisplayQueue {
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>XmuDisplayQueue *<function>XmuDQCreate</function></funcdef>
-	  <paramdef>int <parameter>( *closefunc )</parameter>
-	    <funcparams>XmuDisplayQueue *, XmuDisplayQueueEntry *</funcparams></paramdef>
-	  <paramdef>int <parameter>( *freefunc )</parameter>
-	    <funcparams>XmuDisplayQueue *</funcparams></paramdef>
-	  <paramdef>caddr_t <parameter>data</parameter></paramdef>
+	  <paramdef>XmuCloseDisplayQueueProc <parameter>closefunc</parameter></paramdef>
+	  <paramdef>XmuFreeDisplayQueueProc <parameter>freefunc</parameter></paramdef>
+	  <paramdef>XPointer <parameter>data</parameter></paramdef>
 	</funcprototype>
       </funcsynopsis>
       <variablelist>
@@ -3355,7 +3374,7 @@ The application is responsible for actually freeing the queue, by calling
 	  <funcdef>XmuDisplayQueueEntry *<function>XmuDQAddDisplay</function></funcdef>
 	  <paramdef>XmuDisplayQueue *<parameter>q</parameter></paramdef>
 	  <paramdef>Display *<parameter>dpy</parameter></paramdef>
-	  <paramdef>caddr_t <parameter>data</parameter></paramdef>
+	  <paramdef>XPointer <parameter>data</parameter></paramdef>
 	</funcprototype>
      </funcsynopsis>
 
@@ -3507,8 +3526,8 @@ file
 	<funcprototype>
 	  <funcdef>void <function>XmuAddInitializer</function></funcdef>
 	  <paramdef>void <parameter>( *func )</parameter>
-	    <funcparams>XtAppContext, caddr_t</funcparams></paramdef>
-	  <paramdef>caddr_t <parameter>data</parameter></paramdef>
+	    <funcparams>XtAppContext, XPointer</funcparams></paramdef>
+	  <paramdef>XPointer <parameter>data</parameter></paramdef>
 	</funcprototype>
       </funcsynopsis>
       <variablelist>
