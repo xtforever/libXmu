@@ -450,6 +450,38 @@ such as whether to call <function>gethostname</function> or
 <function>uname</function>.
     </para>
 
+    <para>
+      <funcsynopsis>
+	<funcprototype>
+	  <funcdef>int <function>XmuSnprintf</function></funcdef>
+	  <paramdef>char *<parameter>str</parameter></paramdef>
+	  <paramdef>int <parameter>size</parameter></paramdef>
+	  <paramdef><parameter>...</parameter></paramdef>
+	</funcprototype>
+      </funcsynopsis>
+     <variablelist>
+	<varlistentry>
+	  <term><parameter>str</parameter></term>
+	  <listitem><para>
+string to write output to
+	    </para></listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><parameter>size</parameter></term>
+	  <listitem><para>
+specifies the size of <parameter>str</parameter>
+	    </para></listitem>
+	</varlistentry>
+      </variablelist>
+
+This function was provided as a portable implementation of
+<function>snprintf</function> before all platforms could be
+relied on to provide their own.   It is now deprecated in favor of
+calling <function>snprintf</function> directly and should only be used
+in software that needs to continue to support non-Unix98 compliant platforms.
+    </para>
+
+
   </sect1>
 
   <sect1 id='window_utility_functions'>
