@@ -35,6 +35,7 @@ in this Software without prior written authorization from The Open Group.
 #ifndef _XMU_H_
 #define _XMU_H_
 
+#include <X11/Xfuncproto.h>
 #include <X11/Intrinsic.h>
 #include <X11/Xmu/Atoms.h>		/* _XA_... */
 #include <X11/Xmu/CharSet.h>		/* CopyISOLatin1Lowered */
@@ -117,11 +118,7 @@ XmuScanline *XmuScanlineXorSegment(XmuScanline*, XmuSegment*);
 
 #ifndef _SYSUTIL_H_
 int XmuSnprintf(char *str, int size, _Xconst char *fmt, ...)
-#if defined(__GNUC__) && \
-    ((__GNUC__ > 2) || ((__GNUC__ == 2) && (__GNUC_MINOR__ > 4)))
-__attribute((format(printf,3,4)))
-#endif
-;
+    _X_ATTRIBUTE_PRINTF(3,4);
 #endif
 
 #endif /* _XMU_H_ */
