@@ -22,7 +22,7 @@
 #
 
 if ENABLE_DOCS
-dist_doc_DATA = Xmu.xml
+dist_doc_DATA = Xmu.xml xlogo.svg
 
 if HAVE_XMLTO
 doc_DATA = Xmu.txt Xmu.html $(srcdir)/Xmu.css

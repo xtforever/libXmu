@@ -40,6 +40,7 @@ div.sect1 {
   background: #e6e6fa; /* #eeeeee; */
   border: 1px solid #aaaaaa;
   padding: 0.5em;
+  clear: both;
 }
 
 .programlisting { 
@@ -48,7 +49,7 @@ div.sect1 {
   padding-top: 0.5em;
 }
 
-.funcsynopsis p, table p, .synopsis p { 
+.funcsynopsis p, table p, .synopsis p, .figure p {
   margin: 0;
 }
 
@@ -75,3 +76,9 @@ h1, .author, .pubdate, .abstract {
   background: yellow;
   padding-left: 0.5em;
 }
+
+.figure-float {
+  float: right;
+  margin-left: 0.5em;
+}
+

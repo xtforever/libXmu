@@ -839,7 +839,17 @@ specifies the logo height
 	</varlistentry>
       </variablelist>
 
-This function draws the &ldquo;official&rdquo; X Window System logo.  The bounding box
+      <figure id="xlogo" float="1" pgwide="0">
+	<title>The X Logo</title>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata id="xlogo-svg" format="SVG" fileref="xlogo.svg"/>
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+This function draws the &ldquo;official&rdquo; X Window System logo
+(<xref linkend="xlogo"/>).  The bounding box
 of the logo in the drawable is given by x, y, width, and height.  The logo
 itself is filled using gcFore, and the rest of the rectangle is filled using
 gcBack.
