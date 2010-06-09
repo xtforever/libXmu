@@ -3098,7 +3098,7 @@ specifies the Compound Text structure
 	</variablelist>
 
 This function parses the next &ldquo;item&rdquo; from the Compound Text string.  The
-return value indicates what kind of item is returned.  The item itself, it's
+return value indicates what kind of item is returned.  The item itself, its
 length, and the current contextual state, are reported as components of the
 <type>XctData</type>
 structure.
@@ -3281,7 +3281,7 @@ argument as:
 
     <para>
 The function is declared to return an int even though the value is ignored,
-because some compilers have problems with functions returning void.
+because some compilers used to have problems with functions returning void.
     </para>
 
     <para>
