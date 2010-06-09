@@ -2146,6 +2146,49 @@ assumed to be encoded using ISO 8859-1.
     </para>
 
     <para>
+Note that like <function>strcpy</function> the caller is responsible for
+ensuring the size of <parameter>dst</parameter> is at least as large as the
+size of <parameter>src</parameter>.
+    </para>
+
+    <para>
+      <funcsynopsis>
+	<funcprototype>
+	  <funcdef>void <function>XmuNCopyISOLatin1Lowered</function></funcdef>
+	  <paramdef>char *<parameter>dst</parameter></paramdef>
+	  <paramdef>const char *<parameter>src</parameter></paramdef>
+	  <paramdef>int <parameter>size</parameter></paramdef>
+	</funcprototype>
+      </funcsynopsis>
+      <variablelist>
+	<varlistentry>
+	  <term><parameter>dst</parameter></term>
+	  <listitem><para>
+returns the string copy
+	    </para></listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><parameter>src</parameter></term>
+	  <listitem><para>
+specifies the string to copy
+	    </para></listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><parameter>size</parameter></term>
+	  <listitem><para>
+maximum number of characters (including the null terminator) to write to dst
+	    </para></listitem>
+	</varlistentry>
+      </variablelist>
+
+This function copies up to <code><parameter>size</parameter> - 1</code>
+characters of a null terminated string from <parameter>src</parameter>
+to <parameter>dst</parameter>, and terminates it with a null,
+changing all Latin-1 uppercase letters to lowercase.  The string is
+assumed to be encoded using ISO 8859-1.
+    </para>
+
+    <para>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuCopyISOLatin1Uppered</function></funcdef>
@@ -2170,6 +2213,49 @@ specifies the string to copy
 
 This function copies a null terminated string from src to dst (including the
 null), changing all Latin-1 lowercase letters to uppercase.  The string is
+assumed to be encoded using ISO 8859-1.
+    </para>
+
+    <para>
+Note that like <function>strcpy</function> the caller is responsible for
+ensuring the size of <parameter>dst</parameter> is at least as large as the
+size of <parameter>src</parameter>.
+    </para>
+
+    <para>
+      <funcsynopsis>
+	<funcprototype>
+	  <funcdef>void <function>XmuNCopyISOLatin1Uppered</function></funcdef>
+	  <paramdef>char *<parameter>dst</parameter></paramdef>
+	  <paramdef>const char *<parameter>src</parameter></paramdef>
+	  <paramdef>int <parameter>size</parameter></paramdef>
+	</funcprototype>
+      </funcsynopsis>
+      <variablelist>
+	<varlistentry>
+	  <term><parameter>dst</parameter></term>
+	  <listitem><para>
+returns the string copy
+	    </para></listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><parameter>src</parameter></term>
+	  <listitem><para>
+specifies the string to copy
+	    </para></listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><parameter>size</parameter></term>
+	  <listitem><para>
+maximum number of characters (including the null terminator) to write to dst
+	    </para></listitem>
+	</varlistentry>
+      </variablelist>
+
+This function copies up to <code><parameter>size</parameter> - 1</code>
+characters of a null terminated string from <parameter>src</parameter>
+to <parameter>dst</parameter>, and terminates it with a null,
+changing all Latin-1 lowercase letters to uppercase.  The string is
 assumed to be encoded using ISO 8859-1.
     </para>
 
