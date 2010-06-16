@@ -25,7 +25,7 @@ if ENABLE_DOCS
 dist_doc_DATA = Xmu.xml xlogo.svg
 
 if HAVE_XMLTO
-doc_DATA = Xmu.txt Xmu.html $(srcdir)/Xmu.css
+doc_DATA = Xmu.txt Xmu.html
 
 if HAVE_FOP
 doc_DATA += Xmu.pdf Xmu.ps
@@ -33,9 +33,18 @@ endif
 
 CLEANFILES = Xmu.txt Xmu.html Xmu.pdf Xmu.ps
 
-XMLTO_FLAGS = -m $(srcdir)/Xmu.xsl
+if HAVE_STYLESHEETS
+STYLESHEET_SRCDIR = $(XORG_SGML_PATH)/X11
 
-XML_SOURCEFILES =  $(srcdir)/Xmu.xml $(srcdir)/Xmu.xsl
+XSL_STYLESHEET = $(STYLESHEET_SRCDIR)/xorg.xsl
+XMLTO_FLAGS = -m $(XSL_STYLESHEET)
+
+doc_DATA += xorg.css
+xorg.css: $(STYLESHEET_SRCDIR)/xorg.css
+	$(AM_V_GEN)cp -pf $(STYLESHEET_SRCDIR)/xorg.css $@
+endif
+
+XML_SOURCEFILES =  $(srcdir)/Xmu.xml $(XSL_STYLESHEET)
 
 Xmu.txt: $(XML_SOURCEFILES)
 	$(AM_V_GEN)$(XMLTO) $(XMLTO_FLAGS) txt $(srcdir)/Xmu.xml
