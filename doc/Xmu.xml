@@ -65,6 +65,9 @@ or X Toolkit Instrinsics (libXt) are provided in a second library, libXmuu.
 Programs using either of these libraries are encouraged to determine the
 correct compiler and linker options via the <userinput>xmu</userinput> or
 <userinput>xmuu</userinput> module names for <command>pkg-config</command>,
+<indexterm>
+<primary><command>pkg-config</command></primary>
+</indexterm>
 such as:
 
       <screen>
@@ -82,6 +85,9 @@ cc -o xapplication xapplication.o `pkg-config --libs xmu`
 To use the functions and macros defined in this section, you should include
 the header file
 &lt;<filename class='headerfile'>X11/Xmu/Atoms.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/Atoms.h</filename></primary>
+</indexterm>
 and link against the libXmu library.
     </para>
 
@@ -181,6 +187,9 @@ and link against the libXmu library.
     </funcsynopsis>
 
     <para>
+      <indexterm>
+	<primary><type>Atom</type></primary>
+      </indexterm>
 These macros take a display as argument and return an
 <type>Atom</type>.
 The name of the
@@ -191,7 +200,10 @@ value is cached, such that subsequent requests do not cause
 another round-trip to the server.
     </para>
 
-    <para>
+    <para id="XmuMakeAtom">
+      <indexterm zone="XmuMakeAtom">
+	<primary><function>XmuMakeAtom</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>AtomPtr <function>XmuMakeAtom</function></funcdef>
@@ -217,7 +229,10 @@ given name.
 can be used to cache the Atom value for one or more displays.
     </para>
 
-    <para>
+    <para id="XmuNameOfAtom">
+      <indexterm zone="XmuNameOfAtom">
+	<primary><function>XmuNameOfAtom</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>char *<function>XmuNameOfAtom</function></funcdef>
@@ -236,7 +251,10 @@ specifies the AtomPtr
 The function returns the name of an AtomPtr.
     </para>
 
-    <para>
+    <para id="XmuInternAtom">
+      <indexterm zone="XmuInternAtom">
+	<primary><function>XmuInternAtom</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Atom <function>XmuInternAtom</function></funcdef>
@@ -269,7 +287,10 @@ is cached,
 such that subsequent requests do not cause another round-trip to the server.
     </para>
 
-    <para>
+    <para id="XmuGetAtomName">
+      <indexterm zone="XmuGetAtomName">
+	<primary><function>XmuGetAtomName</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>char *<function>XmuGetAtomName</function></funcdef>
@@ -298,7 +319,10 @@ The result is cached, such that subsequent
 requests do not cause another round-trip to the server.
     </para>
 
-    <para>
+    <para id="XmuInternStrings">
+      <indexterm zone="XmuInternStrings">
+	<primary><function>XmuInternStrings</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuInternStrings</function></funcdef>
@@ -351,10 +375,16 @@ The caller is responsible for preallocating the array pointed at by atoms.
 To use the functions defined in this section, you should include the header
 file
 &lt;<filename class='headerfile'>X11/Xmu/Error.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/Error.h</filename></primary>
+</indexterm>
 and link against the libXmu or libXmuu library.
     </para>
 
-    <para>
+    <para id="XmuPrintDefaultErrorMessage">
+      <indexterm zone="XmuPrintDefaultErrorMessage">
+	<primary><function>XmuPrintDefaultErrorMessage</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuPrintDefaultErrorMessage</function></funcdef>
@@ -392,7 +422,10 @@ write your own error handler, but need to print out an error from within
 that handler.
     </para>
 
-    <para>
+    <para id="XmuSimpleErrorHandler">
+      <indexterm zone="XmuSimpleErrorHandler">
+	<primary><function>XmuSimpleErrorHandler</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuSimpleErrorHandler</function></funcdef>
@@ -438,10 +471,16 @@ and 0 if the caller should not exit.
 To use the functions defined in this section, you should include the header
 file
 &lt;<filename class='headerfile'>X11/Xmu/SysUtil.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/SysUtil.h</filename></primary>
+</indexterm>
 and link against the libXmu or libXmuu library.
     </para>
 
-    <para>
+    <para id="XmuGetHostname">
+      <indexterm zone="XmuGetHostname">
+	<primary><function>XmuGetHostname</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuGetHostname</function></funcdef>
@@ -471,7 +510,10 @@ such as whether to call <function>gethostname</function> or
 <function>uname</function>.
     </para>
 
-    <para>
+    <para id="XmuSnprintf">
+      <indexterm zone="XmuSnprintf">
+	<primary><function>XmuSnprintf</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuSnprintf</function></funcdef>
@@ -511,13 +553,19 @@ in software that needs to continue to support non-Unix98 compliant platforms.
     <para>
 To use the functions defined in this section, you should include the header
 file
-&lt;<filename class='headerfile'>X11/Xmu/WinUtil.h</filename>&gt;.
+&lt;<filename class='headerfile'>X11/Xmu/WinUtil.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/WinUtil.h</filename></primary>
+</indexterm>.
 To use <function>XmuClientWindow</function>, you may link against either the
 libXmu or libXmuu libraries.   The other functions in this section require
 linking against the libXmu library.
     </para>
 
-    <para>
+    <para id="XmuScreenOfWindow">
+      <indexterm zone="XmuScreenOfWindow">
+	<primary><function>XmuScreenOfWindow</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Screen *<function>XmuScreenOfWindow</function></funcdef>
@@ -545,7 +593,10 @@ This function returns the
 on which the specified window was created.
     </para>
 
-    <para>
+    <para id="XmuClientWindow">
+      <indexterm zone="XmuClientWindow">
+	<primary><function>XmuClientWindow</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Window <function>XmuClientWindow</function></funcdef>
@@ -568,13 +619,19 @@ specifies the window
 	</varlistentry>
       </variablelist>
 
+      <indexterm zone="XmuClientWindow">
+	<primary><property>WM_STATE</property></primary>
+      </indexterm>
 This function finds a window, at or below the specified window, which has a
 <property>WM_STATE</property> property.  If such a window is found, it is
 returned, otherwise the
 argument window is returned.
     </para>
 
-    <para>
+    <para id="XmuUpdateMapHints">
+      <indexterm zone="XmuUpdateMapHints">
+	<primary><function>XmuUpdateMapHints</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Bool <function>XmuUpdateMapHints</function></funcdef>
@@ -614,11 +671,17 @@ and
 <symbol>USSize</symbol>
 flags in the hints structure, and then stores the hints for the
 window using
+      <indexterm zone="XmuUpdateMapHints">
+	<primary><function>XSetWMNormalHints</function></primary>
+      </indexterm>
 <function>XSetWMNormalHints</function>
 and returns
 <symbol>True</symbol>.
 If <symbol>NULL</symbol> is passed for the
 hints structure, then the current hints are read back from the window using
+      <indexterm zone="XmuUpdateMapHints">
+	<primary><function>XGetWMNormalHints</function></primary>
+      </indexterm>
 <function>XGetWMNormalHints</function>
 and are used instead, and
 <symbol>True</symbol>
@@ -636,10 +699,16 @@ is returned.
 To use the functions defined in this section, you should include the header
 file
 &lt;<filename class='headerfile'>X11/Xmu/CurUtil.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/CurUtil.h</filename></primary>
+</indexterm>
 and link against the libXmu or libXmuu library.
     </para>
 
-    <para>
+    <para id="XmuCursorNameToIndex">
+      <indexterm zone="XmuCursorNameToIndex">
+	<primary><function>XmuCursorNameToIndex</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuCursorNameToIndex</function></funcdef>
@@ -671,10 +740,16 @@ manual.
 To use the functions defined in this section, you should include the header
 file
 &lt;<filename class='headerfile'>X11/Xmu/Drawing.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/Drawing.h</filename></primary>
+</indexterm>
 and link against the libXmu library.
     </para>
 
-    <para>
+    <para id="XmuDrawRoundedRectangle">
+      <indexterm zone="XmuDrawRoundedRectangle">
+	<primary><function>XmuDrawRoundedRectangle</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuDrawRoundedRectangle</function></funcdef>
@@ -753,7 +828,10 @@ should be no more than half of h.  The current GC line attributes control
 all attributes of the line.
     </para>
 
-    <para>
+    <para id="XmuFillRoundedRectangle">
+      <indexterm zone="XmuFillRoundedRectangle">
+	<primary><function>XmuFillRoundedRectangle</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuFillRoundedRectangle</function></funcdef>
@@ -832,7 +910,10 @@ half of w, and eh should be no more than half of h.  The current GC fill
 settings control all attributes of the fill contents.
       </para>
 
-    <para>
+    <para id="XmuDrawLogo">
+      <indexterm zone="XmuDrawLogo">
+	<primary><function>XmuDrawLogo</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef><function>XmuDrawLogo</function></funcdef>
@@ -913,7 +994,10 @@ itself is filled using gcFore, and the rest of the rectangle is filled using
 gcBack.
     </para>
 
-    <para>
+    <para id="XmuCreateStippledPixmap">
+      <indexterm zone="XmuCreateStippledPixmap">
+	<primary><function>XmuCreateStippledPixmap</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Pixmap <function>XmuCreateStippledPixmap</function></funcdef>
@@ -957,7 +1041,10 @@ requests share the same pixmap.  The pixmap should be freed with
 to maintain correct reference counts.
     </para>
 
-    <para>
+    <para id="XmuReleaseStippledPixmap">
+      <indexterm zone="XmuReleaseStippledPixmap">
+	<primary><function>XmuReleaseStippledPixmap</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuReleaseStippledPixmap</function></funcdef>
@@ -984,7 +1071,10 @@ This function frees a pixmap created with
 <function>XmuCreateStippledPixmap</function>.
     </para>
 
-    <para>
+    <para id="XmuReadBitmapData">
+      <indexterm zone="XmuReadBitmapData">
+	<primary><function>XmuReadBitmapData</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuReadBitmapData</function></funcdef>
@@ -1043,7 +1133,10 @@ interpretation as the return value for
 <function>XReadBitmapFile</function>.
     </para>
 
-    <para>
+    <para id="XmuReadBitmapDataFromFile">
+      <indexterm zone="XmuReadBitmapDataFromFile">
+	<primary><function>XmuReadBitmapDataFromFile</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuReadBitmapDataFromFile</function></funcdef>
@@ -1102,7 +1195,10 @@ interpretation as the return value for
 <function>XReadBitmapFile</function>.
     </para>
 
-    <para>
+    <para id="XmuLocateBitmapFile">
+      <indexterm zone="XmuLocateBitmapFile">
+	<primary><function>XmuLocateBitmapFile</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Pixmap <function>XmuLocateBitmapFile</function></funcdef>
@@ -1170,15 +1266,25 @@ returns the y coordinate of the hotspot
 This function reads a file in standard bitmap file format, using
 <function>XReadBitmapFile</function>,
 and returns the created bitmap.  The filename may be
-absolute, or relative to the global resource named bitmapFilePath with class
+absolute, or relative to the global resource named
+      <indexterm zone="XmuLocateBitmapFile">
+	<primary><systemitem class="resource">bitmapFilePath</systemitem></primary>
+      </indexterm>
+<systemitem class="resource">bitmapFilePath</systemitem> with class
 BitmapFilePath.  If the resource is not defined, the default value is the
-build symbol BITMAPDIR, which is typically "/usr/include/X11/bitmaps".  If
-srcnamelen is greater than zero and srcname is not <symbol>NULL</symbol>, the null terminated
-filename will be copied into srcname.  The size and hotspot of the bitmap are
+build symbol BITMAPDIR, which is typically
+"<filename class="directory">/usr/include/X11/bitmaps</filename>".
+If <parameter>srcnamelen</parameter> is greater than zero and
+<parameter>srcname</parameter> is not <symbol>NULL</symbol>,
+the null terminated filename will be copied into
+<parameter>srcname</parameter>.  The size and hotspot of the bitmap are
 also returned.
     </para>
 
-    <para>
+    <para id="XmuCreatePixmapFromBitmap">
+      <indexterm zone="XmuCreatePixmapFromBitmap">
+	<primary><function>XmuCreatePixmapFromBitmap</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Pixmap <function>XmuCreatePixmapFromBitmap</function></funcdef>
@@ -1260,10 +1366,16 @@ The created pixmap is returned.
 To use the functions defined in this section, you should include the header
 file
 &lt;<filename class='headerfile'>X11/Xmu/StdSel.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/StdSel.h</filename></primary>
+</indexterm>
 and link against the libXmu library.
     </para>
 
-    <para>
+    <para id="XmuConvertStandardSelection">
+      <indexterm zone="XmuConvertStandardSelection">
+	<primary><function>XmuConvertStandardSelection</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Boolean <function>XmuConvertStandardSelection</function></funcdef>
@@ -1344,10 +1456,16 @@ if the conversion was successful, else it returns
 To use the functions defined in this section, you should include the header
 file
 &lt;<filename class='headerfile'>X11/Xmu/Converters.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/Converters.h</filename></primary>
+</indexterm>
 and link against the libXmu library.
     </para>
 
-    <para>
+    <para id="XmuCvtFunctionToCallback">
+      <indexterm zone="XmuCvtFunctionToCallback">
+	<primary><function>XmuCvtFunctionToCallback</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuCvtFunctionToCallback</function></funcdef>
@@ -1393,7 +1511,10 @@ XtAddConverter(XtRCallProc, XtRCallback, XmuCvtFunctionToCallback, NULL, 0);
       </programlisting>
     </para>
 
-    <para>
+    <para id="XmuCvtStringToBackingStore">
+      <indexterm zone="XmuCvtStringToBackingStore">
+	<primary><function>XmuCvtStringToBackingStore</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuCvtStringToBackingStore</function></funcdef>
@@ -1430,6 +1551,9 @@ returns the converted value
 	</varlistentry>
       </variablelist>
 
+      <indexterm zone="XmuCvtStringToBackingStore">
+	<primary>backing-store</primary>
+      </indexterm>
 This function converts a string to a backing-store integer as defined in
 &lt;<filename class='headerfile'>X11/X.h</filename>&gt;.
 The string "notUseful" converts to
@@ -1439,8 +1563,8 @@ The string "notUseful" converts to
 and "always" converts to
 <symbol>Always</symbol>.
 The string "default" converts to the value
-<symbol>Always</symbol>+
-<symbol>WhenMapped</symbol>+
+<symbol>Always</symbol> +
+<symbol>WhenMapped</symbol> +
 <symbol>NotUseful</symbol>.
 The case of the string does not matter.
 To use this converter, include the following
@@ -1451,7 +1575,10 @@ XtAddConverter(XtRString, XtRBackingStore, XmuCvtStringToBackingStore, NULL, 0);
       </programlisting>
     </para>
 
-    <para>
+    <para id="XmuCvtStringToBitmap">
+      <indexterm zone="XmuCvtStringToBitmap">
+	<primary><function>XmuCvtStringToBitmap</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuCvtStringToBitmap</function></funcdef>
@@ -1488,10 +1615,13 @@ returns the converted value
 	</varlistentry>
       </variablelist>
 
+      <indexterm zone="XmuCvtStringToBitmap">
+	<primary>window manager icons</primary>
+      </indexterm>
 This function creates a bitmap (a Pixmap of depth one) suitable for window
 manager icons.  The string argument is the name of a file in standard bitmap
 file format.  For the possible filename specifications, see
-<function>XmuLocateBitmapFile</function>.
+<link linkend="XmuLocateBitmapFile"><function>XmuLocateBitmapFile</function></link>.
 To use this converter, include the following in your widget's
 ClassInitialize procedure:
 
@@ -1505,7 +1635,10 @@ XtAddConverter(XtRString, XtRBitmap, XmuCvtStringToBitmap,
       </programlisting>
     </para>
 
-    <para>
+    <para id="XmuCvtStringToColorCursor">
+      <indexterm zone="XmuCvtStringToColorCursor">
+	<primary><function>XmuCvtStringToColorCursor</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Boolean <function>XmuCvtStringToColorCursor</function></funcdef>
@@ -1556,6 +1689,9 @@ this argument is ignored
 	</varlistentry>
       </variablelist>
 
+      <indexterm zone="XmuCvtStringToColorCursor">
+	<primary><type>Cursor</type></primary>
+      </indexterm>
 This function converts a string to a
 <type>Cursor</type>
 with the foreground and background pixels specified by the conversion
@@ -1565,7 +1701,7 @@ prefix from any of the
 cursor defines listed in Appendix B of the Xlib Manual, a font name and
 glyph index in decimal of the form "FONT fontname index [[font] index]",
 or a bitmap filename acceptable to
-<function>XmuLocateBitmapFile</function>.
+<link linkend="XmuLocateBitmapFile"><function>XmuLocateBitmapFile</function></link>.
 To use this converter, include
 the following in the widget ClassInitialize procedure:
 
@@ -1593,7 +1729,10 @@ background, or cursor resources has changed, or when the window is created,
 and must assign the cursor to the window of the widget.
     </para>
 
-    <para>
+    <para id="XmuCvtStringToCursor">
+      <indexterm zone="XmuCvtStringToCursor">
+	<primary><function>XmuCvtStringToCursor</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuCvtStringToCursor</function></funcdef>
@@ -1630,6 +1769,9 @@ returns the converted value
 	</varlistentry>
       </variablelist>
 
+      <indexterm zone="XmuCvtStringToCursor">
+	<primary><type>Cursor</type></primary>
+      </indexterm>
 This function converts a string to a
 <type>Cursor</type>.
 The string can either be a
@@ -1638,7 +1780,7 @@ prefix from any of the
 cursor defines listed in Appendix B of the Xlib Manual, a font name and
 glyph index in decimal of the form "FONT fontname index [[font] index]", or
 a bitmap filename acceptable to
-<function>XmuLocateBitmapFile</function>.
+<link linkend="XmuLocateBitmapFile"><function>XmuLocateBitmapFile</function></link>.
 To use this converter, include
 the following in your widget's ClassInitialize procedure:
 
@@ -1652,7 +1794,10 @@ XtAddConverter(XtRString, XtRCursor, XmuCvtStringToCursor,
       </programlisting>
     </para>
 
-    <para>
+    <para id="XmuCvtStringToGravity">
+      <indexterm zone="XmuCvtStringToGravity">
+	<primary><function>XmuCvtStringToGravity</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuCvtStringToGravity</function></funcdef>
@@ -1689,6 +1834,9 @@ returns the converted value
 	</varlistentry>
       </variablelist>
 
+      <indexterm zone="XmuCvtStringToGravity">
+	<primary><type>XtGravity</type></primary>
+      </indexterm>
 This function converts a string to an
 <type>XtGravity</type>
 enumeration value.  The string "forget" and a <symbol>NULL</symbol> value convert to
@@ -1723,7 +1871,10 @@ XtAddConverter(XtRString, XtRGravity, XmuCvtStringToGravity, NULL, 0);
       </programlisting>
     </para>
 
-    <para>
+    <para id="XmuCvtStringToJustify">
+      <indexterm zone="XmuCvtStringToJustify">
+	<primary><function>XmuCvtStringToJustify</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuCvtStringToJustify</function></funcdef>
@@ -1760,6 +1911,9 @@ returns the converted value
 	</varlistentry>
       </variablelist>
 
+      <indexterm zone="XmuCvtStringToJustify">
+	<primary><type>XtJustify</type></primary>
+      </indexterm>
 This function converts a string to an
 <type>XtJustify</type>
 enumeration value.  The string "left" converts to
@@ -1776,7 +1930,10 @@ XtAddConverter(XtRString, XtRJustify, XmuCvtStringToJustify, NULL, 0);
       </programlisting>
     </para>
 
-    <para>
+    <para id="XmuCvtStringToLong">
+      <indexterm zone="XmuCvtStringToLong">
+	<primary><function>XmuCvtStringToLong</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuCvtStringToLong</function></funcdef>
@@ -1824,7 +1981,10 @@ XtAddConverter(XtRString, XtRLong, XmuCvtStringToLong, NULL, 0);
       </programlisting>
     </para>
 
-    <para>
+    <para id="XmuCvtStringToOrientation">
+      <indexterm zone="XmuCvtStringToOrientation">
+	<primary><function>XmuCvtStringToOrientation</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuCvtStringToOrientation</function></funcdef>
@@ -1861,6 +2021,9 @@ returns the converted value
 	</varlistentry>
       </variablelist>
 
+      <indexterm zone="XmuCvtStringToOrientation">
+	<primary><type>XtOrientation</type></primary>
+      </indexterm>
 This function converts a string to an
 <type>XtOrientation</type>
 enumeration value.  The string "horizontal" converts to
@@ -1875,7 +2038,10 @@ XtAddConverter(XtRString, XtROrientation, XmuCvtStringToOrientation, NULL, 0);
       </programlisting>
     </para>
 
-    <para>
+    <para id="XmuCvtStringToShapeStyle">
+      <indexterm zone="XmuCvtStringToShapeStyle">
+	<primary><function>XmuCvtStringToShapeStyle</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Boolean <function>XmuCvtStringToShapeStyle</function></funcdef>
@@ -1944,7 +2110,10 @@ XtSetTypeConverter(XtRString, XtRShapeStyle, XmuCvtStringToShapeStyle,
       </programlisting>
     </para>
 
-    <para>
+    <para id="XmuReshapeWidget">
+      <indexterm zone="XmuReshapeWidget">
+	<primary><function>XmuReshapeWidget</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Boolean <function>XmuReshapeWidget</function></funcdef>
@@ -1981,6 +2150,9 @@ specified the height of the rounded rectangle corner
 	</varlistentry>
       </variablelist>
 
+      <indexterm zone="XmuReshapeWidget">
+	<primary>Shape extension</primary>
+      </indexterm>
 This function reshapes the specified widget, using the Shape extension, to a
 rectangle, oval, ellipse, or rounded rectangle, as specified by shape_style
 (
@@ -1994,12 +2166,15 @@ The shape is bounded by the outside edges of the rectangular extents of the
 widget.  If the shape is a rounded rectangle, corner_width and corner_height
 specify the size of the bounding box that the corners are drawn inside of
 (see
-<function>XmuFillRoundedRectangle</function>);
+<link linkend="XmuFillRoundedRectangle"><function>XmuFillRoundedRectangle</function></link>);
 otherwise, corner_width and corner_height are ignored.
 The origin of the widget within its parent remains unchanged.
     </para>
 
-    <para>
+    <para id="XmuCvtStringToWidget">
+      <indexterm zone="XmuCvtStringToWidget">
+	<primary><function>XmuCvtStringToWidget</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuCvtStringToWidget</function></funcdef>
@@ -2057,7 +2232,10 @@ XtAddConverter(XtRString, XtRWidget, XmuCvtStringToWidget,
       </programlisting>
     </para>
 
-    <para>
+    <para id="XmuNewCvtStringToWidget">
+      <indexterm zone="XmuNewCvtStringToWidget">
+	<primary><function>XmuNewCvtStringToWidget</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Boolean <function>XmuNewCvtStringToWidget</function></funcdef>
@@ -2108,7 +2286,8 @@ this argument is ignored
 	</varlistentry>
       </variablelist>
 
-This converter is identical in functionality to XmuCvtStringToWidget, except
+This converter is identical in functionality to
+<link linkend="XmuCvtStringToWidget"><function>XmuCvtStringToWidget</function></link>, except
 that it is a new-style converter, allowing the specification of a cache type
 at the time of registration.
 Most widgets will not cache the conversion results, as the application may
@@ -2137,6 +2316,9 @@ XtSetTypeConverter(XtRString, XtRWidget, XmuNewCvtStringToWidget,
 To use the functions defined in this section, you should include the header
 file
 &lt;<filename class='headerfile'>X11/Xmu/CharSet.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/CharSet.h</filename></primary>
+</indexterm>
 and link against the libXmu or libXmuu library.
 </para>
 
@@ -2146,7 +2328,10 @@ because they don't work in most locales now supported by X11; most platforms
 provide alternatives in their system libraries.
       </para></warning>
 
-    <para>
+    <para id="XmuCopyISOLatin1Lowered">
+      <indexterm zone="XmuCopyISOLatin1Lowered">
+	<primary><function>XmuCopyISOLatin1Lowered</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuCopyISOLatin1Lowered</function></funcdef>
@@ -2180,7 +2365,10 @@ ensuring the size of <parameter>dst</parameter> is at least as large as the
 size of <parameter>src</parameter>.
     </para>
 
-    <para>
+    <para id="XmuNCopyISOLatin1Lowered">
+      <indexterm zone="XmuNCopyISOLatin1Lowered">
+	<primary><function>XmuNCopyISOLatin1Lowered</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuNCopyISOLatin1Lowered</function></funcdef>
@@ -2217,7 +2405,10 @@ changing all Latin-1 uppercase letters to lowercase.  The string is
 assumed to be encoded using ISO 8859-1.
     </para>
 
-    <para>
+    <para id="XmuCopyISOLatin1Uppered">
+      <indexterm zone="XmuCopyISOLatin1Uppered">
+	<primary><function>XmuCopyISOLatin1Uppered</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuCopyISOLatin1Uppered</function></funcdef>
@@ -2251,7 +2442,10 @@ ensuring the size of <parameter>dst</parameter> is at least as large as the
 size of <parameter>src</parameter>.
     </para>
 
-    <para>
+    <para id="XmuNCopyISOLatin1Uppered">
+      <indexterm zone="XmuNCopyISOLatin1Uppered">
+	<primary><function>XmuNCopyISOLatin1Uppered</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuNCopyISOLatin1Uppered</function></funcdef>
@@ -2288,7 +2482,10 @@ changing all Latin-1 lowercase letters to uppercase.  The string is
 assumed to be encoded using ISO 8859-1.
     </para>
 
-    <para>
+    <para id="XmuCompareISOLatin1">
+      <indexterm zone="XmuCompareISOLatin1">
+	<primary><function>XmuCompareISOLatin1</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuCompareISOLatin1</function></funcdef>
@@ -2325,7 +2522,10 @@ less than second.  The two strings are assumed to be encoded using ISO
     <para>
 To use the functions defined in this section, you should include the header
 file
-&lt;<filename class='headerfile'>X11/Xmu/Lookup.h</filename>&gt;.
+&lt;<filename class='headerfile'>X11/Xmu/Lookup.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/Lookup.h</filename></primary>
+</indexterm>.
 and link against the libXmu library.
     </para>
 
@@ -2336,7 +2536,10 @@ in most locales now supported by X11; the function
 provides a better alternative.
       </para></warning>
 
-    <para>
+    <para id="XmuLookupLatin1">
+      <indexterm zone="XmuLookupLatin1">
+	<primary><function>XmuLookupLatin1</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupLatin1</function></funcdef>
@@ -2385,7 +2588,10 @@ This function is identical to
 and exists only for naming symmetry with other functions.
     </para>
 
-    <para>
+    <para id="XmuLookupLatin2">
+      <indexterm zone="XmuLookupLatin2">
+	<primary><function>XmuLookupLatin2</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupLatin2</function></funcdef>
@@ -2435,7 +2641,10 @@ except that it maps a key event
 to an Latin-2 (ISO 8859-2) string, or to an ASCII control string.
     </para>
 
-    <para>
+    <para id="XmuLookupLatin3">
+      <indexterm zone="XmuLookupLatin3">
+	<primary><function>XmuLookupLatin3</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupLatin3</function></funcdef>
@@ -2485,7 +2694,10 @@ except that it maps a key event
 to an Latin-3 (ISO 8859-3) string, or to an ASCII control string.
     </para>
 
-    <para>
+    <para id="XmuLookupLatin4">
+      <indexterm zone="XmuLookupLatin4">
+	<primary><function>XmuLookupLatin4</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupLatin4</function></funcdef>
@@ -2535,7 +2747,10 @@ except that it maps a key event
 to an Latin-4 (ISO 8859-4) string, or to an ASCII control string.
     </para>
 
-    <para>
+    <para id="XmuLookupKana">
+      <indexterm zone="XmuLookupKana">
+	<primary><function>XmuLookupKana</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupKana</function></funcdef>
@@ -2588,7 +2803,10 @@ Graphics Right half (values 128 to 255), using the values from JIS
 X201-1976.
     </para>
 
-    <para>
+    <para id="XmuLookupJISX0201">
+      <indexterm zone="XmuLookupJISX0201">
+	<primary><function>XmuLookupJISX0201</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupJISX0201</function></funcdef>
@@ -2638,7 +2856,10 @@ except that it maps a key event
 to a string in the JIS X0201-1976 encoding, including ASCII control.
     </para>
 
-    <para>
+    <para id="XmuLookupArabic">
+      <indexterm zone="XmuLookupArabic">
+	<primary><function>XmuLookupArabic</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupArabic</function></funcdef>
@@ -2688,7 +2909,10 @@ except that it maps a key event
 to a Latin/Arabic (ISO 8859-6) string, or to an ASCII control string.
     </para>
 
-    <para>
+    <para id="XmuLookupCyrillic">
+      <indexterm zone="XmuLookupCyrillic">
+	<primary><function>XmuLookupCyrillic</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupCyrillic</function></funcdef>
@@ -2738,7 +2962,10 @@ except that it maps a key event
 to a Latin/Cyrillic (ISO 8859-5) string, or to an ASCII control string.
     </para>
 
-    <para>
+    <para id="XmuLookupGreek">
+      <indexterm zone="XmuLookupGreek">
+	<primary><function>XmuLookupGreek</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupGreek</function></funcdef>
@@ -2788,7 +3015,10 @@ except that it maps a key event
 to a Latin/Greek (ISO 8859-7) string, or to an ASCII control string.
     </para>
 
-    <para>
+    <para id="XmuLookupHebrew">
+      <indexterm zone="XmuLookupHebrew">
+	<primary><function>XmuLookupHebrew</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupHebrew</function></funcdef>
@@ -2838,7 +3068,10 @@ except that it maps a key event
 to a Latin/Hebrew (ISO 8859-8) string, or to an ASCII control string.
     </para>
 
-    <para>
+    <para id="XmuLookupAPL">
+      <indexterm zone="XmuLookupAPL">
+	<primary><function>XmuLookupAPL</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>int <function>XmuLookupAPL</function></funcdef>
@@ -2897,6 +3130,9 @@ The functions defined in this section are for parsing Compound Text strings,
 decomposing them into individual segments. Definitions needed to use these
 routines are in the include file
 &lt;<filename class='headerfile'>X11/Xmu/Xct.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/Xct.h</filename></primary>
+</indexterm>
 and link against the libXmu library.
     </para>
 
@@ -2916,7 +3152,10 @@ A Compound Text string is represented as the following type:
       </synopsis>
     </para>
 
-    <para>
+    <para id="XctCreate">
+      <indexterm zone="XctCreate">
+	<primary><function>XctCreate</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>XctData <function>XctCreate</function></funcdef>
@@ -3060,7 +3299,10 @@ JISX0208.1983-1, and KSC5601.1987-1.
     </variablelist>
   </para>
 
-    <para>
+    <para id="XctReset">
+      <indexterm zone="XctReset">
+	<primary><function>XctReset</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XctReset</function></funcdef>
@@ -3081,7 +3323,10 @@ This function resets the
 structure to reparse the Compound Text string from the beginning.
       </para>
 
-      <para>
+      <para id="XctNextItem">
+      <indexterm zone="XctNextItem">
+	<primary><function>XctNextItem</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>XctResult <function>XctNextItem</function></funcdef>
@@ -3180,9 +3425,12 @@ parsing should be performed.
 	      </para></listitem>
 	  </varlistentry>
 	</variablelist>
-      </para>
+    </para>
 
-      <para>
+    <para id="XctData">
+      <indexterm zone="XctData">
+	<primary><type>XctData</type></primary>
+      </indexterm>
 The following state values are stored in the
 <type>XctData</type>
 structure:
@@ -3236,10 +3484,16 @@ structure.
 To use the functions defined in this section, you should include the header
 file
 &lt;<filename class='headerfile'>X11/Xmu/CloseHook.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/CloseHook.h</filename></primary>
+</indexterm>
 and link against the libXmu library.
     </para>
 
-    <para>
+    <para id="XmuAddCloseDisplayHook">
+      <indexterm zone="XmuAddCloseDisplayHook">
+	<primary><function>XmuAddCloseDisplayHook</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>CloseHook <function>XmuAddCloseDisplayHook</function></funcdef>
@@ -3290,7 +3544,10 @@ callback, otherwise it
 returns an opaque handle that can be used to remove or lookup the callback.
     </para>
 
-    <para>
+    <para id="XmuRemoveCloseDisplayHook">
+      <indexterm zone="XmuRemoveCloseDisplayHook">
+	<primary><function>XmuRemoveCloseDisplayHook</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Bool <function>XmuRemoveCloseDisplayHook</function></funcdef>
@@ -3339,7 +3596,10 @@ if a callback was removed, else returns
 <symbol>False</symbol>.
     </para>
 
-    <para>
+    <para id="XmuLookupCloseDisplayHook">
+      <indexterm zone="XmuLookupCloseDisplayHook">
+	<primary><function>XmuLookupCloseDisplayHook</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Bool <function>XmuLookupCloseDisplayHook</function></funcdef>
@@ -3398,11 +3658,17 @@ if a matching callback exists, else returns
 To use the functions and types defined in this section, you should include the
 header file
 &lt;<filename class='headerfile'>X11/Xmu/DisplayQue.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/DisplayQue.h</filename></primary>
+</indexterm>
 and link against the libXmu library.
 <filename class='headerfile'>DisplayQue.h</filename> defines the following
 types:
 
-      <synopsis>
+      <indexterm zone="XmuDisplayQueue">
+	<primary><type>XmuDisplayQueue</type></primary>
+      </indexterm>
+      <synopsis id="XmuDisplayQueue">
 typedef int (*XmuCloseDisplayQueueProc)(XmuDisplayQueue *queue,
                                         XmuDisplayQueueEntry *entry);
 
@@ -3425,7 +3691,10 @@ typedef struct _XmuDisplayQueue {
       </synopsis>
     </para>
 
-    <para>
+    <para id="XmuDQCreate">
+      <indexterm zone="XmuDQCreate">
+	<primary><function>XmuDQCreate</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>XmuDisplayQueue *<function>XmuDQCreate</function></funcdef>
@@ -3488,7 +3757,10 @@ The application is responsible for actually freeing the queue, by calling
 <function>XmuDQDestroy</function>.
     </para>
 
-    <para>
+    <para id="XmuDQAddDisplay">
+      <indexterm zone="XmuDQAddDisplay">
+	<primary><function>XmuDQAddDisplay</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>XmuDisplayQueueEntry *<function>XmuDQAddDisplay</function></funcdef>
@@ -3528,7 +3800,10 @@ duplicate entries in the queue; the caller should use
 to determine if a display has already been added to a queue.
     </para>
 
-    <para>
+    <para id="XmuDQLookupDisplay">
+      <indexterm zone="XmuDQLookupDisplay">
+	<primary><function>XmuDQLookupDisplay</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>XmuDisplayQueueEntry *<function>XmuDQLookupDisplay</function></funcdef>
@@ -3556,7 +3831,10 @@ This function returns the queue entry for the specified display, or
 the display is not in the queue.
     </para>
 
-    <para>
+    <para id="XmuDQNDisplays">
+      <indexterm zone="XmuDQNDisplays">
+	<primary><function>XmuDQNDisplays</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef><function>XmuDQNDisplays</function></funcdef>
@@ -3566,7 +3844,10 @@ the display is not in the queue.
 This macro returns the number of displays in the specified queue.
     </para>
 
-    <para>
+    <para id="XmuDQRemoveDisplay">
+      <indexterm zone="XmuDQRemoveDisplay">
+	<primary><function>XmuDQRemoveDisplay</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Bool <function>XmuDQRemoveDisplay</function></funcdef>
@@ -3598,7 +3879,10 @@ is returned, otherwise
 is returned.
     </para>
 
-    <para>
+    <para id="XmuDQDestroy">
+      <indexterm zone="XmuDQDestroy">
+	<primary><function>XmuDQDestroy</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Bool <function>XmuDQDestroy</function></funcdef>
@@ -3639,10 +3923,16 @@ is not called on the display.
 To use the functions defined in this section, you should include the header
 file
 &lt;<filename class='headerfile'>X11/Xmu/Initer.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/Initer.h</filename></primary>
+</indexterm>
 and link against the libXmu library.
     </para>
 
-    <para>
+    <para id="XmuAddInitializer">
+      <indexterm zone="XmuAddInitializer">
+	<primary><function>XmuAddInitializer</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuAddInitializer</function></funcdef>
@@ -3676,7 +3966,10 @@ is called with the application context and the specified data:
       </programlisting>
     </para>
 
-    <para>
+    <para id="XmuCallInitializers">
+      <indexterm zone="XmuCallInitializers">
+	<primary><function>XmuCallInitializers</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuCallInitializers</function></funcdef>
@@ -3708,10 +4001,16 @@ Otherwise, this function does nothing.
 To use the functions defined in this section, you should include the header
 file
 &lt;<filename class='headerfile'>X11/Xmu/StdCmap.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/StdCmap.h</filename></primary>
+</indexterm>
 and link against the libXmu library.
     </para>
 
-    <para>
+    <para id="XmuAllStandardColormaps">
+      <indexterm zone="XmuAllStandardColormaps">
+	<primary><function>XmuAllStandardColormaps</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Status <function>XmuAllStandardColormaps</function></funcdef>
@@ -3727,6 +4026,9 @@ specifies the connection to the X server
 	</varlistentry>
       </variablelist>
 
+      <indexterm>
+	<primary>colormaps</primary><secondary>standard</secondary>
+      </indexterm>
 To create all of the appropriate standard colormaps for every visual of
 every screen on a given display, use
 <function>XmuAllStandardColormaps</function>.
@@ -3795,11 +4097,14 @@ will remain.
 
     <para>
 See
-<function>XmuVisualStandardColormaps</function>
+<link linkend="XmuVisualStandardColormaps"><function>XmuVisualStandardColormaps</function></link>
 for which standard colormaps are meaningful under these classes of visuals.
     </para>
 
-    <para>
+    <para id="XmuVisualStandardColormaps">
+      <indexterm zone="XmuVisualStandardColormaps">
+	<primary><function>XmuVisualStandardColormaps</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Status <function>XmuVisualStandardColormaps</function></funcdef>
@@ -3889,7 +4194,10 @@ and
 <property>RGB_GRAY_MAP</property>.
     </para>
 
-    <para>
+    <para id="XmuLookupStandardColormap">
+      <indexterm zone="XmuLookupStandardColormap">
+	<primary><function>XmuLookupStandardColormap</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Status <function>XmuLookupStandardColormap</function></funcdef>
@@ -3977,7 +4285,10 @@ colormap property on a monochrome visual, or, requesting an
 a display whose colormap size is 16.
     </para>
 
-    <para>
+    <para id="XmuGetColormapAllocation">
+      <indexterm zone="XmuGetColormapAllocation">
+	<primary><function>XmuGetColormapAllocation</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Status <function>XmuGetColormapAllocation</function></funcdef>
@@ -4032,7 +4343,10 @@ returns 0 on failure, non-zero on success.  It is
 assumed that the visual is appropriate for the colormap property.
     </para>
 
-    <para>
+    <para id="XmuStandardColormap">
+      <indexterm zone="XmuStandardColormap">
+	<primary><function>XmuStandardColormap</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>XStandardColormap *<function>XmuStandardColormap</function></funcdef>
@@ -4124,7 +4438,10 @@ Resources created by this function are not made permanent; that is the
 caller's responsibility.
     </para>
 
-    <para>
+    <para id="XmuCreateColormap">
+      <indexterm zone="XmuCreateColormap">
+	<primary><function>XmuCreateColormap</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>Status <function>XmuCreateColormap</function></funcdef>
@@ -4174,7 +4491,10 @@ map of the static visual matches the definition given in the standard
 colormap structure.
     </para>
 
-    <para>
+    <para id="XmuDeleteStandardColormap">
+      <indexterm zone="XmuDeleteStandardColormap">
+	<primary><function>XmuDeleteStandardColormap</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>void <function>XmuDeleteStandardColormap</function></funcdef>
@@ -4225,7 +4545,10 @@ widget set itself.
 
     <para>
 The definitions needed to use these interfaces are in the header file
-&lt;<filename class='headerfile'>X11/Xmu/WidgetNode.h</filename>&gt;.
+&lt;<filename class='headerfile'>X11/Xmu/WidgetNode.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/WidgetNode.h</filename></primary>
+</indexterm>.
 To call these functions, you need to link against the libXmu library.
 The following function must be called before any of the others described
 below:
@@ -4332,7 +4655,10 @@ This routine returns the number of resources contributed (or
 the specified widget class.
 	    </para>
 
-    <para>
+    <para id="XmuWnNameToNode">
+      <indexterm zone="XmuWnNameToNode">
+	<primary><function>XmuWnNameToNode</function></primary>
+      </indexterm>
       <funcsynopsis>
 	<funcprototype>
 	  <funcdef>XmuWidgetNode *<function>XmuWnNameToNode</function></funcdef>
@@ -4373,9 +4699,15 @@ widget name or widget class name.  If no match is found, it returns
     <title>Participation in the Editres Protocol</title>
 
     <para>
+      <indexterm>
+	<primary>editres</primary>
+      </indexterm>
 To participate in the editres protocol, applications which are not based
 on the Athena widget set should include the header file
 &lt;<filename class='headerfile'>X11/Xmu/Editres.h</filename>&gt;
+<indexterm>
+<primary><filename class='headerfile'>X11/Xmu/Editres.h</filename></primary>
+</indexterm>
 and link against the libXmu library.
     </para>
 
@@ -4390,4 +4722,6 @@ XtAddEventHandler(shell, (EventMask) 0, True, _XEditResCheckMessages, NULL);
     </programlisting>
     </para>
   </sect1>
+
+  <index />
 </article>
