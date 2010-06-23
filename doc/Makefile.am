@@ -31,7 +31,7 @@ if HAVE_FOP
 doc_DATA += Xmu.pdf Xmu.ps
 endif
 
-CLEANFILES = Xmu.txt Xmu.html Xmu.pdf Xmu.ps
+CLEANFILES = Xmu.txt Xmu.html Xmu.pdf Xmu.ps xorg.css
 
 if HAVE_STYLESHEETS
 STYLESHEET_SRCDIR = $(XORG_SGML_PATH)/X11
