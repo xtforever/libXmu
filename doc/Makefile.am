@@ -25,10 +25,14 @@ if ENABLE_DOCS
 dist_doc_DATA = Xmu.xml xlogo.svg
 
 if HAVE_XMLTO
-doc_DATA = Xmu.txt Xmu.html
+doc_DATA = Xmu.html
 
 if HAVE_FOP
 doc_DATA += Xmu.pdf Xmu.ps
+endif
+
+if HAVE_XMLTO_TEXT
+doc_DATA += Xmu.txt
 endif
 
 CLEANFILES = Xmu.txt Xmu.html Xmu.pdf Xmu.ps xorg.css
