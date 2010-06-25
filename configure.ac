@@ -15,16 +15,15 @@ AM_INIT_AUTOMAKE([foreign dist-bzip2])
 
 AM_MAINTAINER_MODE
 
-# Require xorg-macros minimum of 1.7 for XORG_CHECK_SGML_DOCTOOLS
+# Require xorg-macros minimum of 1.10 for HAVE_STYLESHEETS in XORG_CHECK_SGML_DOCTOOLS
 m4_ifndef([XORG_MACROS_VERSION],
-          [m4_fatal([must install xorg-macros 1.7 or later before running autoconf/autogen])])
-XORG_MACROS_VERSION(1.7)
+          [m4_fatal([must install xorg-macros 1.10 or later before running autoconf/autogen])])
+XORG_MACROS_VERSION(1.10)
 XORG_DEFAULT_OPTIONS
 XORG_ENABLE_DOCS
 XORG_WITH_XMLTO(0.0.20)
 XORG_WITH_FOP
 XORG_CHECK_SGML_DOCTOOLS(1.5)
-AM_CONDITIONAL([HAVE_STYLESHEETS], [test "x$XORG_SGML_PATH" != "x"])
 
 AM_CONFIG_HEADER([config.h])
 

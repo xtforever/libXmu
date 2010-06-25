@@ -34,9 +34,6 @@ endif
 CLEANFILES = Xmu.txt Xmu.html Xmu.pdf Xmu.ps xorg.css
 
 if HAVE_STYLESHEETS
-STYLESHEET_SRCDIR = $(XORG_SGML_PATH)/X11
-
-XSL_STYLESHEET = $(STYLESHEET_SRCDIR)/xorg.xsl
 XMLTO_FLAGS = -m $(XSL_STYLESHEET)
 
 doc_DATA += xorg.css
