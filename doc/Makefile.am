@@ -38,7 +38,7 @@ endif
 CLEANFILES = Xmu.txt Xmu.html Xmu.pdf Xmu.ps xorg.css
 
 if HAVE_STYLESHEETS
-XMLTO_FLAGS = -m $(XSL_STYLESHEET)
+XMLTO_FLAGS = -m $(XSL_STYLESHEET) --stringparam img.src.path=$(abs_builddir)/
 
 doc_DATA += xorg.css
 xorg.css: $(STYLESHEET_SRCDIR)/xorg.css
