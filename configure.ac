@@ -30,16 +30,10 @@ AM_CONFIG_HEADER([config.h])
 
 # Checks for programs.
 AC_PROG_LIBTOOL
-AC_PROG_CC
 
 # Checks for pkg-config packages
 PKG_CHECK_MODULES(XMU, xt xext x11 xextproto)
-AC_SUBST(XMU_CFLAGS)
-AC_SUBST(XMU_LIBS)
-
 PKG_CHECK_MODULES(XMUU, x11)
-AC_SUBST(XMUU_CFLAGS)
-AC_SUBST(XMUU_LIBS)
 
 # CvtStdSel.c needs to know which network transports to build hostname
 # conversion routines for
