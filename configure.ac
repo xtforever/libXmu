@@ -5,7 +5,7 @@
 AC_PREREQ([2.60])
 
 AC_INIT([libXmu],
-        [1.0.5],
+        [1.1.0],
         [https://bugs.freedesktop.org/enter_bug.cgi?product=xorg],
         [libXmu])
 
