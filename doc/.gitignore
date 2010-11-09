@@ -1,6 +1,4 @@
-#		Add & Override for this directory and it's subdirectories
 *.txt
 *.html
 *.pdf
 *.ps
-*.css
