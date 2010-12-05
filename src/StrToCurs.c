@@ -155,25 +155,29 @@ XmuCvtStringToCursor(XrmValuePtr args, Cardinal *num_args,
 
     if (0 == strncmp(FONTSPECIFIER, name, strlen(FONTSPECIFIER))) {
 	char source_name[PATH_MAX], mask_name[PATH_MAX];
-	int source_char, mask_char, fields;
+	int source_char, mask_char, fields = 0;
 	Font source_font, mask_font;
 	XrmValue fromString, toFont;
 	XrmValue cvtArg;
 	Boolean success;
 	Display *dpy = DisplayOfScreen(screen);
-        char *strspec = NULL;
+	char *strspec = NULL;
+	int strspeclen;
 #ifdef XMU_KLUDGE
 	Cardinal num;
 #endif
 
-	strspec = XtMalloc(strlen("FONT %s %d %s %d") + 21);
-	sprintf(strspec, "FONT %%%lds %%d %%%lds %%d",
-		(unsigned long)sizeof(source_name) - 1,
-		(unsigned long)sizeof(mask_name) - 1);
-	fields = sscanf(name, strspec,
-			source_name, &source_char,
-			mask_name, &mask_char);
-	XtFree(strspec);
+	strspeclen = strlen("FONT %s %d %s %d") + 21;
+	strspec = XtMalloc(strspeclen);
+	if (strspec != NULL) {
+	    snprintf(strspec, strspeclen, "FONT %%%lds %%d %%%lds %%d",
+		     (unsigned long)sizeof(source_name) - 1,
+		     (unsigned long)sizeof(mask_name) - 1);
+	    fields = sscanf(name, strspec,
+			    source_name, &source_char,
+			    mask_name, &mask_char);
+	    XtFree(strspec);
+	}
 	if (fields < 2) {
 	    XtStringConversionWarning(name, XtRCursor);
 	    return;
