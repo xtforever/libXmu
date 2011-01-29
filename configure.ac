@@ -24,7 +24,7 @@ XORG_WITH_XMLTO(0.0.20)
 XORG_WITH_FOP
 XORG_CHECK_SGML_DOCTOOLS(1.5)
 
-AM_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 
 
 # Checks for programs.
