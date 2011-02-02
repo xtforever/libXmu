@@ -1,18 +1,17 @@
 
-#                                               -*- Autoconf -*-
-# Process this file with autoconf to produce a configure script.
-
+# Initialize Autoconf
 AC_PREREQ([2.60])
-
-AC_INIT([libXmu],
-        [1.1.0],
-        [https://bugs.freedesktop.org/enter_bug.cgi?product=xorg],
-        [libXmu])
-
+AC_INIT([libXmu], [1.1.0],
+	[https://bugs.freedesktop.org/enter_bug.cgi?product=xorg], [libXmu])
 AC_CONFIG_SRCDIR([Makefile.am])
-AM_INIT_AUTOMAKE([foreign dist-bzip2])
+AC_CONFIG_HEADERS([config.h])
 
+# Initialize Automake
+AM_INIT_AUTOMAKE([foreign dist-bzip2])
 AM_MAINTAINER_MODE
+
+# Initialize libtool
+AC_PROG_LIBTOOL
 
 # Require xorg-macros minimum of 1.10 for HAVE_STYLESHEETS in XORG_CHECK_SGML_DOCTOOLS
 m4_ifndef([XORG_MACROS_VERSION],
@@ -24,13 +23,7 @@ XORG_WITH_XMLTO(0.0.20)
 XORG_WITH_FOP
 XORG_CHECK_SGML_DOCTOOLS(1.5)
 
-AC_CONFIG_HEADERS([config.h])
-
-
-# Checks for programs.
-AC_PROG_LIBTOOL
-
-# Checks for pkg-config packages
+# Obtain compiler/linker options for depedencies
 PKG_CHECK_MODULES(XMU, xt xext x11 xextproto)
 PKG_CHECK_MODULES(XMUU, x11)
 
@@ -55,15 +48,16 @@ XTRANS_CONNECTION_FLAGS
 AC_DEFINE(HAS_SNPRINTF, [], [Whether we have snprintf()])
 AC_SUBST(HAS_SNPRINTF)
 
-dnl Allow checking code with lint, sparse, etc.
+# Allow checking code with lint, sparse, etc.
 XORG_WITH_LINT
 XORG_LINT_LIBRARY([Xmu])
 LINTLIBUU=`echo $LINTLIB | sed s/Xmu/Xmuu/`
 AC_SUBST(LINTLIBUU)
 
-AC_OUTPUT([Makefile
-           doc/Makefile
-           include/Makefile
-	   src/Makefile
-	   xmu.pc
-           xmuu.pc])
+AC_CONFIG_FILES([Makefile
+		doc/Makefile
+		include/Makefile
+		src/Makefile
+		xmu.pc
+		xmuu.pc])
+AC_OUTPUT
