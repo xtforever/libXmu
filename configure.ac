@@ -31,23 +31,6 @@ PKG_CHECK_MODULES(XMUU, x11)
 # conversion routines for
 XTRANS_CONNECTION_FLAGS
 
-#
-# Assume that we have sprintf. If a system shows up
-# that doesn't, we will deal with it at that point.
-#
-# The way to deal with it is:
-#
-#  1. Add a test for sprintf it here in configure.ac
-#     that sets or unsets HAS_SNPRINTF as appropriate
-#
-#  2. add a copy of xc/lib/misc/snprintf.c
-#
-# The source file in question is Lower.c
-#
-
-AC_DEFINE(HAS_SNPRINTF, [], [Whether we have snprintf()])
-AC_SUBST(HAS_SNPRINTF)
-
 # Allow checking code with lint, sparse, etc.
 XORG_WITH_LINT
 XORG_LINT_LIBRARY([Xmu])
