@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
- "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+ "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+<!ENTITY % defs SYSTEM "defs.ent"> %defs;
+]>
 <!-- lifted from troff+ms+XMan by doclifter -->
 
 <article id='xmu'>
   <articleinfo>
     <title>Xmu and Xmuu Library API Reference</title>
+    <releaseinfo>X Version 11, Release &fullrelvers;</releaseinfo>
     <abstract><para>&ldquo;Don't ask.&rdquo;</para></abstract>
 
     <legalnotice>
