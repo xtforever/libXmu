@@ -10,13 +10,12 @@
   <articleinfo>
     <title>Xmu and Xmuu Library API Reference</title>
     <releaseinfo>X Version 11, Release &fullrelvers;</releaseinfo>
+    <copyright><year>1989</year><holder>X Consortium</holder>
+    </copyright>
     <abstract><para>&ldquo;Don't ask.&rdquo;</para></abstract>
 
     <legalnotice>
 
-      <para>
-Copyright &copy; 1989 X Consortium
-      </para>
       <para>
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the &ldquo;Software&rdquo;), to deal
