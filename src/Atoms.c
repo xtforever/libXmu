@@ -60,15 +60,9 @@ struct _AtomRec {
 #define STATIC static
 #endif
 
-#if !defined(UNIXCPP) || defined(ANSICPP)
 #define DeclareAtom(atom,text) \
 STATIC struct _AtomRec __##atom = { text, NULL }; \
 AtomPtr _##atom = &__##atom;
-#else
-#define DeclareAtom(atom,text) \
-STATIC struct _AtomRec __/**/atom = { text, NULL }; \
-AtomPtr _/**/atom = &__/**/atom;
-#endif
 
 DeclareAtom(XA_ATOM_PAIR,		"ATOM_PAIR"		)
 DeclareAtom(XA_CHARACTER_POSITION,	"CHARACTER_POSITION"	)
