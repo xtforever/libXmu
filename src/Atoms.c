@@ -50,7 +50,7 @@ typedef struct _DisplayRec {
 } DisplayRec;
 
 struct _AtomRec {
-    char *name;
+    _Xconst char *name;
     DisplayRec* head;
 };
 
@@ -99,7 +99,7 @@ AtomPtr
 XmuMakeAtom(_Xconst char *name)
 {
     AtomPtr ptr = XtNew(struct _AtomRec);
-    ptr->name = (char *) name;
+    ptr->name = name;
     ptr->head = NULL;
     return ptr;
 }
@@ -107,7 +107,7 @@ XmuMakeAtom(_Xconst char *name)
 char *
 XmuNameOfAtom(AtomPtr atom_ptr)
 {
-    return atom_ptr->name;
+    return (char *) atom_ptr->name;
 }
 
 
