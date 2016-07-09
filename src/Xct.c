@@ -670,15 +670,13 @@ XctFree(register XctData data)
     unsigned i;
     register XctPriv priv = data->priv;
 
-    if (priv->dirstack)
-	free((char *)priv->dirstack);
-    if (data->flags & XctFreeString)
-	free((char *)data->total_string);
+    free(priv->dirstack);
     for (i = 0; i < priv->enc_count; i++)
 	free(priv->encodings[i]);
-    if (priv->encodings)
-	free((char *)priv->encodings);
-    if (priv->itembuf)
-	free((char *)priv->itembuf);
-    free((char *)data);
+    free(priv->encodings); 
+    free(priv->itembuf);
+
+    if (data->flags & XctFreeString)
+        free(data->total_string);
+    free(data);
 }
