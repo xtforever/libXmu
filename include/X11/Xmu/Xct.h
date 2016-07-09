@@ -119,18 +119,18 @@ typedef struct _XctRec {
     unsigned		item_length;	/* length of item in bytes */
     int			char_size;	/* number of bytes per character in
 					 * item, with zero meaning variable */
-    char		*encoding;	/* Encoding name for item */
+    _Xconst char	*encoding;	/* Encoding name for item */
     XctHDirection	horizontal;	/* direction of item */
     unsigned		horz_depth;	/* current direction nesting depth */
-    char		*GL;		/* "{I} F" string for current GL */
-    char		*GL_encoding;	/* Encoding name for current GL */
+    _Xconst char	*GL;		/* "{I} F" string for current GL */
+    _Xconst char	*GL_encoding;	/* Encoding name for current GL */
     int			GL_set_size;	/* 94 or 96 */
     int			GL_char_size;	/* number of bytes per GL character */
-    char		*GR;		/* "{I} F" string for current GR */
-    char		*GR_encoding;	/* Encoding name for current GR */
+    _Xconst char	*GR;		/* "{I} F" string for current GR */
+    _Xconst char	*GR_encoding;	/* Encoding name for current GR */
     int			GR_set_size;	/* 94 or 96 */
     int			GR_char_size;	/* number of bytes per GR character */
-    char		*GLGR_encoding;	/* Encoding name for current GL+GR,
+    _Xconst char	*GLGR_encoding;	/* Encoding name for current GL+GR,
 					 * if known */
     struct _XctPriv	*priv;		/* private to parser, don't peek */
 } *XctData;
