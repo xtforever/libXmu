@@ -103,13 +103,13 @@ XmuCvtJustifyToString(Display *dpy, XrmValue* args, Cardinal *num_args,
   switch (*(XtJustify *)fromVal->addr)
     {
     case XtJustifyLeft:
-      buffer = XtEleft;
+      buffer = (String)XtEleft;
       break;
     case XtJustifyCenter:
-      buffer = XtEcenter;
+      buffer = (String)XtEcenter;
       break;
     case XtJustifyRight:
-      buffer = XtEright;
+      buffer = (String)XtEright;
       break;
     default:
       XtWarning("Cannot convert Justify to String");
