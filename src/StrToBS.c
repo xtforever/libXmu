@@ -109,16 +109,16 @@ XmuCvtBackingStoreToString(Display *dpy, XrmValuePtr args, Cardinal *num_args,
   switch (*(int *)fromVal->addr)
     {
     case NotUseful:
-      buffer = XtEnotUseful;
+      buffer = (String)XtEnotUseful;
       break;
     case WhenMapped:
-      buffer = XtEwhenMapped;
+      buffer = (String)XtEwhenMapped;
       break;
     case Always:
-      buffer = XtEalways;
+      buffer = (String)XtEalways;
       break;
     case (Always + WhenMapped + NotUseful):
-      buffer = XtEdefault;
+      buffer = (String)XtEdefault;
       break;
     default:
       XtWarning("Cannot convert BackingStore to String");
