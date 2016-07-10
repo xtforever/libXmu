@@ -125,7 +125,7 @@ XmuAddCloseDisplayHook(Display *dpy, XmuCloseHookProc func, XPointer arg)
 	if ((de = (DisplayEntry *) malloc (sizeof (DisplayEntry))) == NULL ||
 	    !_MakeExtension (dpy, &de->extension)) {
 	    free ((char *) cb);
-	    if (de) free ((char *) de);
+	    free ((char *) de);
 	    return ((CloseHook) NULL);
 	}
 	de->dpy = dpy;
