@@ -78,22 +78,22 @@ Boolean
 XmuCvtShapeStyleToString(Display *dpy, XrmValue *args, Cardinal *num_args,
 			 XrmValue *fromVal, XrmValue *toVal, XtPointer *data)
 {
-  static char *buffer;
+  static String buffer;
   Cardinal size;
 
   switch (*(int *)fromVal->addr)
     {
     case XmuShapeRectangle:
-      buffer = XtERectangle;
+      buffer = (String)XtERectangle;
       break;
     case XmuShapeOval:
-      buffer = XtEOval;
+      buffer = (String)XtEOval;
       break;
     case XmuShapeEllipse:
-      buffer = XtEEllipse;
+      buffer = (String)XtEEllipse;
       break;
     case XmuShapeRoundedRectangle:
-      buffer = XtERoundedRectangle;
+      buffer = (String)XtERoundedRectangle;
       break;
     default:
       XtAppWarning(XtDisplayToApplicationContext(dpy),
