@@ -2049,7 +2049,9 @@ static void
 LoadResources(Widget w)
 {
     static XtResource resources[] = {
-        {"editresBlock", "EditresBlock", XtREditresBlock, sizeof(EditresBlock),
+      {(String)"editresBlock", 
+       (String)"EditresBlock", 
+       (String)XtREditresBlock, sizeof(EditresBlock),
 	 XtOffsetOf(Globals, block), XtRImmediate, (XtPointer)BlockNone}
     };
 
@@ -2083,7 +2085,7 @@ _XEditresGetStringValues(Widget w, Arg *warg, int numargs)
     XtResource *res = NULL;
     long value;
     Cardinal i;
-    char *string = "";
+    _Xconst char *string = "";
     Arg args[1];
     XrmValue to, from;
 
@@ -2155,7 +2157,7 @@ _XEditresGetStringValues(Widget w, Arg *warg, int numargs)
 	fprintf(stderr, "_XEditresGetStringValues: bad size %d\n",
 		res->resource_size);
 	string = "bad size";
-	*(char **)(warg->value) = string;
+	*(char **)(warg->value) = (char *)string;
 	XtFree((char *)res_list);
 	return;
     }
@@ -2208,6 +2210,6 @@ _XEditresGetStringValues(Widget w, Arg *warg, int numargs)
     if (string == NULL)
 	string = "";
 
-    *(char **)(warg->value) = string;
+    *(char **)(warg->value) = (char *)string;
     XtFree((char *)res_list);
 }
