@@ -205,7 +205,7 @@ XmuCvtWidgetToString(Display *dpy, XrmValuePtr args, Cardinal *num_args,
   if (widget)
     buffer = XrmQuarkToString(widget->core.xrm_name);
   else
-    buffer = "(null)";
+    buffer = (String)"(null)";
 
   size = strlen(buffer) + 1;
   if (toVal->addr != NULL)
