@@ -170,12 +170,10 @@ XmuReadBitmapData(FILE *fstream, unsigned int *width, unsigned int *height,
     /* first time initialization */
     if (initialized == False) initHexTable();
 
-    /* error cleanup and return macro	*/
-#define	RETURN(code) { if (data) free (data); return code; }
-
     while (fgets(line, MAX_SIZE, fstream)) {
 	if (strlen(line) == MAX_SIZE-1) {
-	    RETURN (BitmapFileInvalid);
+	  free (data); 
+	  return BitmapFileInvalid;
 	}
 	if (sscanf(line,"#define %s %d",name_and_type,&value) == 2) {
 	    if (!(type = strrchr(name_and_type, '_')))
@@ -215,9 +213,11 @@ XmuReadBitmapData(FILE *fstream, unsigned int *width, unsigned int *height,
 	if (strcmp("bits[]", type))
 	  continue;
 
-	if (!ww || !hh)
-	  RETURN (BitmapFileInvalid);
-
+	if (!ww || !hh){
+	  free (data); 
+	  return BitmapFileInvalid;
+	}
+	 
 	if ((ww % 16) && ((ww % 16) < 9) && version10p)
 	  padding = 1;
 	else
@@ -228,15 +228,17 @@ XmuReadBitmapData(FILE *fstream, unsigned int *width, unsigned int *height,
 	size = bytes_per_line * hh;
 	data = (unsigned char *) Xmalloc ((unsigned int) size);
 	if (!data)
-	  RETURN (BitmapNoMemory);
+	  return BitmapNoMemory;
 
 	if (version10p) {
 	    unsigned char *ptr;
 	    int bytes;
 
 	    for (bytes=0, ptr=data; bytes<size; (bytes += 2)) {
-		if ((value = NextInt(fstream)) < 0)
-		  RETURN (BitmapFileInvalid);
+	      if ((value = NextInt(fstream)) < 0) {
+		  free(data);
+		  return BitmapFileInvalid;
+	         }
 		*(ptr++) = value;
 		if (!padding || ((bytes+2) % bytes_per_line))
 		  *(ptr++) = value >> 8;
@@ -246,8 +248,10 @@ XmuReadBitmapData(FILE *fstream, unsigned int *width, unsigned int *height,
 	    int bytes;
 
 	    for (bytes=0, ptr=data; bytes<size; bytes++, ptr++) {
-		if ((value = NextInt(fstream)) < 0)
-		  RETURN (BitmapFileInvalid);
+		if ((value = NextInt(fstream)) < 0){
+		  free(data);
+		  return BitmapFileInvalid;
+	        }	
 		*ptr=value;
 	    }
 	}
@@ -255,7 +259,7 @@ XmuReadBitmapData(FILE *fstream, unsigned int *width, unsigned int *height,
     }					/* end while */
 
     if (data == NULL) {
-	RETURN (BitmapFileInvalid);
+	return BitmapFileInvalid;
     }
 
     *datap = data;
@@ -264,8 +268,8 @@ XmuReadBitmapData(FILE *fstream, unsigned int *width, unsigned int *height,
     *height = hh;
     if (x_hot) *x_hot = hx;
     if (y_hot) *y_hot = hy;
-
-    RETURN (BitmapSuccess);
+    
+    return BitmapSuccess;
 }
 
 #if defined(WIN32)
