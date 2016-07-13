@@ -39,7 +39,7 @@ XmuCvtStringToLong(XrmValuePtr args, Cardinal *num_args,
     static long l;
 
     if (*num_args != 0)
-    XtWarning("String to Long conversion needs no extra arguments");
+      XtWarning("String to Long conversion needs no extra arguments");
   if (sscanf((char *)fromVal->addr, "%ld", &l) == 1)
     {
       toVal->size = sizeof(long);

@@ -997,7 +997,7 @@ HandleToolkitErrors(String name, String type, String class, String msg,
 		    "The `%s' resource is not used by this widget.",
 		    info->event->name);
     else if (streq(name, "noColormap"))
-	XmuSnprintf(buf, sizeof(buf), msg, params[0]);
+       XmuSnprintf(buf, sizeof(buf), msg, params[0]);
     else if (streq(name, "conversionFailed") || streq(name, "conversionError"))
     {
 	if (streq((String)info->event->value, XtRString))
@@ -1354,7 +1354,7 @@ PositionInChild(Widget child, int x, int y)
 
 	if (XGetWindowAttributes(XtDisplay(child), XtWindow(child), &attrs)
 	    &&  attrs.map_state != IsViewable)
-	return (False);
+	  return (False);
     }
 
     return ((x >= child_x)
@@ -1621,7 +1621,7 @@ InsertWidget(ProtocolStream *stream, Widget w)
      * make sure that they are inserted in the list from parent -> child
      */
     for (i--, temp = w; temp != NULL; temp = XtParent(temp), i--)
-    widget_list[i] = (unsigned long)temp;
+        widget_list[i] = (unsigned long)temp;
 
     _XEditResPut16(stream, num_widgets);	/* insert number of widgets */
     for (i = 0; i < num_widgets; i++)		/* insert Widgets themselves */

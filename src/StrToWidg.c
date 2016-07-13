@@ -73,10 +73,10 @@ XmuCvtStringToWidget(XrmValuePtr args, Cardinal *num_args,
 	i = ((CompositeWidget)parent)->composite.num_children;
 	for (widgetP = ((CompositeWidget)parent)->composite.children;
 	   i; i--, widgetP++)
-	if ((*widgetP)->core.xrm_name == name)
-	  {
-		widget = *widgetP;
-		done(&widget, Widget);
+	  if ((*widgetP)->core.xrm_name == name)
+	    {
+	      widget = *widgetP;
+	      done(&widget, Widget);
 	    }
 	}
 
@@ -95,10 +95,10 @@ XmuCvtStringToWidget(XrmValuePtr args, Cardinal *num_args,
 	i = ((CompositeWidget)parent)->composite.num_children;
 	for (widgetP = ((CompositeWidget)parent)->composite.children;
 	   i; i--, widgetP++)
-	if ((*widgetP)->core.widget_class->core_class.xrm_class == name)
-	  {
-		widget = *widgetP;
-		done(&widget, Widget);
+	  if ((*widgetP)->core.widget_class->core_class.xrm_class == name)
+	    {
+	      widget = *widgetP;
+	      done(&widget, Widget);
 	    }
 	}
 

@@ -193,12 +193,12 @@ ShapeOval(Widget w)
 static void
 ShapeEllipseOrRoundedRectangle(Widget w, Bool ellipse, int ew, int eh)
 {
-    Display *dpy = XtDisplay(w);
+  Display *dpy = XtDisplay(w);
   unsigned width = w->core.width;
   unsigned height = w->core.height;
   Pixmap p;
-    XGCValues values;
-    GC gc;
+  XGCValues values;
+  GC gc;
   unsigned long mask;
 
   if (width < 3 || height < 3)
@@ -209,15 +209,15 @@ ShapeEllipseOrRoundedRectangle(Widget w, Bool ellipse, int ew, int eh)
   mask = GCForeground | GCLineWidth;
   p = XCreatePixmap(dpy, XtWindow(w), width, height, 1);
 
-    values.foreground = 0;
+  values.foreground = 0;
   values.line_width = 2;
 
   gc = XCreateGC(dpy, p, mask, &values);
   XFillRectangle(dpy, p, gc, 0, 0, width, height);
   XSetForeground(dpy, gc, 1);
-    if (!ellipse)
+  if (!ellipse)
     XmuFillRoundedRectangle(dpy, p, gc, 1, 1, width - 2, height - 2, ew, eh);
-    else
+  else
     {
       XDrawArc(dpy, p, gc, 1, 1, width - 2, height - 2, 0, 360 * 64);
       XFillArc(dpy, p, gc, 2, 2, width - 4, height - 4, 0, 360 * 64);
@@ -231,7 +231,7 @@ ShapeEllipseOrRoundedRectangle(Widget w, Bool ellipse, int ew, int eh)
       XFillRectangle(dpy, p, gc, 0, 0, width, height);
       XSetForeground(dpy, gc, 1);
 	if (!ellipse)
-	XmuFillRoundedRectangle(dpy, p, gc, 1, 1,
+	  XmuFillRoundedRectangle(dpy, p, gc, 1, 1,
 				w->core.width - 2, w->core.height - 2,
 				ew, eh);
       else
